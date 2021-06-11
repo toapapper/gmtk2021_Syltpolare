@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6457558096812459806}
   - component: {fileID: 6457558096812459801}
   - component: {fileID: 6457558096812459802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 6457558096837219258}
   - component: {fileID: 6457558096837219252}
   - component: {fileID: 6457558096837219253}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 6457558096892386979}
   - component: {fileID: 6457558096892386973}
   - component: {fileID: 6457558096892386978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 6457558097047375880}
   - component: {fileID: 6457558097047375882}
   - component: {fileID: 6457558097047375883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 6457558097112685631}
   - component: {fileID: 6457558097112685628}
   - component: {fileID: 6457558097112685625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkontakt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +728,7 @@ GameObject:
   - component: {fileID: 6457558097170624663}
   - component: {fileID: 6457558097170624657}
   - component: {fileID: 6457558097170624662}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 6457558097423820306}
   - component: {fileID: 6457558097423820300}
   - component: {fileID: 6457558097423820301}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1020,7 +1020,7 @@ GameObject:
   - component: {fileID: 6457558097442344541}
   - component: {fileID: 6457558097442344543}
   - component: {fileID: 6457558097442344540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 6457558097620601751}
   - component: {fileID: 6457558097620601745}
   - component: {fileID: 6457558097620601750}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1279,7 +1279,7 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
@@ -1312,7 +1312,7 @@ GameObject:
   - component: {fileID: 6457558097623922355}
   - component: {fileID: 6457558097623922354}
   - component: {fileID: 6457558097623922351}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1458,7 +1458,7 @@ GameObject:
   - component: {fileID: 6457558097695897738}
   - component: {fileID: 6457558097695897732}
   - component: {fileID: 6457558097695897733}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1604,7 +1604,7 @@ GameObject:
   - component: {fileID: 6457558097702953160}
   - component: {fileID: 6457558097702953162}
   - component: {fileID: 6457558097702953163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 6457558097753167824}
   - component: {fileID: 6457558097753167826}
   - component: {fileID: 6457558097753167827}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1896,7 +1896,7 @@ GameObject:
   - component: {fileID: 6457558097815120317}
   - component: {fileID: 6457558097815120319}
   - component: {fileID: 6457558097815120316}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2009,7 +2009,7 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
@@ -2040,7 +2040,7 @@ GameObject:
   - component: {fileID: 6457558097849984607}
   - component: {fileID: 6457558097849984604}
   - component: {fileID: 6457558097849984605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2054,7 +2054,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457558097849984610}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.22, y: -6.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2130,7 +2130,7 @@ GameObject:
   - component: {fileID: 6457558098200113376}
   - component: {fileID: 6457558098200113379}
   - component: {fileID: 6457558098200113372}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2243,7 +2243,7 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: 0
     m_UpperAngle: 359
@@ -2276,7 +2276,7 @@ GameObject:
   - component: {fileID: 6457558098429481479}
   - component: {fileID: 6457558098429481478}
   - component: {fileID: 6457558098429481475}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kabelkomponent (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
