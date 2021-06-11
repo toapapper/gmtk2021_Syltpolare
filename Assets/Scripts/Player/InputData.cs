@@ -4,5 +4,6 @@ using UnityEngine;
 
 public readonly struct InputData
 {
-    public static string InputHorizontal => "Horizontal";
+    public static string Jump => "Jump";
+    public static string Horizontal => "Horizontal";
 }
