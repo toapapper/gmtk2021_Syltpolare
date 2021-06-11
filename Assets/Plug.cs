@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Plug : MonoBehaviour
 {
-    public Vector2 Destination;
-    bool held;
+    public Vector3 Destination;
+    public bool held;
     public bool attracted;
-    bool pluggedIn;
+    public bool pluggedIn;
     Rigidbody2D rigidbody;
 
     private void Start()
@@ -22,16 +22,19 @@ public class Plug : MonoBehaviour
         {
             Attracted();
         }
+        if (held == true)
+        {
+            Held();
+        }
     }
 
     void Attracted()
     {
-
-        transform.position = Vector2.Lerp(transform.position, Destination, Time.deltaTime * 1.5f);
-
+        rigidbody.gravityScale = 0;
+        rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
         if (Mathf.Abs(Destination.x - transform.position.x) < 0.05)
         {
-            transform.position = Destination;
+            rigidbody.MovePosition(Destination);
             Plugged();
         }
     }
@@ -44,7 +47,9 @@ public class Plug : MonoBehaviour
 
     void Held()
     {
+        rigidbody.rotation = 0;
         rigidbody.constraints = RigidbodyConstraints2D.None;
         pluggedIn = false;
+        rigidbody.gravityScale = 1;
     }
 }
