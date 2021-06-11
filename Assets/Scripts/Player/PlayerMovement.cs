@@ -25,15 +25,15 @@ public class PlayerMovement : MonoBehaviour
     private float _horizontalValue;
     private bool _isJumping;
 
-    public void OnMoveHorizontal(float value)
+    public void OnMoveHorizontal(InputContext context)
     {
-        _horizontalValue = value;
+        _horizontalValue = context.Value;
     }
-    public void OnJump(float value)
+    public void OnJump(InputContext context)
     {
-        switch (value)
+        switch (context.State)
         {
-            case 1:
+            case InputContext.InputState.Performed:
                 if (Physics2D.OverlapBox(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask))
                 {
                     _jumpDuration = new Duration(_jumpTime);
