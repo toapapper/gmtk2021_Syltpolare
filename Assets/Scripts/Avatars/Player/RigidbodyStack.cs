@@ -6,16 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RigidbodyStack : MonoBehaviour
 {
-    static int s;
-
     private Rigidbody2D _rigidbody;
     private List<RigidbodyStack> _underObject = new List<RigidbodyStack>();
     private List<RigidbodyStack> _overObjects = new List<RigidbodyStack>();
 
     private int _rigidbodyOnTop;
     private float _forcesOnTop;
-
-    int d;
 
     public (int, float) GetRecursiveUpData()
     {
@@ -32,24 +28,32 @@ public class RigidbodyStack : MonoBehaviour
         _rigidbodyOnTop = rigidbodyOnTop;
         _forcesOnTop = forcesOnTop;
 
-        return (rigidbodyOnTop, forcesOnTop);
-    }
-
-    public void GetRecursiveDownData(int rigidbodyOnTop, float forcesOnTop)
-    {
         rigidbodyOnTop += 1;
         forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
 
+        return (rigidbodyOnTop, forcesOnTop);
+    }
+
+    public void GetRecursiveDownData(int rigidbodyOnTop, float forcesOnTop, bool init)
+    {
+        if (!init)
+        {
+            _rigidbodyOnTop = rigidbodyOnTop;
+            _forcesOnTop = forcesOnTop;
+
+            rigidbodyOnTop += 1;
+            forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+        }
+
         for (int i = 0; i < _underObject.Count; i++)
         {
-            _underObject[i].GetRecursiveDownData(rigidbodyOnTop, forcesOnTop);
+            _underObject[i].GetRecursiveDownData(rigidbodyOnTop, forcesOnTop, false);
         }
     }
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        d = s++;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,17 +64,12 @@ public class RigidbodyStack : MonoBehaviour
             Vector2 direction = collision.GetContact(0).normal;
             if (direction == Vector2.down)
             {
-
                 RigidbodyStack rigidbodyStack = obj.GetComponent<RigidbodyStack>();
 
-                //rigidbodyStack.UnderObject = this;     // Set this object as the one under
                 _overObjects.Add(rigidbodyStack);
-                rigidbodyStack._underObject.Add(rigidbodyStack);
+                rigidbodyStack._underObject.Add(this);
                 (int, float) data = GetRecursiveUpData();
-                GetRecursiveDownData(data.Item1, data.Item2);
-
-                if (d == 0)
-                    Debug.Log("Rig: " + _rigidbodyOnTop + " " + "Force: " + _forcesOnTop);
+                GetRecursiveDownData(data.Item1, data.Item2, true);
             }
         }
     }
@@ -84,12 +83,9 @@ public class RigidbodyStack : MonoBehaviour
             if (_overObjects.Contains(rigidbodyStack))
             {
                 _overObjects.Remove(rigidbodyStack);
-                rigidbodyStack._underObject.Remove(rigidbodyStack);
+                rigidbodyStack._underObject.Remove(this);
                 (int, float) data = GetRecursiveUpData();
-                GetRecursiveDownData(data.Item1, data.Item2);
-
-                if (d == 0)
-                    Debug.Log("Rig: " + _rigidbodyOnTop + " " + "Force: " + _forcesOnTop);
+                GetRecursiveDownData(data.Item1, data.Item2, true);
             }
         }
     }

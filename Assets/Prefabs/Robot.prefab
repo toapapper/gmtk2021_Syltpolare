@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 8514874743555079423}
   - component: {fileID: 8923350234285715272}
   - component: {fileID: 1011092239}
+  - component: {fileID: 1963809955700885146}
   m_Layer: 8
   m_Name: Robot
   m_TagString: Player
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _horizontalForce: 4000
   _horizontalDrag: 0.1
-  _jumpImpulse: 200
+  _jumpImpulse: 250
   _jumpDrag: 0.1
   _jumpTime: 0.3
   _groundCollider: {fileID: 6878161246129770311}
@@ -420,6 +421,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cableToSpawn: {fileID: 138092793672301109, guid: 111159e086fac714093123e107779042, type: 3}
+--- !u!114 &1963809955700885146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995106986398497682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
