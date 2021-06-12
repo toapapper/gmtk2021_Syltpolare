@@ -29,7 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveHorizontal(InputContext context)
     {
-        _horizontalValue = context.Value;
+        if (_rigidbodyStack.BodiesOnTop <= _bodiesOnTopLimit)
+            _horizontalValue = context.Value;
+        else
+            _horizontalValue = 0;
     }
     public void OnJump(InputContext context)
     {
