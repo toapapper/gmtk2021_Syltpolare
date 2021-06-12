@@ -34,10 +34,15 @@ public class PlayerMovement : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                if (Physics2D.OverlapBox(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask))
+                Collider2D[] colliders2D = Physics2D.OverlapBoxAll(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask);
+
+                for (int i = 0; i < colliders2D.Length; i++)
                 {
-                    _jumpDuration = new Duration(_jumpTime);
-                    _isJumping = true;
+                    if (colliders2D[i].gameObject != gameObject)
+                    {
+                        _jumpDuration = new Duration(_jumpTime);
+                        _isJumping = true;
+                    }
                 }
                 break;
             default:
@@ -49,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+
+        BoxCollider2D collision2D = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
