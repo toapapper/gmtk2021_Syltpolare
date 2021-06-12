@@ -9,9 +9,19 @@ public class Possess : MonoBehaviour
     /// <summary>
     /// The currently possessed object.
     /// </summary>
-    public GameObject GetCurrentPossessed => _currentPossessed;
+    public static GameObject GetCurrentPossessed => _currentPossessed;
 
-    public static List<GameObject> PossessableRobots = new List<GameObject>();
+    public static void Add(GameObject gameObject)
+    {
+        _possessableRobots.Add(gameObject);
+    }
+
+    public static void Remove(GameObject gameObject)
+    {
+        _possessableRobots.Remove(gameObject);
+    }
+
+    private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static int _currentIndex = 1;
     private static CinemachineTargetGroup _targetGroup;
     private static GameObject _currentPossessed;
@@ -21,8 +31,8 @@ public class Possess : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                _currentIndex %= PossessableRobots.Count;
-                _currentPossessed = PossessableRobots[_currentIndex++];
+                _currentIndex %= _possessableRobots.Count;
+                _currentPossessed = _possessableRobots[_currentIndex++];
 
                 if (_currentPossessed != gameObject)
                 {
@@ -40,24 +50,24 @@ public class Possess : MonoBehaviour
 
     private void Start()
     {
-        if (PossessableRobots.Count > 0)
-            PossessableRobots[0].GetComponent<PlayerController>().enabled = true;
+        if (_possessableRobots.Count > 0)
+            _possessableRobots[0].GetComponent<PlayerController>().enabled = true;
     }
 
     private void OnEnable()
     {
-        if (PossessableRobots.Count == 0)
+        if (_possessableRobots.Count == 0)
         {
             _currentPossessed = gameObject;
             _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
             _targetGroup.AddMember(transform, 1, 0);
         }
 
-        PossessableRobots.Add(gameObject);
+        _possessableRobots.Add(gameObject);
     }
 
     private void OnDisable()
     {
-        PossessableRobots.Remove(gameObject);
+        _possessableRobots.Remove(gameObject);
     }
 }
