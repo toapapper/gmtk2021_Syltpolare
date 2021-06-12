@@ -8,8 +8,8 @@ public class Plug : MonoBehaviour
     public bool held;
     public bool attracted;
     public bool pluggedIn;
-
-    public GameObject preceedingCableSegment;
+    Rigidbody2D rigidbody;
+    
 
     private void Start()
     {
