@@ -30,12 +30,12 @@ public class Plug : MonoBehaviour
 
         if (pluggedIn == false && Possess.Contains(transform.root.gameObject))
         {
-            Possess.Remove(transform.root.gameObject);
+            //Possess.Remove(transform.root.gameObject);
         }
 
         else if (pluggedIn == true && !Possess.Contains(transform.root.gameObject))
         {
-            Possess.Add(transform.root.gameObject);
+            //Possess.Add(transform.root.gameObject);
         }
         
     }
