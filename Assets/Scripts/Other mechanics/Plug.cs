@@ -10,6 +10,8 @@ public class Plug : MonoBehaviour
     public bool pluggedIn;
     Rigidbody2D rigidbody;
 
+    public GameObject preceedingCableSegment;
+
     private void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();

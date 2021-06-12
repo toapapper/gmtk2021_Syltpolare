@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _horizontalForce = 4000;
     [SerializeField] private float _horizontalDrag = 0.1f;
     [Header("Jump")]
-    [SerializeField] private float _jumpForce = 10000;
+    [SerializeField] private float _jumpImpulse = 200;
     [SerializeField] private float _jumpDrag = 0.1f;
     [SerializeField] private float _jumpTime = 0.5f;
     [SerializeField] private BoxCollider2D _groundCollider;
@@ -53,15 +53,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 combinedForce = _rigidbody2D.velocity;
+        Vector2 combinedForce = Vector2.zero;
+        Vector2 combinedImpulse = Vector2.zero;
 
         combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
 
         if (_isJumping && _jumpDuration.IsActive)
         {
-            combinedForce += new Vector2(0, _jumpForce);
+            combinedImpulse += new Vector2(0, _jumpImpulse);
+
         }
 
+        _rigidbody2D.AddForce(combinedImpulse, ForceMode2D.Impulse);
         _rigidbody2D.AddForce(combinedForce);
         Drag();
     }
