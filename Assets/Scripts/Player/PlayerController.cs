@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
 
     private bool _isHorizontalDown;
-    private bool _isJumpDown;
 
     private void Update()
     {
@@ -29,21 +28,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(InputControls.Jump))
         {
-            if (!_isJumpDown)
-            {
-                _jumpEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
-                _isJumpDown = true;
-            }
-
+            _jumpEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
         }
 
         if (Input.GetButtonUp(InputControls.Jump))
         {
-            if (_isJumpDown)
-            {
-                _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
-                _isJumpDown = false;
-            }
+            _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
     }
 }
