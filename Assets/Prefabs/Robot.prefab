@@ -391,6 +391,7 @@ MonoBehaviour:
   _jumpImpulse: 250
   _jumpDrag: 0.1
   _jumpTime: 0.3
+  _bodiesOnTopLimit: 1
   _groundCollider: {fileID: 6878161246129770311}
   _groundCollisionMask:
     serializedVersion: 2

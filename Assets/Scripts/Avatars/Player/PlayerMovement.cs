@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Celezt.Times;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(RigidbodyStack))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Move")]
@@ -13,12 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpImpulse = 200;
     [SerializeField] private float _jumpDrag = 0.1f;
     [SerializeField] private float _jumpTime = 0.5f;
+    [SerializeField] private int _bodiesOnTopLimit = 1;
     [SerializeField] private BoxCollider2D _groundCollider;
     [SerializeField] private LayerMask _groundCollisionMask;
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
 
     private Rigidbody2D _rigidbody2D;
+    private RigidbodyStack _rigidbodyStack;
 
     private Duration _jumpDuration;
 
@@ -34,14 +36,17 @@ public class PlayerMovement : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                Collider2D[] colliders2D = Physics2D.OverlapBoxAll(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask);
-
-                for (int i = 0; i < colliders2D.Length; i++)
+                if (_rigidbodyStack.BodiesOnTop <= _bodiesOnTopLimit)
                 {
-                    if (colliders2D[i].gameObject != gameObject)
+                    Collider2D[] colliders2D = Physics2D.OverlapBoxAll(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask);
+
+                    for (int i = 0; i < colliders2D.Length; i++)
                     {
-                        _jumpDuration = new Duration(_jumpTime);
-                        _isJumping = true;
+                        if (colliders2D[i].gameObject != gameObject)
+                        {
+                            _jumpDuration = new Duration(_jumpTime);
+                            _isJumping = true;
+                        }
                     }
                 }
                 break;
@@ -54,8 +59,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
-        BoxCollider2D collision2D = GetComponent<BoxCollider2D>();
+        _rigidbodyStack = GetComponent<RigidbodyStack>();
     }
 
     private void FixedUpdate()

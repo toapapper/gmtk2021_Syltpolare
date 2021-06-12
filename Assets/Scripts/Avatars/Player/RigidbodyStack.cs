@@ -6,48 +6,51 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RigidbodyStack : MonoBehaviour
 {
+    public int BodiesOnTop => _bodiesOnTop;
+    private float ForceOnTop => _forcesOnTop;
+
     private Rigidbody2D _rigidbody;
     private List<RigidbodyStack> _underObject = new List<RigidbodyStack>();
     private List<RigidbodyStack> _overObjects = new List<RigidbodyStack>();
 
-    private int _rigidbodyOnTop;
+    private int _bodiesOnTop;
     private float _forcesOnTop;
 
     public (int, float) GetRecursiveUpData()
     {
-        int rigidbodyOnTop = 0;
+        int bodiesOnTop = 0;
         float forcesOnTop = 0;
 
         for (int i = 0; i < _overObjects.Count; i++)
         {
             (int, float) data = _overObjects[i].GetRecursiveUpData();
-            rigidbodyOnTop += data.Item1;
+            bodiesOnTop += data.Item1;
             forcesOnTop += data.Item2;
         }
 
-        _rigidbodyOnTop = rigidbodyOnTop;
+        _bodiesOnTop = bodiesOnTop;
         _forcesOnTop = forcesOnTop;
 
-        rigidbodyOnTop += 1;
+        bodiesOnTop += 1;
         forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
 
-        return (rigidbodyOnTop, forcesOnTop);
+        return (bodiesOnTop, forcesOnTop);
     }
 
-    public void GetRecursiveDownData(int rigidbodyOnTop, float forcesOnTop, bool init)
+    public void GetRecursiveDownData(int bodiesOnTop, float forcesOnTop, bool init)
     {
         if (!init)
         {
-            _rigidbodyOnTop = rigidbodyOnTop;
+            _bodiesOnTop = bodiesOnTop;
             _forcesOnTop = forcesOnTop;
 
-            rigidbodyOnTop += 1;
+            bodiesOnTop += 1;
             forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
         }
 
         for (int i = 0; i < _underObject.Count; i++)
         {
-            _underObject[i].GetRecursiveDownData(rigidbodyOnTop, forcesOnTop, false);
+            _underObject[i].GetRecursiveDownData(bodiesOnTop, forcesOnTop, false);
         }
     }
 
