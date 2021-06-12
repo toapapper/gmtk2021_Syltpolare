@@ -25,14 +25,14 @@ public class pickUpScript : MonoBehaviour
     private void Start()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = transform.root.gameObject;
         playerRB = player.GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
 
     public void PickUp(InputContext context)
     {
-        if (mousedOver.Count == 0 || context.State == InputContext.InputState.Canceled)//släpper musen gör ingenting just nu
+        if (mousedOver.Count == 0 || context.State == InputContext.InputState.Canceled || Possess.GetCurrentPossessed != player)//släpper musen gör ingenting just nu
             return;
 
         PickUpGo(mousedOver[0]);
@@ -40,7 +40,7 @@ public class pickUpScript : MonoBehaviour
 
     public void Throw(InputContext context)
     {
-        if (heldItem == null)
+        if (heldItem == null || Possess.GetCurrentPossessed != player)
             return;
 
         //annars kasta..
@@ -48,9 +48,8 @@ public class pickUpScript : MonoBehaviour
 
     public void PickUpGo(GameObject go)
     {
-        Debug.Log("PickupGO");
-        if (heldItem != null)
-            return;
+        if (heldItem != null || Possess.GetCurrentPossessed != player)
+            return; 
 
         heldItem = go;
         heldItem.GetComponent<Plug>().held = true;
@@ -66,8 +65,8 @@ public class pickUpScript : MonoBehaviour
         heldItemRB = null;
         heldItem = null;
     }
+    
 
-    //FULING
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Plug"))
@@ -85,6 +84,20 @@ public class pickUpScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Possess.GetCurrentPossessed != player)
+        {
+            if (sr.enabled)
+                sr.enabled = false;
+
+            return;
+        }
+        else
+        {
+            if (!sr.enabled)
+                sr.enabled = true;
+        }
+
+
         #region Hitbox positionuppdatering
         Vector2 mousePosition = Input.mousePosition;
         Vector2 playerScreenPos = _camera.WorldToScreenPoint(player.transform.position);
