@@ -11,6 +11,8 @@ public class Possess : MonoBehaviour
     /// </summary>
     public static GameObject GetCurrentPossessed => _currentPossessed;
 
+    public static int Count => _possessableRobots.Count;
+
     /// <summary>
     /// Add new possessable.
     /// </summary>
@@ -31,6 +33,8 @@ public class Possess : MonoBehaviour
 
         _possessableRobots.Remove(gameObject);
     }
+
+    public static void Contain(GameObject gameObject) => _possessableRobots.Contains(gameObject);
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static int _currentIndex = 1;
