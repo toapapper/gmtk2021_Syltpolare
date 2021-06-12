@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerController))]
 public class Possess : MonoBehaviour
@@ -29,12 +30,22 @@ public class Possess : MonoBehaviour
     public static void Remove(GameObject gameObject)
     {
         if (gameObject == _currentPossessed)
+        {
+            if (Count == 1)
+            {
+                RemoveAll();
+                return;
+            }
+
             SwitchPossessed(gameObject);
+        }
 
         _possessableRobots.Remove(gameObject);
     }
 
     public static bool Contains(GameObject gameObject) => _possessableRobots.Contains(gameObject);
+
+    [SerializeField] private UnityEvent<GameObject> _changePossessedEvent;
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static int _currentIndex = 1;
@@ -66,6 +77,7 @@ public class Possess : MonoBehaviour
             _currentPossessed = gameObject;
             _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
             _targetGroup.AddMember(transform, 1, 0);
+            _changePossessedEvent.Invoke(_currentPossessed);
         }
 
         _possessableRobots.Add(gameObject);
@@ -87,6 +99,18 @@ public class Possess : MonoBehaviour
             gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
             _targetGroup.RemoveMember(gameObject.transform);                        // Remove current from camera targets.
             _targetGroup.AddMember(_currentPossessed.transform, 1, 0);              // Add possessed to camera targets.
+
+            for (int i = 0; i < Count; i++)
+            {
+                _possessableRobots[i].GetComponent<Possess>()._changePossessedEvent.Invoke(_currentPossessed);
+            }
         }
+    }
+
+    private static void RemoveAll()
+    {
+        _currentPossessed.GetComponent<PlayerController>().enabled = false;
+        _targetGroup.RemoveMember(_currentPossessed.transform);
+        _possessableRobots.Clear();
     }
 }
