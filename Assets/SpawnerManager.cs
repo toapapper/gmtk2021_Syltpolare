@@ -7,11 +7,14 @@ public class SpawnerManager : MonoBehaviour
     public List<GameObject> robots;
     public List<GameObject> robotTypes;
     List<GameObject> unlockedRobots;
-    List<GameObject> poweredRobots;
+    float poweredRobots;
     Spawner lastCheckpoint;
     GameObject smallRobot;
     GameObject bigRobot;
     GameObject reverseRobot;
+    float timer = 5;
+    float time = 0;
+    public SceneLoaderAndController sceneLoaderAndController;
 
     public GameObject currentSpawner;
     List<Spawner> listOfSpawners;
@@ -19,7 +22,6 @@ public class SpawnerManager : MonoBehaviour
     {
         listOfSpawners = new List<Spawner>();
         robotTypes = new List<GameObject>();
-        poweredRobots = new List<GameObject>();
         unlockedRobots = new List<GameObject>();
 
         foreach (Transform child in transform)
@@ -31,12 +33,22 @@ public class SpawnerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (robots != null && poweredRobots == null)
+        poweredRobots = Possess.Count;
+        if (robots != null)
         {
-            if (robots.Count <= 0 || poweredRobots.Count == 0)
+            if (poweredRobots == 0)
             {
-                //End Game
+                if (time > 0)
+                {
+                    time -= Time.deltaTime;
+                }
+                if (time <= 0)
+                {
+                    Debug.Log("ENDGAME");
+                    sceneLoaderAndController.RestartScene();
+                }
             }
+            
         } 
 
         if (lastCheckpoint != null)

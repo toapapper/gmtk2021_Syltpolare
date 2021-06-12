@@ -9,10 +9,14 @@ public class Plug : MonoBehaviour
     public bool attracted;
     public bool pluggedIn;
     Rigidbody2D rigidbody;
-    
+
 
     private void Start()
     {
+        if (transform.root.gameObject.GetComponent<RobotValues>() != null)
+        {
+            robotValues = transform.root.gameObject.GetComponent<RobotValues>();
+        }
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -38,6 +42,7 @@ public class Plug : MonoBehaviour
             Possess.Add(transform.root.gameObject);
         }
         
+
     }
         
     
