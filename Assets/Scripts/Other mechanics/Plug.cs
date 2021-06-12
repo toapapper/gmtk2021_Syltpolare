@@ -8,7 +8,6 @@ public class Plug : MonoBehaviour
     public bool held;
     public bool attracted;
     public bool pluggedIn;
-    Rigidbody2D rigidbody;
 
     public GameObject preceedingCableSegment;
 
@@ -28,7 +27,20 @@ public class Plug : MonoBehaviour
         {
             Held();
         }
+
+        if (pluggedIn == false && Possess.Contains(transform.root.gameObject))
+        {
+            Possess.Remove(transform.root.gameObject);
+        }
+
+        else if (pluggedIn == true && !Possess.Contains(transform.root.gameObject))
+        {
+            Possess.Add(transform.root.gameObject);
+        }
+        
     }
+        
+    
 
     void Attracted()
     {
