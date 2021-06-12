@@ -67,7 +67,7 @@ MonoBehaviour:
   throwForce: 50
   open_sprite: {fileID: 21300000, guid: 564985aa29111284fa36bbfc3a832f72, type: 3}
   closed_sprite: {fileID: 21300000, guid: 20da0bf308fb323449cec8baa435a8c5, type: 3}
-  grabForce: 100
+  grabForce: 5000
 --- !u!212 &559424223
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _horizontalForce: 4000
   _horizontalDrag: 0.1
-  _jumpImpulse: 200
+  _jumpImpulse: 240
   _jumpDrag: 0.1
   _jumpTime: 0.3
   _groundCollider: {fileID: 6878161246129770311}
@@ -492,7 +492,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 54c78924e1eecd346870cacfccb14410, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
