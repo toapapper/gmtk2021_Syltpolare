@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private UnityEvent<InputContext> _moveHorizontalEvent;
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
+    [SerializeField] private UnityEvent<InputContext> _switchEvent;
     [SerializeField] private UnityEvent<InputContext> _pickupEvent;
     [SerializeField] private UnityEvent<InputContext> _throwEvent;
 
@@ -32,6 +33,15 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetButtonUp(InputControls.Jump))
         {
             _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        }
+
+        if (Input.GetButtonDown(InputControls.Switch))
+        {
+            _switchEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
+        }
+        else if (Input.GetButtonUp(InputControls.Switch))
+        {
+            _switchEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
 
         if (Input.GetMouseButtonDown(0))

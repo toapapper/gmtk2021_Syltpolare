@@ -7,5 +7,6 @@ using UnityEngine;
 public readonly struct InputControls
 {
     public static string Jump => "Jump";
+    public static string Switch => "Switch";
     public static string Horizontal => "Horizontal";
 }
