@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private UnityEvent<InputContext> _moveHorizontalEvent;
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
+    [SerializeField] private UnityEvent<InputContext> _pickupEvent;
+    [SerializeField] private UnityEvent<InputContext> _throwEvent;
+
 
     private bool _isHorizontalDown;
 
@@ -30,10 +33,27 @@ public class PlayerController : MonoBehaviour
         {
             _jumpEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
         }
-
-        if (Input.GetButtonUp(InputControls.Jump))
+        else if (Input.GetButtonUp(InputControls.Jump))
         {
             _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            _pickupEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _pickupEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            _throwEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
     }
 }
