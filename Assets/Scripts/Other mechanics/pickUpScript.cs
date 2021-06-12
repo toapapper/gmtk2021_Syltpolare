@@ -25,7 +25,7 @@ public class pickUpScript : MonoBehaviour
     private void Start()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = transform.root.gameObject;
         playerRB = player.GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
