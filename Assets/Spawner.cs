@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField]
+    private GameObject spawnpoint;
+    [SerializeField]
+    private GameObject onLight;
+
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Robot")
         {
             this.transform.parent.gameObject.GetComponent<SpawnerManager>().currentSpawner = this.gameObject;
+            onLight.SetActive(true);
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SpawnDestroyedRobot(GameObject robotToSpawn)
     {
-
+        GameObject spawnedRobot = (GameObject)Instantiate(robotToSpawn, spawnpoint.transform.position, Quaternion.identity);
+        this.transform.parent.gameObject.GetComponent<SpawnerManager>().robots.Add(spawnedRobot);
     }
 }
