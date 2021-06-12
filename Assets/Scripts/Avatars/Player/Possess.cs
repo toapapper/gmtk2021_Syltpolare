@@ -12,16 +12,17 @@ public class Possess : MonoBehaviour
     public GameObject GetCurrentPossessed => _currentPossessed;
 
     public static List<GameObject> PossessableRobots = new List<GameObject>();
-    public static int CurrentIndex = 1;
-    public static CinemachineTargetGroup _targetGroup;
-    public static GameObject _currentPossessed;
+    private static int _currentIndex = 1;
+    private static CinemachineTargetGroup _targetGroup;
+    private static GameObject _currentPossessed;
+
     public void OnPossess(InputContext context)
     {
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                CurrentIndex %= PossessableRobots.Count;
-                _currentPossessed = PossessableRobots[CurrentIndex++];
+                _currentIndex %= PossessableRobots.Count;
+                _currentPossessed = PossessableRobots[_currentIndex++];
 
                 if (_currentPossessed != gameObject)
                 {
