@@ -11,23 +11,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent<InputContext> _pickupEvent;
     [SerializeField] private UnityEvent<InputContext> _throwEvent;
 
-
-    private bool _isHorizontalDown;
+    private float _oldHorizontalValue;
 
     private void Update()
     {
         float horizontalValue = Input.GetAxisRaw(InputControls.Horizontal);
 
-        if (horizontalValue != 0 && !_isHorizontalDown)
+        if (horizontalValue != _oldHorizontalValue)
         {
             _moveHorizontalEvent.Invoke(new InputContext(horizontalValue, InputContext.InputState.Performed));
-            _isHorizontalDown = true;
         }
-        else if (horizontalValue == 0 && _isHorizontalDown)
-        {
-            _moveHorizontalEvent.Invoke(new InputContext(horizontalValue, InputContext.InputState.Canceled));
-            _isHorizontalDown = false;
-        }
+
+        _oldHorizontalValue = horizontalValue;
+
 
         if (Input.GetButtonDown(InputControls.Jump))
         {
@@ -55,5 +51,13 @@ public class PlayerController : MonoBehaviour
         {
             _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
+    }
+
+    private void OnDisable()
+    {
+        _moveHorizontalEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        _pickupEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
     }
 }
