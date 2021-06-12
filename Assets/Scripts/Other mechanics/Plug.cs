@@ -15,10 +15,10 @@ public class Plug : MonoBehaviour
 
     private void Start()
     {
-        //if (transform.root.gameObject.GetComponent<RobotValues>() != null)
-        //{
-        //    robotValues = transform.root.gameObject.GetComponent<RobotValues>();
-        //}
+        if (transform.root.gameObject.GetComponent<RobotValues>() != null)
+        {
+            robotValues = transform.root.gameObject.GetComponent<RobotValues>();
+        }
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -33,13 +33,13 @@ public class Plug : MonoBehaviour
         {
             Held();
         }
-        if (pluggedIn == false && Possess.Contains(transform.root.gameObject))
+        if (pluggedIn == false)
         {
-            Possess.Remove(transform.root.gameObject);
+            robotValues.pluggedIn = false;
         }
-        else if (pluggedIn == true && !Possess.Contains(transform.root.gameObject))
+        else if (pluggedIn == true)
         {
-            Possess.Add(transform.root.gameObject);
+            robotValues.pluggedIn = true;
         }
     }
 
@@ -52,6 +52,12 @@ public class Plug : MonoBehaviour
             rigidbody.MovePosition(Destination);
             Plugged();
         }
+    }
+
+    public void UnPlugg()
+    {
+        pluggedIn = false;
+        rigidbody.constraints = RigidbodyConstraints2D.None;
     }
 
     void Plugged()
