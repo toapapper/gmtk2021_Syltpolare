@@ -12,8 +12,8 @@ public class SpawnerManager : MonoBehaviour
     GameObject smallRobot;
     GameObject bigRobot;
     GameObject reverseRobot;
-    float timer = 5;
-    float time = 0;
+    float timer = 0;
+    float time = 5;
     public SceneLoaderAndController sceneLoaderAndController;
 
     public GameObject currentSpawner;
@@ -38,16 +38,20 @@ public class SpawnerManager : MonoBehaviour
         {
             if (poweredRobots == 0)
             {
-                if (time > 0)
+                if (timer <= 0)
+                    timer = time;
+                else if (timer > 0)
                 {
-                    time -= Time.deltaTime;
-                }
-                if (time <= 0)
-                {
-                    Debug.Log("ENDGAME");
-                    sceneLoaderAndController.RestartScene();
+                    timer -= Time.deltaTime;
+                    if (timer <= 0)
+                    {
+                        Debug.Log("ENDGAME");
+                        sceneLoaderAndController.RestartScene();
+                    }
                 }
             }
+            else if (poweredRobots != 0 && timer > 0)
+                timer = 0;
             
         } 
 
