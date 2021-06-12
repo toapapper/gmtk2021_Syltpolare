@@ -9,11 +9,16 @@ public class Plug : MonoBehaviour
     public bool attracted;
     public bool pluggedIn;
     Rigidbody2D rigidbody;
+    RobotValues robotValues;
 
     public GameObject preceedingCableSegment;
 
     private void Start()
     {
+        if (transform.root.gameObject.GetComponent<RobotValues>() != null)
+        {
+            robotValues = transform.root.gameObject.GetComponent<RobotValues>();
+        }
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -27,6 +32,14 @@ public class Plug : MonoBehaviour
         if (held == true)
         {
             Held();
+        }
+        if (pluggedIn == false)
+        {
+            robotValues.pluggedIn = false;
+        }
+        else if (pluggedIn == true)
+        {
+            robotValues.pluggedIn = true;
         }
     }
 
