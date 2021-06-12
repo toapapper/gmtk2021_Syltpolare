@@ -11,7 +11,7 @@ public class pickUpScript : MonoBehaviour
     public float range = 200;//pixlar i range man kan flytta saken
     public float throwForce = 50;//i newtons typ antar jag
 
-    private float grabForce = 50;//för hög???
+    private float grabForce = 200;//för hög???
     
     private List<GameObject> mousedOver = new List<GameObject>(5);
     private Camera _camera;
@@ -78,7 +78,7 @@ public class pickUpScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         #region Hitbox positionuppdatering
         Vector2 mousePosition = Input.mousePosition;
@@ -103,9 +103,9 @@ public class pickUpScript : MonoBehaviour
             }
             Vector2 hiPos = heldItem.transform.position;
 
-            heldItemRB.AddForce((pos - hiPos).normalized * grabForce);
+            heldItemRB.AddForce((pos - hiPos) * grabForce);
 
-            playerRB.AddForce(heldItem.GetComponent<Plug>().preceedingCableSegment.GetComponent<HingeJoint2D>().GetReactionForce(1f/60f));
+            playerRB.AddForce(heldItem.GetComponent<HingeJoint2D>().reactionForce);
         }
     }
 }
