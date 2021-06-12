@@ -13,10 +13,10 @@ public class Possess : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                GameObject obj = PossessableRobots[CurrentIndex++];
                 CurrentIndex %= PossessableRobots.Count;
+                GameObject obj = PossessableRobots[CurrentIndex++];
 
-                if (obj != this)
+                if (obj != gameObject)
                 {
                     obj.GetComponent<PlayerController>().enabled = true;    // Activate possessed's controller.
                     this.GetComponent<PlayerController>().enabled = false;  // Disable current controller.
