@@ -6,24 +6,29 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerController))]
 public class Possess : MonoBehaviour
 {
+    /// <summary>
+    /// The currently possessed object.
+    /// </summary>
+    public GameObject GetCurrentPossessed => _currentPossessed;
+
     public static List<GameObject> PossessableRobots = new List<GameObject>();
     public static int CurrentIndex = 1;
     public static CinemachineTargetGroup _targetGroup;
-
+    public static GameObject _currentPossessed;
     public void OnPossess(InputContext context)
     {
         switch (context.State)
         {
             case InputContext.InputState.Performed:
                 CurrentIndex %= PossessableRobots.Count;
-                GameObject obj = PossessableRobots[CurrentIndex++];
+                _currentPossessed = PossessableRobots[CurrentIndex++];
 
-                if (obj != gameObject)
+                if (_currentPossessed != gameObject)
                 {
-                    obj.GetComponent<PlayerController>().enabled = true;    // Activate possessed's controller.
+                    _currentPossessed.GetComponent<PlayerController>().enabled = true;    // Activate possessed's controller.
                     this.GetComponent<PlayerController>().enabled = false;  // Disable current controller.
                     _targetGroup.RemoveMember(transform);                   // Remove current from camera targets.
-                    _targetGroup.AddMember(obj.transform, 1, 0);            // Add possessed to camera targets.
+                    _targetGroup.AddMember(_currentPossessed.transform, 1, 0);            // Add possessed to camera targets.
                 }
 
                 break;
@@ -42,6 +47,7 @@ public class Possess : MonoBehaviour
     {
         if (PossessableRobots.Count == 0)
         {
+            _currentPossessed = gameObject;
             _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
             _targetGroup.AddMember(transform, 1, 0);
         }
