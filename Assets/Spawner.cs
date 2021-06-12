@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Robot")
+        if (other.tag == "Player")
         {
             this.transform.parent.gameObject.GetComponent<SpawnerManager>().currentSpawner = this.gameObject;
             onLight.SetActive(true);

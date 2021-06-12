@@ -24,4 +24,11 @@ public class Socket : MonoBehaviour
             collision.gameObject.GetComponent<Plug>().attracted = true;
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Plug")
+        {
+            collision.gameObject.GetComponent<Plug>().attracted = false;
+        }
+    }
 }
