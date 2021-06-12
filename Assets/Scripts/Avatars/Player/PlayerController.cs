@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent<InputContext> _switchEvent;
     [SerializeField] private UnityEvent<InputContext> _pickupEvent;
     [SerializeField] private UnityEvent<InputContext> _throwEvent;
+    [SerializeField] private UnityEvent<InputContext> _releasePlugEvent;
 
     private float _oldHorizontalValue;
 
@@ -60,6 +61,11 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetMouseButtonUp(1))
         {
             _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _releasePlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
         }
     }
 

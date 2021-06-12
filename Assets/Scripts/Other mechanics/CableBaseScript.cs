@@ -12,11 +12,24 @@ public class CableBaseScript : MonoBehaviour
     private GameObject spawnedCable;
 
     private Rigidbody2D myRigidBody;
+    private Plug plug;
+
+    private float releaseTimer = 0;
+    private float releaseTime = .5f;
 
     public void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         SpawnCable();
+    }
+
+    private void Update()
+    {
+        if(releaseTimer > 0)
+        {
+            releaseTimer -= Time.deltaTime;
+            plug.attracted = false;
+        }
     }
 
     public void SpawnCable()
@@ -25,10 +38,18 @@ public class CableBaseScript : MonoBehaviour
         {
             spawnedCable = Instantiate(cableToSpawn,transform);
             transform.Find(spawnedCable.name).Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;//Därför måste den första cableSegment finnas nära plats 0,0 i prefaben
+            plug = transform.Find(spawnedCable.name).Find("plug").GetComponent<Plug>();
         }
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
     }
+    
+    public void ReleaseCable(InputContext context)
+    {
+        releaseTimer = releaseTime;
+        plug.attracted = false;
+        plug.UnPlugg();
+    } 
 
     public void OnCableBreak()
     {
