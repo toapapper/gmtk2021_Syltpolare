@@ -11,8 +11,12 @@ public class pickUpScript : MonoBehaviour
     public float range = 200;//pixlar i range man kan flytta saken
     public float throwForce = 50;//i newtons typ antar jag
 
-    private float grabForce = 200;//för hög???
-    
+    public Sprite open_sprite;
+    public Sprite closed_sprite;
+
+    private SpriteRenderer sr;
+
+    public float grabForce = 500;
     private List<GameObject> mousedOver = new List<GameObject>(5);
     private Camera _camera;
     private GameObject player;
@@ -23,6 +27,7 @@ public class pickUpScript : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerRB = player.GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public void PickUp(InputContext context)
@@ -92,7 +97,7 @@ public class pickUpScript : MonoBehaviour
         transform.position = pos;
         #endregion
 
-        
+
         if (heldItem != null)
         {
             //debug kanske
@@ -102,10 +107,11 @@ public class pickUpScript : MonoBehaviour
                 return;
             }
             Vector2 hiPos = heldItem.transform.position;
-
             heldItemRB.AddForce((pos - hiPos) * grabForce);
-
             playerRB.AddForce(heldItem.GetComponent<HingeJoint2D>().reactionForce);
+            sr.sprite = closed_sprite;
         }
+        else
+            sr.sprite = open_sprite;
     }
 }
