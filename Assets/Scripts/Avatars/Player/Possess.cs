@@ -34,7 +34,7 @@ public class Possess : MonoBehaviour
         _possessableRobots.Remove(gameObject);
     }
 
-    public static void Contain(GameObject gameObject) => _possessableRobots.Contains(gameObject);
+    public static void Contains(GameObject gameObject) => _possessableRobots.Contains(gameObject);
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static int _currentIndex = 1;
