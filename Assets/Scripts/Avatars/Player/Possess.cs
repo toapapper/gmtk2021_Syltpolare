@@ -11,13 +11,24 @@ public class Possess : MonoBehaviour
     /// </summary>
     public static GameObject GetCurrentPossessed => _currentPossessed;
 
+    /// <summary>
+    /// Add new possessable.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public static void Add(GameObject gameObject)
     {
         _possessableRobots.Add(gameObject);
     }
 
+    /// <summary>
+    /// Remove possessable. Changes to another possessable if the current one is removed.
+    /// </summary>
+    /// <param name="gameObject"></param>
     public static void Remove(GameObject gameObject)
     {
+        if (gameObject == _currentPossessed)
+            SwitchPossessed(gameObject);
+
         _possessableRobots.Remove(gameObject);
     }
 
@@ -31,17 +42,7 @@ public class Possess : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                _currentIndex %= _possessableRobots.Count;
-                _currentPossessed = _possessableRobots[_currentIndex++];
-
-                if (_currentPossessed != gameObject)
-                {
-                    _currentPossessed.GetComponent<PlayerController>().enabled = true;    // Activate possessed's controller.
-                    this.GetComponent<PlayerController>().enabled = false;  // Disable current controller.
-                    _targetGroup.RemoveMember(transform);                   // Remove current from camera targets.
-                    _targetGroup.AddMember(_currentPossessed.transform, 1, 0);            // Add possessed to camera targets.
-                }
-
+                SwitchPossessed(gameObject);
                 break;
             default:
                 break;
@@ -69,5 +70,19 @@ public class Possess : MonoBehaviour
     private void OnDisable()
     {
         _possessableRobots.Remove(gameObject);
+    }
+
+    private static void SwitchPossessed(GameObject gameObject)
+    {
+        _currentIndex %= _possessableRobots.Count;
+        _currentPossessed = _possessableRobots[_currentIndex++];
+
+        if (_currentPossessed != gameObject)
+        {
+            _currentPossessed.GetComponent<PlayerController>().enabled = true;      // Activate possessed's controller.
+            gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
+            _targetGroup.RemoveMember(gameObject.transform);                        // Remove current from camera targets.
+            _targetGroup.AddMember(_currentPossessed.transform, 1, 0);              // Add possessed to camera targets.
+        }
     }
 }
