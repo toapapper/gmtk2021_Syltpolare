@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class Possess : MonoBehaviour
 {
     public static List<GameObject> PossessableRobots = new List<GameObject>();
     public static int CurrentIndex = 1;
+    public static CinemachineTargetGroup _targetGroup;
 
     public void OnPossess(InputContext context)
     {
@@ -20,6 +22,8 @@ public class Possess : MonoBehaviour
                 {
                     obj.GetComponent<PlayerController>().enabled = true;    // Activate possessed's controller.
                     this.GetComponent<PlayerController>().enabled = false;  // Disable current controller.
+                    _targetGroup.RemoveMember(transform);                   // Remove current from camera targets.
+                    _targetGroup.AddMember(obj.transform, 1, 0);            // Add possessed to camera targets.
                 }
 
                 break;
@@ -36,6 +40,12 @@ public class Possess : MonoBehaviour
 
     private void OnEnable()
     {
+        if (PossessableRobots.Count == 0)
+        {
+            _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
+            _targetGroup.AddMember(transform, 1, 0);
+        }
+
         PossessableRobots.Add(gameObject);
     }
 
