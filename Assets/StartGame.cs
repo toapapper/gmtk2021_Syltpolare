@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using MyBox;
 
 public class StartGame : MonoBehaviour
 {
-    
-    public void StartAndLoad() 
+    [SerializeField] private SceneReference _gameScene;
+
+    public void OnStartAndLoad()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        _gameScene.LoadScene();
+    }
+
+    public void OnExit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
