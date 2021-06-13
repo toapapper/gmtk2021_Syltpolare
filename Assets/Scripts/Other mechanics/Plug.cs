@@ -35,9 +35,6 @@ public class Plug : MonoBehaviour
         {
             Possess.Remove(transform.root.gameObject);
         }
-
-        
-        
     }
         
     
@@ -46,7 +43,7 @@ public class Plug : MonoBehaviour
     {
         rigidbody.gravityScale = 0;
         rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
-        if (Mathf.Abs(Destination.x - transform.position.x) < 0.2 && Mathf.Abs(Destination.y - transform.position.y) < 0.2)
+        if (Mathf.Abs(Destination.x - transform.position.x) < .5f && Mathf.Abs(Destination.y - transform.position.y) < .5f)
         {
             rigidbody.MovePosition(Destination);
             Plugged();
