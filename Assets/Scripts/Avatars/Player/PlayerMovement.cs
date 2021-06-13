@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-                //Possess.Remove(gameObject);
                 break;
             default:
                 _isJumping = false;
