@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Cinemachine;
 using System.Collections;
@@ -103,7 +104,7 @@ public class Possess : MonoBehaviour
         {
             _currentPossessed.GetComponent<PlayerController>().enabled = true;      // Activate possessed's controller.
             gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
-            _targetGroup.RemoveMember(gameObject.transform);                        // Remove current from camera targets.
+            Array.Clear(_targetGroup.m_Targets, 0, _targetGroup.m_Targets.Length);
             _targetGroup.AddMember(_currentPossessed.transform, 1, 0);              // Add possessed to camera targets.
 
             for (int i = 0; i < Count; i++)
@@ -121,5 +122,6 @@ public class Possess : MonoBehaviour
         }
 
         _possessableRobots.Clear();
+
     }
 }
