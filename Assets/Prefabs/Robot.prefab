@@ -324,10 +324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 8761796232609146132}
   _mainGameObject: {fileID: 5995106986398497682}
-  _groundCollider: {fileID: 0}
-  _groundCollisionMask:
-    serializedVersion: 2
-    m_Bits: 384
 --- !u!1 &5995106986398497682
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +654,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cableToSpawn: {fileID: 138092793672301109, guid: 111159e086fac714093123e107779042, type: 3}
+  totalCableSegments: 0
+  deadCableSegments: 0
+  timeOutDeathTimer: 0
 --- !u!114 &4819487099641606967
 MonoBehaviour:
   m_ObjectHideFlags: 0
