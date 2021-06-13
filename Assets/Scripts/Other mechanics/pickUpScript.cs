@@ -9,7 +9,7 @@ public class pickUpScript : MonoBehaviour
 
     [Tooltip("I PIXLAR")]
     public float range = 200;//pixlar i range man kan flytta saken
-    public float throwForce = 50;//i newtons typ antar jag
+    public float throwSpeed = 200;//i newtons typ antar jag
 
     public Sprite open_sprite;
     public Sprite closed_sprite;
@@ -45,7 +45,7 @@ public class pickUpScript : MonoBehaviour
         if (heldItem == null || Possess.GetCurrentPossessed != player)
             return;
         
-        heldItemRB.AddForce(currentDiffVector.normalized * throwForce);
+        heldItemRB.velocity = currentDiffVector.normalized * throwSpeed;
         ReleaseItemPrivate();
     }
 
@@ -69,6 +69,12 @@ public class pickUpScript : MonoBehaviour
     
     private void ReleaseItemPrivate()
     {
+        if (heldItem == null)
+        {
+            heldItemRB = null;
+            return;
+        }
+
         heldItem.GetComponent<Plug>().held = false;
         heldItemRB = null;
         heldItem = null;
@@ -123,6 +129,9 @@ public class pickUpScript : MonoBehaviour
 
         if (heldItem != null)
         {
+            if (heldItemRB == null)
+                heldItemRB = heldItem.GetComponent<Rigidbody2D>();
+
             Vector2 hiPos = heldItem.transform.position;
             heldItemRB.AddForce((pos - hiPos) * grabForce);
             sr.sprite = closed_sprite;
