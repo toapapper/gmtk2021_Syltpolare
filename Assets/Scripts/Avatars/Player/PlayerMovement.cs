@@ -6,6 +6,12 @@ using Celezt.Times;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(RigidbodyStack))]
 public class PlayerMovement : MonoBehaviour
 {
+    public bool IsFlipped
+    {
+        get => _isFlipped;
+        set => _isFlipped = value;
+    }
+
     [Header("Move")]
     [SerializeField] private float _horizontalForce = 4000;
     [SerializeField] private float _horizontalDrag = 0.1f;
@@ -19,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
 
-    public bool flipped = false;
 
     private Rigidbody2D _rigidbody2D;
     private RigidbodyStack _rigidbodyStack;
@@ -28,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _horizontalValue;
     private bool _isJumping;
+    private bool _isFlipped;
 
     public void OnMoveHorizontal(InputContext context)
     {
@@ -73,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedForce = Vector2.zero;
         Vector2 combinedImpulse = Vector2.zero;
 
-        
+
         combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
 
         if (_isJumping && _jumpDuration.IsActive)
@@ -82,8 +88,8 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        _rigidbody2D.AddForce(combinedImpulse, ForceMode2D.Impulse);
-        _rigidbody2D.AddForce(combinedForce);
+        _rigidbody2D.AddRelativeForce(combinedImpulse * (_isFlipped ? -1 : 1), ForceMode2D.Impulse);
+        _rigidbody2D.AddRelativeForce(combinedForce * (_isFlipped ? -1 : 1));
         Drag();
     }
 
