@@ -17,10 +17,15 @@ public class CableBaseScript : MonoBehaviour
     private float releaseTimer = 0;
     private float releaseTime = .5f;
 
+    private float timeOutDeathTime = 3f;
+    private float timeOutDeathTimer = 0;
+
     public void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         SpawnCable();
+
+        
     }
 
     private void Update()
@@ -30,6 +35,15 @@ public class CableBaseScript : MonoBehaviour
             releaseTimer -= Time.deltaTime;
             plug.attracted = false;
         }
+
+        //kolla också om alla kablar e döda, gör så de ökar räkningen när de dör
+
+        if(timeOutDeathTimer > 0)
+        {
+            timeOutDeathTimer -= Time.deltaTime;
+            //Gör så kabel förstörs helt här.
+        }
+
     }
 
     public void SpawnCable()
@@ -42,6 +56,9 @@ public class CableBaseScript : MonoBehaviour
         }
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
+
+
+        //
     }
     
     public void ReleaseCable(InputContext context)
@@ -53,6 +70,8 @@ public class CableBaseScript : MonoBehaviour
 
     public void OnCableBreak()
     {
+        timeOutDeathTimer = timeOutDeathTime;
+
         Destroy(spawnedCable);//kan lägga in animation eller nåt sånt här
         SpawnCable();
     }
