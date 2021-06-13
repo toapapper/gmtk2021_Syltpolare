@@ -121,6 +121,5 @@ public class Possess : MonoBehaviour
         }
 
         _possessableRobots.Clear();
-        _targetGroup.RemoveMember(_currentPossessed.transform);
     }
 }
