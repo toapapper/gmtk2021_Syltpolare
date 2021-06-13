@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 268485398}
+  - component: {fileID: 559424223}
   - component: {fileID: 268485400}
   - component: {fileID: 268485399}
-  - component: {fileID: 559424223}
   m_Layer: 0
-  m_Name: MouseHitBox
+  m_Name: Robot - MouseHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,45 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &268485400
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268485397}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &268485399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268485397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2596bf890dc6dc045a3f799e3e798429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heldItem: {fileID: 0}
-  heldItemRB: {fileID: 0}
-  range: 50
-  throwSpeed: 200
-  pushForce: 100000
-  open_sprite: {fileID: 21300000, guid: 564985aa29111284fa36bbfc3a832f72, type: 3}
-  closed_sprite: {fileID: 21300000, guid: 20da0bf308fb323449cec8baa435a8c5, type: 3}
-  grabForce: 5000
-  mousedOverDynamicObstacles: []
 --- !u!212 &559424223
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,6 +84,43 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &268485400
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268485397}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &268485399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268485397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2596bf890dc6dc045a3f799e3e798429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldItem: {fileID: 0}
+  heldItemRB: {fileID: 0}
+  range: 50
+  throwSpeed: 200
+  pushForce: 100000
+  open_sprite: {fileID: 21300000, guid: 564985aa29111284fa36bbfc3a832f72, type: 3}
+  closed_sprite: {fileID: 21300000, guid: 20da0bf308fb323449cec8baa435a8c5, type: 3}
+  grabForce: 5000
+  mousedOverDynamicObstacles: []
 --- !u!1 &1623938036426538760
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6e1d9d9dd866b14489063e759df36869, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,7 +282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6878161246129770311
 BoxCollider2D:
@@ -361,8 +361,8 @@ Transform:
   m_Children:
   - {fileID: 2282676248128889254}
   - {fileID: 1643677132937045185}
-  - {fileID: 6666785148126459816}
   - {fileID: 268485398}
+  - {fileID: 6666785148126459816}
   - {fileID: 6279520186718294208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -736,7 +736,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6e1d9d9dd866b14489063e759df36869, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
