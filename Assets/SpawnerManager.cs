@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
-    public List<GameObject> robots;
+    public List<GameObject> robots = new List<GameObject>();
     public List<GameObject> unlockedRobots;
     GameObject[] allInScene;
     float poweredRobots;
@@ -15,7 +15,7 @@ public class SpawnerManager : MonoBehaviour
     float timer = 0;
     float time = 5;
     public SceneLoaderAndController sceneLoaderAndController;
-
+    bool hasStarted = false;
     public GameObject currentSpawner;
     List<Spawner> listOfSpawners;
     void Start()
@@ -30,6 +30,7 @@ public class SpawnerManager : MonoBehaviour
         unlockedRobots.Add(smallRobot);
         unlockedRobots.Add(bigRobot);
         unlockedRobots.Add(reverseRobot);
+        
     }
 
     // Update is called once per frame
@@ -40,13 +41,27 @@ public class SpawnerManager : MonoBehaviour
             lastCheckpoint = currentSpawner.GetComponent<Spawner>();
         }
         allInScene = GameObject.FindGameObjectsWithTag("Player");
+        if (hasStarted == false)
+        {
+            robots.Add(smallRobot);
+            robots.Add(smallRobot);
+            robots.Add(smallRobot);
+            hasStarted = true;
+        }
         foreach (GameObject item in allInScene)
         {
-            if (!robots.Contains(item))
+            if (item.GetComponent<RobotValues>().type == "BigRobot")
             {
-                robots.Add(item);
+                robots[0] = item;
             }
-
+            if (item.GetComponent<RobotValues>().type == "SmallRobot")
+            {
+                robots[1] = item;
+            }
+            if (item.GetComponent<RobotValues>().type == "ReverseRobot")
+            {
+                robots[2] = item;
+            }
         }
 
         poweredRobots = Possess.Count;

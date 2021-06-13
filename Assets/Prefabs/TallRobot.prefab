@@ -5591,7 +5591,9 @@ MonoBehaviour:
   _groundCollisionMask:
     serializedVersion: 2
     m_Bits: 384
+  slopeUpwardsMultiplier: 2.5
   _fallDrag: 0.01
+  flipped: 0
 --- !u!114 &5048892923496982186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5660,6 +5662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pluggedIn: 0
+  type: BigRobot
 --- !u!114 &6904480780441016942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5734,4 +5737,4 @@ MonoBehaviour:
   - {x: -0.34976387, y: -0.50572205, z: 0}
   m_ShapePathHash: 453179071
   m_Mesh: {fileID: 0}
-  m_InstanceId: -993876
+  m_InstanceId: 351238

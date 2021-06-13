@@ -5,5 +5,5 @@ using UnityEngine;
 public class RobotValues : MonoBehaviour
 {
     public bool pluggedIn;
-
+    public string type;
 }

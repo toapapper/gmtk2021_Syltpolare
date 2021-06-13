@@ -434,7 +434,9 @@ MonoBehaviour:
   _groundCollisionMask:
     serializedVersion: 2
     m_Bits: 384
+  slopeUpwardsMultiplier: 2.5
   _fallDrag: 0.01
+  flipped: 0
 --- !u!114 &3807712648541041981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pluggedIn: 0
+  type: ReverseRobot
 --- !u!1 &5693022410965752160
 GameObject:
   m_ObjectHideFlags: 0
