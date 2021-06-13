@@ -625,4 +625,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parallaxEffectHorizontal: 0.9
-  _parallaxEffectVertical: 0.3
+  _parallaxEffectVertical: 0.8
