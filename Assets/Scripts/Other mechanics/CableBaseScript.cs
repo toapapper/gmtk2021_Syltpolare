@@ -14,6 +14,9 @@ public class CableBaseScript : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private Plug plug;
 
+    private int totalCableSegments;
+    private int deadCableSegments;
+
     private float releaseTimer = 0;
     private float releaseTime = .5f;
 
@@ -38,10 +41,15 @@ public class CableBaseScript : MonoBehaviour
 
         //kolla också om alla kablar e döda, gör så de ökar räkningen när de dör
 
+        if (deadCableSegments == totalCableSegments)
+            DeleteCable();
+
         if(timeOutDeathTimer > 0)
         {
             timeOutDeathTimer -= Time.deltaTime;
             //Gör så kabel förstörs helt här.
+            if (timeOutDeathTimer <= 0)
+                DeleteCable();
         }
 
     }
@@ -53,6 +61,9 @@ public class CableBaseScript : MonoBehaviour
             spawnedCable = Instantiate(cableToSpawn,transform);
             spawnedCable.transform.Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;//Därför måste den första cableSegment finnas nära plats 0,0 i prefaben
             plug = spawnedCable.transform.Find("plug").GetComponent<Plug>();
+
+            //räkna antal cablesegments här
+            totalCableSegments = spawnedCable.transform.childCount - 1;//-1 för plugen e inte kabel
         }
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
@@ -61,19 +72,32 @@ public class CableBaseScript : MonoBehaviour
         //
     }
     
+    public void CableDied()
+    {
+        deadCableSegments++;
+
+        if (deadCableSegments >= totalCableSegments)
+            DeleteCable();
+    }
+
     public void ReleaseCable(InputContext context)
     {
         releaseTimer = releaseTime;
         plug.attracted = false;
         plug.UnPlugg();
     } 
+    
+
+    public void DeleteCable()
+    {
+        timeOutDeathTimer = 0;
+        Destroy(spawnedCable);
+        SpawnCable();
+    }
 
     public void OnCableBreak()
     {
         timeOutDeathTimer = timeOutDeathTime;
-
-        Destroy(spawnedCable);//kan lägga in animation eller nåt sånt här
-        SpawnCable();
     }
 
 }

@@ -136,6 +136,11 @@ public class pickUpScript : MonoBehaviour
                 sr.enabled = true;
         }
 
+        if (mousedOverPlugs.Count != 0)
+        {
+            if (mousedOverPlugs[0] == null)
+                mousedOverPlugs.RemoveAt(0);
+        }
 
         #region Hitbox positionuppdatering
         Vector2 mousePosition = Input.mousePosition;
