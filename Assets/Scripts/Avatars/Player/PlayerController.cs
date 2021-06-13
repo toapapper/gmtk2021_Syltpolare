@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private UnityEvent<InputContext> _moveHorizontalEvent;
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
     [SerializeField] private UnityEvent<InputContext> _switchEvent;
+
     [SerializeField] private UnityEvent<InputContext> _pickupEvent;
     [SerializeField] private UnityEvent<InputContext> _throwEvent;
-    [SerializeField] private UnityEvent<InputContext> _releasePlugEvent;
+    [SerializeField] private UnityEvent<InputContext> _releasePlugEvent;//release from connected jack
+    [SerializeField] private UnityEvent<InputContext> _dropPlugEvent;//drop from hand
+
 
     private float _oldHorizontalValue;
 
@@ -67,6 +70,11 @@ public class PlayerController : MonoBehaviour
         {
             _releasePlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
         }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _dropPlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
+        }
     }
 
     private void OnDisable()
@@ -75,5 +83,6 @@ public class PlayerController : MonoBehaviour
         _jumpEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         _pickupEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
+        _dropPlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
     }
 }

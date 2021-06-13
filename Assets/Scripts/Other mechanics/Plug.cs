@@ -11,7 +11,7 @@ public class Plug : MonoBehaviour
     Rigidbody2D rigidbody;
 
 
-    private void Start()
+    void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
@@ -62,7 +62,7 @@ public class Plug : MonoBehaviour
     void Plugged()
     {
         pluggedIn = true;
-        rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
     void Held()
