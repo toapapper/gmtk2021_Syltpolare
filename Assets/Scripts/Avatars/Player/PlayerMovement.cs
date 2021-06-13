@@ -73,8 +73,8 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedForce = Vector2.zero;
         Vector2 combinedImpulse = Vector2.zero;
 
-        if(flipped)
-            combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0) * -1;
+        
+        combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
 
         if (_isJumping && _jumpDuration.IsActive)
         {
