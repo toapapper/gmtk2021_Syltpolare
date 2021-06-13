@@ -8,6 +8,7 @@ TagManager:
   - Robot
   - Dangerous
   - Shadow
+  - Obstacle
   layers:
   - Default
   - TransparentFX
