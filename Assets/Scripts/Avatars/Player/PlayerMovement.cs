@@ -22,9 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
-
-    public bool flipped = false;
-
+    
+    
     private Rigidbody2D _rigidbody2D;
     private RigidbodyStack _rigidbodyStack;
 
@@ -32,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _horizontalValue;
     private bool _isJumping;
+    [SerializeField] private bool _isFlipped;
 
     public void OnMoveHorizontal(InputContext context)
     {
@@ -132,8 +132,9 @@ public class PlayerMovement : MonoBehaviour
             combinedImpulse += new Vector2(0, _jumpImpulse);
         }
 
-        _rigidbody2D.AddForce(combinedImpulse, ForceMode2D.Impulse);
-        _rigidbody2D.AddForce(combinedForce);
+        //_rigidbody2D.AddRelativeForce(combinedImpulse * (_isFlipped ? -1 : 1), ForceMode2D.Impulse);
+        _rigidbody2D.AddRelativeForce(combinedImpulse , ForceMode2D.Impulse);
+        _rigidbody2D.AddRelativeForce(combinedForce * (_isFlipped ? -1 : 1));
         Drag();
     }
 
