@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedForce = Vector2.zero;
         Vector2 combinedImpulse = Vector2.zero;
 
-        
+
         combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
 
         if (_isJumping && _jumpDuration.IsActive)
@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        _rigidbody2D.AddForce(combinedImpulse, ForceMode2D.Impulse);
-        _rigidbody2D.AddForce(combinedForce);
+        _rigidbody2D.AddRelativeForce(combinedImpulse, ForceMode2D.Impulse);
+        _rigidbody2D.AddRelativeForce(combinedForce);
         Drag();
     }
 
