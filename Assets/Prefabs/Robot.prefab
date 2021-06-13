@@ -64,10 +64,12 @@ MonoBehaviour:
   heldItem: {fileID: 0}
   heldItemRB: {fileID: 0}
   range: 50
-  throwForce: 2000
+  throwSpeed: 200
+  pushForce: 100000
   open_sprite: {fileID: 21300000, guid: 564985aa29111284fa36bbfc3a832f72, type: 3}
   closed_sprite: {fileID: 21300000, guid: 20da0bf308fb323449cec8baa435a8c5, type: 3}
   grabForce: 5000
+  mousedOverDynamicObstacles: []
 --- !u!212 &559424223
 SpriteRenderer:
   m_ObjectHideFlags: 0

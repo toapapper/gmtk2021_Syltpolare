@@ -10,6 +10,7 @@ public class pickUpScript : MonoBehaviour
     [Tooltip("I PIXLAR")]
     public float range = 200;//pixlar i range man kan flytta saken
     public float throwSpeed = 200;//i newtons typ antar jag
+    public float pushForce = 200;
 
     public Sprite open_sprite;
     public Sprite closed_sprite;
@@ -17,7 +18,8 @@ public class pickUpScript : MonoBehaviour
     private SpriteRenderer sr;
 
     public float grabForce = 500;
-    private List<GameObject> mousedOver = new List<GameObject>(5);
+    private List<GameObject> mousedOverPlugs = new List<GameObject>(5);
+    public List<GameObject> mousedOverDynamicObstacles = new List<GameObject>(10);
     private Camera _camera;
     private GameObject player;
     private Rigidbody2D playerRB;
@@ -34,19 +36,31 @@ public class pickUpScript : MonoBehaviour
 
     public void PickUp(InputContext context)
     {
-        if (mousedOver.Count == 0 || context.State == InputContext.InputState.Canceled || Possess.GetCurrentPossessed != player)//släpper musen gör ingenting just nu
+        if (mousedOverPlugs.Count == 0 || context.State == InputContext.InputState.Canceled || Possess.GetCurrentPossessed != player)//släpper musen gör ingenting just nu
             return;
 
-        PickUpGo(mousedOver[0]);
+        PickUpGo(mousedOverPlugs[0]);
     }
 
     public void Throw(InputContext context)
     {
-        if (heldItem == null || Possess.GetCurrentPossessed != player)
+        if (Possess.GetCurrentPossessed != player || context.State == InputContext.InputState.Canceled)
             return;
         
-        heldItemRB.velocity = currentDiffVector.normalized * throwSpeed;
-        ReleaseItemPrivate();
+        if(heldItem != null)
+        {
+            heldItemRB.velocity = currentDiffVector.normalized * throwSpeed;
+            ReleaseItemPrivate();
+        }
+
+        if(mousedOverDynamicObstacles.Count != 0)
+        {
+            foreach(GameObject gobj in mousedOverDynamicObstacles)
+            {
+                Debug.Log("PUSH");
+                gobj.GetComponent<Rigidbody2D>().AddForce(currentDiffVector.normalized * pushForce);
+            }
+        }
     }
 
     public void PickUpGo(GameObject go)
@@ -82,16 +96,28 @@ public class pickUpScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Plug"))
+        if (collision.transform.CompareTag("Plug") && !mousedOverPlugs.Contains(collision.gameObject))
         {
-            mousedOver.Add(collision.gameObject);
+            mousedOverPlugs.Add(collision.gameObject);
+        }
+
+        if (collision.transform.CompareTag("Player") && !mousedOverDynamicObstacles.Contains(collision.gameObject))
+        {
+            mousedOverDynamicObstacles.Add(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (mousedOver.Contains(collision.gameObject))
-            mousedOver.Remove(collision.gameObject);
+        if (mousedOverPlugs.Contains(collision.gameObject))
+        {
+            mousedOverPlugs.Remove(collision.gameObject);
+        }
+
+        if (mousedOverDynamicObstacles.Contains(collision.gameObject))
+        {
+            mousedOverDynamicObstacles.Remove(collision.gameObject);
+        }
     }
 
     // Update is called once per frame
