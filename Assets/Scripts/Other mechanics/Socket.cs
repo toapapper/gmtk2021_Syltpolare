@@ -20,6 +20,10 @@ public class Socket : MonoBehaviour
             {
                 occupiced = false;
             }
+            if (occupiced == false)
+            {
+                occupiedBy = null;
+            }
         }
     }
 
