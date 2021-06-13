@@ -11,7 +11,7 @@ public class Plug : MonoBehaviour
     Rigidbody2D rigidbody;
 
 
-    private void Start()
+    void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }

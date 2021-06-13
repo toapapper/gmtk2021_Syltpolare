@@ -37,8 +37,8 @@ public class CableBaseScript : MonoBehaviour
         if (cableToSpawn != null)
         {
             spawnedCable = Instantiate(cableToSpawn,transform);
-            transform.Find(spawnedCable.name).Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;//Därför måste den första cableSegment finnas nära plats 0,0 i prefaben
-            plug = transform.Find(spawnedCable.name).Find("plug").GetComponent<Plug>();
+            spawnedCable.transform.Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;//Därför måste den första cableSegment finnas nära plats 0,0 i prefaben
+            plug = spawnedCable.transform.Find("plug").GetComponent<Plug>();
         }
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
