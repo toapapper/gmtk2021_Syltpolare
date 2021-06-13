@@ -13,7 +13,7 @@ public class SpawnerManager : MonoBehaviour
     public GameObject bigRobot;
     public GameObject reverseRobot;
     float timer = 0;
-    float time = 5;
+    float time = 3;
     public SceneLoaderAndController sceneLoaderAndController;
     bool hasStarted = false;
     public GameObject currentSpawner;
