@@ -14,21 +14,19 @@ public class CableBaseScript : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private Plug plug;
 
-    private int totalCableSegments;
-    private int deadCableSegments;
+    public int totalCableSegments;
+    public int deadCableSegments;
 
     private float releaseTimer = 0;
     private float releaseTime = .5f;
 
-    private float timeOutDeathTime = 3f;
-    private float timeOutDeathTimer = 0;
+    private float timeOutDeathTime = 1f;
+    public float timeOutDeathTimer = 0;
 
     public void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         SpawnCable();
-
-        
     }
 
     private void Update()
@@ -64,6 +62,32 @@ public class CableBaseScript : MonoBehaviour
 
             //räkna antal cablesegments här
             totalCableSegments = spawnedCable.transform.childCount - 1;//-1 för plugen e inte kabel
+            CableSegmentScript previousgObj = null;
+
+            for(int i = 0; i < totalCableSegments; i++)
+            {
+                CableSegmentScript currObj = spawnedCable.transform.GetChild(i).gameObject.GetComponent<CableSegmentScript>();
+
+                if (i == 0 || currObj == null)
+                {
+                    previousgObj = currObj;
+                    continue;
+                }
+                else
+                {
+                    if(previousgObj != null)
+                    {
+                        previousgObj.nextSegment = currObj;
+                        currObj.preceedingSegment = previousgObj;
+                    }
+                }
+
+                previousgObj = currObj;
+            }
+
+
+            deadCableSegments = 0;
+            timeOutDeathTimer = 0;
         }
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
@@ -74,6 +98,8 @@ public class CableBaseScript : MonoBehaviour
     
     public void CableDied()
     {
+        Debug.Log("Cable dIed");
+
         deadCableSegments++;
 
         if (deadCableSegments >= totalCableSegments)

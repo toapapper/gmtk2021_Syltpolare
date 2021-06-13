@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 811811073466664725}
   - component: {fileID: 1039662975823707373}
   - component: {fileID: 8284508820829098116}
+  - component: {fileID: 1839619126}
   m_Layer: 6
   m_Name: CableSegment
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4762571251038539422}
-  m_LocalRotation: {x: -0, y: -0, z: 0.99999994, w: -0.0003371013}
+  m_LocalRotation: {x: 0, y: -0, z: 0.99999994, w: -0.0003402396}
   m_LocalPosition: {x: 0.421, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -121,7 +122,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.2, y: 0}
-  m_ConnectedAnchor: {x: -0.30299988, y: 0.00033910258}
+  m_ConnectedAnchor: {x: -14.388679, y: -12.734708}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -146,3 +147,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.61, y: 0.17}
   m_Direction: 1
+--- !u!95 &1839619126
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4762571251038539422}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f49d4057f102195448651a22c0c670ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

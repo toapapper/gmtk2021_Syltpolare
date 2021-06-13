@@ -141,6 +141,11 @@ public class pickUpScript : MonoBehaviour
             if (mousedOverPlugs[0] == null)
                 mousedOverPlugs.RemoveAt(0);
         }
+        if (mousedOverDynamicObstacles.Count != 0)
+        {
+            if (mousedOverDynamicObstacles[0] == null)
+                mousedOverDynamicObstacles.RemoveAt(0);
+        }
 
         #region Hitbox positionuppdatering
         Vector2 mousePosition = Input.mousePosition;
