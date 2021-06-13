@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    SceneLoaderAndController sceneLoaderAndController;
+    public SceneLoaderAndController sceneLoaderAndController;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
