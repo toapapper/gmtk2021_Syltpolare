@@ -17,11 +17,7 @@ public class SceneLoaderAndController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+            SceneManager.LoadScene(0);
         }
     }
 }
