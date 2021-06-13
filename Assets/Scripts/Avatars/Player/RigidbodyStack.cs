@@ -6,51 +6,51 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RigidbodyStack : MonoBehaviour
 {
-    public int BodiesOnTop => _bodiesOnTop;
-    private float ForceOnTop => _forcesOnTop;
+    public int Count => _count;
+    private float StackedForces => _stackedForces;
 
     private Rigidbody2D _rigidbody;
     private List<RigidbodyStack> _underObject = new List<RigidbodyStack>();
     private List<RigidbodyStack> _overObjects = new List<RigidbodyStack>();
 
-    private int _bodiesOnTop;
-    private float _forcesOnTop;
+    private int _count;
+    private float _stackedForces;
 
     public (int, float) GetRecursiveUpData()
     {
-        int bodiesOnTop = 0;
-        float forcesOnTop = 0;
+        int count = 0;
+        float stackedForces = 0;
 
         for (int i = 0; i < _overObjects.Count; i++)
         {
             (int, float) data = _overObjects[i].GetRecursiveUpData();
-            bodiesOnTop += data.Item1;
-            forcesOnTop += data.Item2;
+            count += data.Item1;
+            stackedForces += data.Item2;
         }
 
-        _bodiesOnTop = bodiesOnTop;
-        _forcesOnTop = forcesOnTop;
+        _count = count;
+        _stackedForces = stackedForces;
 
-        bodiesOnTop += 1;
-        forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+        count += 1;
+        stackedForces += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
 
-        return (bodiesOnTop, forcesOnTop);
+        return (count, stackedForces);
     }
 
-    public void GetRecursiveDownData(int bodiesOnTop, float forcesOnTop, bool init)
+    public void GetRecursiveDownData(int count, float stackedForces, bool init)
     {
         if (!init)
         {
-            _bodiesOnTop = bodiesOnTop;
-            _forcesOnTop = forcesOnTop;
+            _count = count;
+            _stackedForces = stackedForces;
 
-            bodiesOnTop += 1;
-            forcesOnTop += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+            count += 1;
+            stackedForces += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
         }
 
         for (int i = 0; i < _underObject.Count; i++)
         {
-            _underObject[i].GetRecursiveDownData(bodiesOnTop, forcesOnTop, false);
+            _underObject[i].GetRecursiveDownData(count, stackedForces, false);
         }
     }
 

@@ -14,6 +14,8 @@ public class Possess : MonoBehaviour
 
     public static int Count => _possessableRobots.Count;
 
+    public static bool Contains(GameObject gameObject) => _possessableRobots.Contains(gameObject);
+
     /// <summary>
     /// Add new possessable.
     /// </summary>
@@ -21,6 +23,9 @@ public class Possess : MonoBehaviour
     public static void Add(GameObject gameObject)
     {
         _possessableRobots.Add(gameObject);
+
+        if (Count == 1) // Switch to that possessable if it is the only one in the scene.
+            SwitchPossessed(gameObject);
     }
 
     /// <summary>
@@ -34,18 +39,20 @@ public class Possess : MonoBehaviour
             if (Count == 1)
             {
                 RemoveAll();
+                _currentPossessed = null;
+                gameObject.GetComponent<Possess>()._changePossessedEvent.Invoke();
+
                 return;
             }
 
+            _currentIndex = _possessableRobots.FindIndex(item => item == gameObject) + 1;
             SwitchPossessed(gameObject);
         }
 
         _possessableRobots.Remove(gameObject);
     }
 
-    public static bool Contains(GameObject gameObject) => _possessableRobots.Contains(gameObject);
-
-    [SerializeField] private UnityEvent<GameObject> _changePossessedEvent;
+    [SerializeField] private UnityEvent _changePossessedEvent;
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static int _currentIndex = 1;
@@ -64,10 +71,10 @@ public class Possess : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
-        if (_possessableRobots.Count > 0)
-            _possessableRobots[0].GetComponent<PlayerController>().enabled = true;
+        if (_targetGroup == null)
+            _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
     }
 
     private void OnEnable()
@@ -75,21 +82,24 @@ public class Possess : MonoBehaviour
         if (_possessableRobots.Count == 0)
         {
             _currentPossessed = gameObject;
-            _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
             _targetGroup.AddMember(transform, 1, 0);
-            _changePossessedEvent.Invoke(_currentPossessed);
+            _changePossessedEvent.Invoke();
+            _currentPossessed.GetComponent<PlayerController>().enabled = true;
         }
 
-        _possessableRobots.Add(gameObject);
+        Add(gameObject);
     }
 
     private void OnDisable()
     {
-        _possessableRobots.Remove(gameObject);
+        Remove(gameObject);
     }
 
     private static void SwitchPossessed(GameObject gameObject)
     {
+        if (Count <= 1)
+            return;
+
         _currentIndex %= _possessableRobots.Count;
         _currentPossessed = _possessableRobots[_currentIndex++];
 
@@ -102,15 +112,19 @@ public class Possess : MonoBehaviour
 
             for (int i = 0; i < Count; i++)
             {
-                _possessableRobots[i].GetComponent<Possess>()._changePossessedEvent.Invoke(_currentPossessed);
+                _possessableRobots[i].GetComponent<Possess>()._changePossessedEvent.Invoke();
             }
         }
     }
 
     private static void RemoveAll()
     {
-        _currentPossessed.GetComponent<PlayerController>().enabled = false;
-        _targetGroup.RemoveMember(_currentPossessed.transform);
+        for (int i = 0; i < _possessableRobots.Count; i++)
+        {
+            _possessableRobots[i].GetComponent<PlayerController>().enabled = false;
+        }
+
         _possessableRobots.Clear();
+        _targetGroup.RemoveMember(_currentPossessed.transform);
     }
 }

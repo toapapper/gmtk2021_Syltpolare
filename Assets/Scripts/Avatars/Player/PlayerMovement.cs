@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveHorizontal(InputContext context)
     {
-        if (_rigidbodyStack.BodiesOnTop <= _bodiesOnTopLimit)
+        if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
             _horizontalValue = context.Value;
         else
             _horizontalValue = 0;
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                if (_rigidbodyStack.BodiesOnTop <= _bodiesOnTopLimit)
+                if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
                 {
                     Collider2D[] colliders2D = Physics2D.OverlapBoxAll(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask);
 
@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
                         }
                     }
                 }
+
+                Possess.Remove(gameObject);
                 break;
             default:
                 _isJumping = false;
