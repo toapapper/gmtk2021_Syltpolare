@@ -64,7 +64,7 @@ MonoBehaviour:
   heldItem: {fileID: 0}
   heldItemRB: {fileID: 0}
   range: 50
-  throwForce: 50
+  throwForce: 2000
   open_sprite: {fileID: 21300000, guid: 564985aa29111284fa36bbfc3a832f72, type: 3}
   closed_sprite: {fileID: 21300000, guid: 20da0bf308fb323449cec8baa435a8c5, type: 3}
   grabForce: 5000
@@ -534,6 +534,21 @@ MonoBehaviour:
       - m_Target: {fileID: 1011092239}
         m_TargetAssemblyTypeName: CableBaseScript, Assembly-CSharp
         m_MethodName: ReleaseCable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _dropPlugEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 268485399}
+        m_TargetAssemblyTypeName: pickUpScript, Assembly-CSharp
+        m_MethodName: ReleaseItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

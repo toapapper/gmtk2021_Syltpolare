@@ -22,6 +22,8 @@ public class pickUpScript : MonoBehaviour
     private GameObject player;
     private Rigidbody2D playerRB;
 
+    private Vector2 currentDiffVector;
+
     private void Start()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -42,8 +44,9 @@ public class pickUpScript : MonoBehaviour
     {
         if (heldItem == null || Possess.GetCurrentPossessed != player)
             return;
-
-        //annars kasta..
+        
+        heldItemRB.AddForce(currentDiffVector.normalized * throwForce);
+        ReleaseItemPrivate();
     }
 
     public void PickUpGo(GameObject go)
@@ -59,13 +62,17 @@ public class pickUpScript : MonoBehaviour
             Debug.Log("No RB");
     }
 
-    public void ReleaseItem()
+    public void ReleaseItem(InputContext context)
+    {
+        ReleaseItemPrivate();
+    }
+    
+    private void ReleaseItemPrivate()
     {
         heldItem.GetComponent<Plug>().held = false;
         heldItemRB = null;
         heldItem = null;
     }
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -106,22 +113,18 @@ public class pickUpScript : MonoBehaviour
         if (diffVector.magnitude > range)
             diffVector = diffVector.normalized * range;//Normalisera, multiplicera med range så får vi den på gränsen.
 
+        currentDiffVector = diffVector;
+
         Vector2 pos = _camera.ScreenToWorldPoint(playerScreenPos + diffVector);
         transform.position = pos;
         #endregion
-
+        
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(diffVector.y, diffVector.x) * Mathf.Rad2Deg);
 
         if (heldItem != null)
         {
-            //debug kanske
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                ReleaseItem();
-                return;
-            }
             Vector2 hiPos = heldItem.transform.position;
             heldItemRB.AddForce((pos - hiPos) * grabForce);
-            playerRB.AddForce(heldItem.GetComponent<HingeJoint2D>().reactionForce);
             sr.sprite = closed_sprite;
         }
         else
