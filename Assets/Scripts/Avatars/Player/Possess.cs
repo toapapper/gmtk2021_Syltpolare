@@ -26,7 +26,13 @@ public class Possess : MonoBehaviour
         _possessableRobots.Add(gameObject);
 
         if (Count == 1) // Switch to that possessable if it is the only one in the scene.
+        {
+            _currentPossessed = gameObject;
+            _targetGroup.AddMember(gameObject.transform, 1, 0);
+            _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
+            _currentPossessed.GetComponent<PlayerController>().enabled = true;
             SwitchPossessed(gameObject);
+        }
     }
 
     /// <summary>
@@ -78,13 +84,8 @@ public class Possess : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_possessableRobots.Count == 0)
-        {
-            _currentPossessed = gameObject;
-            _targetGroup.AddMember(transform, 1, 0);
-            _changePossessedEvent.Invoke();
-            _currentPossessed.GetComponent<PlayerController>().enabled = true;
-        }
+        GetComponent<PlayerController>().enabled = false;
+        _changePossessedEvent.Invoke();
 
         Add(gameObject);
     }
@@ -96,9 +97,6 @@ public class Possess : MonoBehaviour
 
     private static void SwitchPossessed(GameObject gameObject)
     {
-        if (Count <= 1)
-            return;
-
         _currentPossessed = _possessableRobots.TakeWhile(x => x != _currentPossessed).DefaultIfEmpty(_possessableRobots[_possessableRobots.Count - 1]).LastOrDefault();
 
         if (_currentPossessed != gameObject)
