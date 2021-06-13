@@ -6,7 +6,8 @@ public class SpawnerManager : MonoBehaviour
 {
     public List<GameObject> robots;
     public List<GameObject> robotTypes;
-    List<GameObject> unlockedRobots;
+    public List<GameObject> unlockedRobots;
+    GameObject[] allInScene;
     float poweredRobots;
     Spawner lastCheckpoint;
     GameObject smallRobot;
@@ -21,18 +22,33 @@ public class SpawnerManager : MonoBehaviour
     void Start()
     {
         listOfSpawners = new List<Spawner>();
-        robotTypes = new List<GameObject>();
         unlockedRobots = new List<GameObject>();
 
         foreach (Transform child in transform)
         {
             listOfSpawners.Add(child.gameObject.GetComponent<Spawner>());
         }
+        unlockedRobots = robotTypes;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (currentSpawner != null)
+        {
+            lastCheckpoint = currentSpawner.GetComponent<Spawner>();
+        }
+        allInScene = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject item in allInScene)
+        {
+            if (!robots.Contains(item))
+            {
+                robots.Add(item);
+            }
+
+        }
+
         poweredRobots = Possess.Count;
         if (robots != null)
         {
@@ -55,24 +71,24 @@ public class SpawnerManager : MonoBehaviour
             
         } 
 
-        if (lastCheckpoint != null)
+        if (currentSpawner != null)
         {
-            if (robotTypes[1] != null && unlockedRobots.Contains(robotTypes[1]) && !robots.Contains(robotTypes[1]))
+            if (robotTypes[0] != null && unlockedRobots.Contains(robotTypes[0]) && robots[0] == null)
             {
-                CallSpawner(smallRobot);
+                CallSpawner(robotTypes[0], 0);
             }
-            if (robotTypes[2] != null && unlockedRobots.Contains(robotTypes[2]) && !robots.Contains(robotTypes[2]))
+            if (robotTypes[2] != null && unlockedRobots.Contains(robotTypes[1]) && robots[1] == null)
             {
-                CallSpawner(bigRobot);
+                CallSpawner(robotTypes[1], 1);
             }
-            if (robotTypes[3] != null && unlockedRobots.Contains(robotTypes[3]) && !robots.Contains(robotTypes[3]))
-            {
-                CallSpawner(reverseRobot);
-            }
+            //if (robotTypes[3] != null && unlockedRobots.Contains(robotTypes[3]) && !robots.Contains(robotTypes[3]))
+            //{
+            //    CallSpawner(robotTypes[3]);
+            //}
         }
     }
-    void CallSpawner(GameObject botToSpawn)
+    void CallSpawner(GameObject botToSpawn, int spawnIndex)
     {
-        lastCheckpoint.SpawnDestroyedRobot(botToSpawn);
+        lastCheckpoint.SpawnDestroyedRobot(botToSpawn, spawnIndex);
     }
 }

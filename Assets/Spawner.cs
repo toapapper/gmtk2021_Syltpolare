@@ -19,9 +19,9 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void SpawnDestroyedRobot(GameObject robotToSpawn)
+    public void SpawnDestroyedRobot(GameObject robotToSpawn, int index)
     {
         GameObject spawnedRobot = (GameObject)Instantiate(robotToSpawn, spawnpoint.transform.position, Quaternion.identity);
-        this.transform.parent.gameObject.GetComponent<SpawnerManager>().robots.Add(spawnedRobot);
+        this.transform.parent.gameObject.GetComponent<SpawnerManager>().robots[index] = spawnedRobot;
     }
 }
