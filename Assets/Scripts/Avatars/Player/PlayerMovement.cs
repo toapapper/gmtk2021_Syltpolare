@@ -6,12 +6,6 @@ using Celezt.Times;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(RigidbodyStack))]
 public class PlayerMovement : MonoBehaviour
 {
-    public bool IsFlipped
-    {
-        get => _isFlipped;
-        set => _isFlipped = value;
-    }
-
     [Header("Move")]
     [SerializeField] private float _horizontalForce = 4000;
     [SerializeField] private float _horizontalDrag = 0.1f;
@@ -22,9 +16,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int _bodiesOnTopLimit = 1;
     [SerializeField] private BoxCollider2D _groundCollider;
     [SerializeField] private LayerMask _groundCollisionMask;
+
+    private LayerMask _slopeCollisionMask;
+    [SerializeField] private float slopeUpwardsMultiplier = 2.5f;
+
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
 
+    public bool flipped = false;
 
     private Rigidbody2D _rigidbody2D;
     private RigidbodyStack _rigidbodyStack;
@@ -33,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float _horizontalValue;
     private bool _isJumping;
-    private bool _isFlipped;
 
     public void OnMoveHorizontal(InputContext context)
     {
@@ -72,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _rigidbodyStack = GetComponent<RigidbodyStack>();
+        _slopeCollisionMask = LayerMask.GetMask("StaticObstacle");
     }
 
     private void FixedUpdate()
@@ -79,17 +78,62 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedForce = Vector2.zero;
         Vector2 combinedImpulse = Vector2.zero;
 
+        #region slopedetection
+        bool standingOnSlope = false;
+        float slopeAngle = 0;
+        RaycastHit2D leftRC = Physics2D.Raycast(new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y), Vector2.down, _groundCollider.size.y, _slopeCollisionMask);
+        RaycastHit2D rightRC = Physics2D.Raycast(new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y), Vector2.down, _groundCollider.size.y, _slopeCollisionMask);
 
-        combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
+        Debug.DrawLine(new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y), new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y) + Vector2.down * _groundCollider.size.y, Color.red);
+        Debug.DrawLine(new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y), new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y) + Vector2.down * _groundCollider.size.y, Color.red);
+
+        float leftAngle = 0;
+        float rightAngle = 0;
+
+        if (leftRC.collider != null)
+            leftAngle = Vector2.SignedAngle(Vector2.up, leftRC.normal);
+
+        if (rightRC.collider != null)
+            rightAngle = Vector2.SignedAngle(Vector2.up, rightRC.normal);
+
+        if(leftAngle != 0)
+        {
+            standingOnSlope = true;
+            slopeAngle = leftAngle;
+        }
+        else if(rightAngle != 0)
+        {
+            standingOnSlope = true;
+            slopeAngle = rightAngle;
+        }
+        #endregion
+
+
+        if (!standingOnSlope)
+        {
+            combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
+        }
+        else if (standingOnSlope)
+        {
+            Vector2 forceToUse = new Vector2();
+            forceToUse.x = _horizontalValue * _horizontalForce * Mathf.Cos(slopeAngle * Mathf.Deg2Rad);
+            forceToUse.y = _horizontalValue * _horizontalForce * Mathf.Sin(slopeAngle * Mathf.Deg2Rad);
+            if (forceToUse.y > 0)//går uppför
+                forceToUse.y *= slopeUpwardsMultiplier;
+
+            combinedForce += forceToUse;
+            Debug.Log("StandingOnSloep" + forceToUse);
+        }
+
+
 
         if (_isJumping && _jumpDuration.IsActive)
         {
             combinedImpulse += new Vector2(0, _jumpImpulse);
-
         }
 
-        _rigidbody2D.AddRelativeForce(combinedImpulse * (_isFlipped ? -1 : 1), ForceMode2D.Impulse);
-        _rigidbody2D.AddRelativeForce(combinedForce * (_isFlipped ? -1 : 1));
+        _rigidbody2D.AddForce(combinedImpulse, ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(combinedForce);
         Drag();
     }
 
