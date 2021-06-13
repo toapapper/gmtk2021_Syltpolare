@@ -7,16 +7,39 @@ public class Socket : MonoBehaviour
     public bool occupiced = false;
     public Collider2D occupiedBy;
 
+    private void Start()
+    {
+        StartCoroutine(onCoroutine());
+    }
+    IEnumerator onCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            if (occupiedBy == null)
+            {
+                occupiced = false;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (occupiced == false)
         {
-            if (collision.gameObject.tag == "Plug" && occupiedBy != collision && occupiedBy == null)
+            if (collision.gameObject.tag == "Plug")
             {
                 collision.gameObject.GetComponent<Plug>().Destination = transform.position;
                 collision.gameObject.GetComponent<Plug>().attracted = true;
                 occupiedBy = collision;
                 occupiced = true;
+            }
+        }
+        else if (occupiced == true)
+        {
+            if (collision == occupiedBy)
+            {
+
             }
         }
     }
@@ -30,9 +53,9 @@ public class Socket : MonoBehaviour
                 occupiced = false;
             }
         }
-        if (occupiced == false)
+        if (occupiedBy == null)
         {
-            occupiedBy = null;
+            occupiced = false;
         }
     }
 

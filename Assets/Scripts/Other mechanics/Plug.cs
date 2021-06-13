@@ -29,11 +29,11 @@ public class Plug : MonoBehaviour
         }
         if (pluggedIn == true && !Possess.Contains(transform.root.gameObject))
         {
-            //Possess.Add(transform.root.gameObject);
+            Possess.Add(transform.root.gameObject);
         }
         else if (pluggedIn == false && Possess.Contains(transform.root.gameObject))
         {
-            //Possess.Remove(transform.root.gameObject);
+            Possess.Remove(transform.root.gameObject);
         }
 
         
@@ -46,7 +46,7 @@ public class Plug : MonoBehaviour
     {
         rigidbody.gravityScale = 0;
         rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
-        if (Mathf.Abs(Destination.x - transform.position.x) < 0.05)
+        if (Mathf.Abs(Destination.x - transform.position.x) < 0.2 && Mathf.Abs(Destination.y - transform.position.y) < 0.2)
         {
             rigidbody.MovePosition(Destination);
             Plugged();

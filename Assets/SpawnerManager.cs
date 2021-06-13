@@ -5,14 +5,13 @@ using UnityEngine;
 public class SpawnerManager : MonoBehaviour
 {
     public List<GameObject> robots;
-    public List<GameObject> robotTypes;
     public List<GameObject> unlockedRobots;
     GameObject[] allInScene;
     float poweredRobots;
     Spawner lastCheckpoint;
-    GameObject smallRobot;
-    GameObject bigRobot;
-    GameObject reverseRobot;
+    public GameObject smallRobot;
+    public GameObject bigRobot;
+    public GameObject reverseRobot;
     float timer = 0;
     float time = 5;
     public SceneLoaderAndController sceneLoaderAndController;
@@ -28,8 +27,9 @@ public class SpawnerManager : MonoBehaviour
         {
             listOfSpawners.Add(child.gameObject.GetComponent<Spawner>());
         }
-        unlockedRobots = robotTypes;
-
+        unlockedRobots.Add(smallRobot);
+        unlockedRobots.Add(bigRobot);
+        unlockedRobots.Add(reverseRobot);
     }
 
     // Update is called once per frame
@@ -73,18 +73,18 @@ public class SpawnerManager : MonoBehaviour
 
         if (currentSpawner != null)
         {
-            if (robotTypes[0] != null && unlockedRobots.Contains(robotTypes[0]) && robots[0] == null)
+            if (unlockedRobots.Contains(smallRobot) && robots[1] == null)
             {
-                CallSpawner(robotTypes[0], 0);
+                CallSpawner(smallRobot, 1);
             }
-            if (robotTypes[2] != null && unlockedRobots.Contains(robotTypes[1]) && robots[1] == null)
+            if (unlockedRobots.Contains(bigRobot) && robots[0] == null)
             {
-                CallSpawner(robotTypes[1], 1);
+                CallSpawner(bigRobot, 0);
             }
-            //if (robotTypes[3] != null && unlockedRobots.Contains(robotTypes[3]) && !robots.Contains(robotTypes[3]))
-            //{
-            //    CallSpawner(robotTypes[3]);
-            //}
+            if (unlockedRobots.Contains(reverseRobot) && robots[2] == null)
+            {
+                CallSpawner(reverseRobot, 2);
+            }
         }
     }
     void CallSpawner(GameObject botToSpawn, int spawnIndex)
