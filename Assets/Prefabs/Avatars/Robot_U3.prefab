@@ -739,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pluggedIn: 0
-  type: TallRobot
+  type: BigRobot
 --- !u!114 &3738187039458794329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 44950
+  m_InstanceId: 50002
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
