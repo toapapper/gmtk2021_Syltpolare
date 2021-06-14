@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6666785148126459816}
   - component: {fileID: 6878161246129770311}
+  - component: {fileID: 7715677703234253307}
   - component: {fileID: 3034501728915922730}
   m_Layer: 0
   m_Name: Robot - GroundCollider
@@ -310,6 +311,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53, y: 0.32832864}
   m_EdgeRadius: 0
+--- !u!114 &7715677703234253307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4519505669300229266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7344f9780f7afe24f89cbab7444320a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 384
+  _groundCheckEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3034501728915922730}
+        m_TargetAssemblyTypeName: MoveParticles, Assembly-CSharp
+        m_MethodName: OnGround
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8514874743555079423}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnGround
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3034501728915922730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 8761796232609146132}
-  _mainGameObject: {fileID: 5995106986398497682}
 --- !u!1 &5995106986398497682
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +658,7 @@ MonoBehaviour:
     m_Bits: 384
   slopeUpwardsMultiplier: 2.5
   _fallDrag: 0.01
-  flipped: 0
+  _isFlipped: 0
 --- !u!114 &8923350234285715272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,7 +776,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 351066
+  m_InstanceId: 30240
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

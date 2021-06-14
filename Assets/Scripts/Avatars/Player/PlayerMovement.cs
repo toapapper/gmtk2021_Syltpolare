@@ -22,8 +22,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
-    
-    
+    [SerializeField] private bool _isFlipped;
+
+
     private Rigidbody2D _rigidbody2D;
     private RigidbodyStack _rigidbodyStack;
 
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float _horizontalValue;
     private bool _isJumping;
-    [SerializeField] private bool _isFlipped;
+    private bool _isGrounded;
 
     public void OnMoveHorizontal(InputContext context)
     {
@@ -47,21 +48,29 @@ public class PlayerMovement : MonoBehaviour
             case InputContext.InputState.Performed:
                 if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
                 {
-                    Collider2D[] colliders2D = Physics2D.OverlapBoxAll(_groundCollider.transform.position, _groundCollider.size, 0, _groundCollisionMask);
-
-                    for (int i = 0; i < colliders2D.Length; i++)
+                    if (_isGrounded)
                     {
-                        if (colliders2D[i].gameObject != gameObject)
-                        {
-                            _jumpDuration = new Duration(_jumpTime);
-                            _isJumping = true;
-                        }
+                        _jumpDuration = new Duration(_jumpTime);
+                        _isJumping = true;
                     }
                 }
 
                 break;
             default:
                 _isJumping = false;
+                break;
+        }
+    }
+
+    public void OnGround(GroundCheck.TriggerState state, Collider2D collision)
+    {
+        switch (state)
+        {
+            case GroundCheck.TriggerState.Grounded:
+                _isGrounded = true;
+                break;
+            case GroundCheck.TriggerState.Elevation:
+                _isGrounded = false;
                 break;
         }
     }
@@ -122,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
                 forceToUse.y *= slopeUpwardsMultiplier;
 
             combinedForce += forceToUse;
-            Debug.Log("StandingOnSloep" + forceToUse);
         }
 
 
@@ -132,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
             combinedImpulse += new Vector2(0, _jumpImpulse);
         }
 
-        //_rigidbody2D.AddRelativeForce(combinedImpulse * (_isFlipped ? -1 : 1), ForceMode2D.Impulse);
         _rigidbody2D.AddRelativeForce(combinedImpulse , ForceMode2D.Impulse);
         _rigidbody2D.AddRelativeForce(combinedForce * (_isFlipped ? -1 : 1));
         Drag();

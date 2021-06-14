@@ -46,7 +46,7 @@ public class pickUpScript : MonoBehaviour
     {
         if (Possess.GetCurrentPossessed != player || context.State == InputContext.InputState.Canceled)
             return;
-        
+
         if(heldItem != null)
         {
             heldItemRB.velocity = currentDiffVector.normalized * throwSpeed;
@@ -57,7 +57,6 @@ public class pickUpScript : MonoBehaviour
         {
             foreach(GameObject gobj in mousedOverDynamicObstacles)
             {
-                Debug.Log("PUSH");
                 gobj.GetComponent<Rigidbody2D>().AddForce(currentDiffVector.normalized * pushForce);
             }
         }
@@ -66,7 +65,7 @@ public class pickUpScript : MonoBehaviour
     public void PickUpGo(GameObject go)
     {
         if (heldItem != null || Possess.GetCurrentPossessed != player)
-            return; 
+            return;
 
         heldItem = go;
         heldItem.GetComponent<Plug>().held = true;
@@ -80,7 +79,7 @@ public class pickUpScript : MonoBehaviour
     {
         ReleaseItemPrivate();
     }
-    
+
     private void ReleaseItemPrivate()
     {
         if (heldItem == null)
@@ -160,7 +159,7 @@ public class pickUpScript : MonoBehaviour
         Vector2 pos = _camera.ScreenToWorldPoint(playerScreenPos + diffVector);
         transform.position = pos;
         #endregion
-        
+
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(diffVector.y, diffVector.x) * Mathf.Rad2Deg);
 
         if (heldItem != null)
