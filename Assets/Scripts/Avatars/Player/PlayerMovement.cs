@@ -15,12 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpDrag = 0.1f;
     [SerializeField] private float _jumpTime = 0.5f;
     [SerializeField] private int _bodiesOnTopLimit = 1;
-    //[SerializeField] private BoxCollider2D _groundCollider;
-    [SerializeField] private LayerMask _groundMask;
 
-    //private LayerMask _slopeCollisionMask;
-    //[SerializeField] private float slopeUpwardsMultiplier = 2.5f;
     [Header("Slope")]
+    [SerializeField] private LayerMask _groundMask;
     [SerializeField] private float _slopeCheckDistance;
 
     [Header("Fall")]
@@ -37,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private Duration _jumpDuration;
 
     private float _slopeDownAngle;
+    private float _slopeSideAngle;
     private float _slopeDownAngleOld;
     private float _horizontalValue;
     private bool _isOnSlope;
@@ -89,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbodyStack = GetComponent<RigidbodyStack>();
-        //_slopeCollisionMask = LayerMask.GetMask("StaticObstacle");
 
         _colliderSize = _collider.size;
     }
@@ -100,52 +97,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedImpulse = Vector2.zero;
 
         Vector2 position = transform.position;
-
-        //        #region Slope Detection
-        //        bool standingOnSlope = false;
-        //        float slopeAngle = 0;
-        //        RaycastHit2D leftRC = Physics2D.Raycast(new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y), Vector2.down, _groundCollider.size.y, _slopeCollisionMask);
-        //        RaycastHit2D rightRC = Physics2D.Raycast(new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y), Vector2.down, _groundCollider.size.y, _slopeCollisionMask);
-        //#if UNITY_EDITOR
-        //        Debug.DrawLine(new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y), new Vector2(_groundCollider.bounds.min.x, _groundCollider.bounds.max.y) + Vector2.down * _groundCollider.size.y, Color.red);
-        //        Debug.DrawLine(new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y), new Vector2(_groundCollider.bounds.max.x, _groundCollider.bounds.max.y) + Vector2.down * _groundCollider.size.y, Color.red);
-        //#endif
-        //        float leftAngle = 0;
-        //        float rightAngle = 0;
-
-        //        if (leftRC.collider != null)
-        //            leftAngle = Vector2.SignedAngle(Vector2.up, leftRC.normal);
-
-        //        if (rightRC.collider != null)
-        //            rightAngle = Vector2.SignedAngle(Vector2.up, rightRC.normal);
-
-        //        if(leftAngle != 0)
-        //        {
-        //            standingOnSlope = true;
-        //            slopeAngle = leftAngle;
-        //        }
-        //        else if(rightAngle != 0)
-        //        {
-        //            standingOnSlope = true;
-        //            slopeAngle = rightAngle;
-        //        }
-        //        #endregion
-
-
-        //if (!standingOnSlope)
-        //{
-        //    combinedForce += new Vector2(_horizontalValue * _horizontalForce, 0);
-        //}
-        //else if (standingOnSlope)
-        //{
-        //    Vector2 forceToUse = new Vector2();
-        //    forceToUse.x = _horizontalValue * _horizontalForce * Mathf.Cos(slopeAngle * Mathf.Deg2Rad);
-        //    forceToUse.y = _horizontalValue * _horizontalForce * Mathf.Sin(slopeAngle * Mathf.Deg2Rad);
-        //    if (forceToUse.y > 0)//går uppför
-        //        forceToUse.y *= slopeUpwardsMultiplier;
-
-        //    combinedForce += forceToUse;
-        //}
 
         SlopeCheck(position);
 
@@ -184,18 +135,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void SlopeCheck(Vector2 position)
     {
-        //Vector2 checkPosition = position - new Vector2(0.0f, _colliderSize.y / 2);
+        // Takes movement direction into account and checks in front of the collider.
         Vector2 checkPosition = ((_horizontalValue >= 0) ?
             position + new Vector2(_colliderSize.x / 2, 0) :
             position - new Vector2(_colliderSize.x / 2, 0))
             - new Vector2(0.0f, _colliderSize.y / 2);
 
+        SlopeCheckHorizontal(checkPosition);
         SlopeCheckVertical(checkPosition);
     }
 
     private void SlopeCheckHorizontal(Vector2 checkPosition)
     {
+        Vector2 right = transform.right;
+        RaycastHit2D slopeHitFront = Physics2D.Raycast(checkPosition, right, _slopeCheckDistance, _groundMask);
+        RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPosition, -right, _slopeCheckDistance, _groundMask);
 
+        if (slopeHitFront)
+        {
+            _isOnSlope = true;
+            _slopeSideAngle = Vector2.Angle(slopeHitFront.normal, Vector2.up);
+        }
+        else if (slopeHitBack)
+        {
+            _isOnSlope = true;
+            _slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
+        }
+        else
+        {
+            _isOnSlope = false;
+            _slopeSideAngle = 0.0f;
+        }
     }
 
     private void SlopeCheckVertical(Vector2 checkPosition)
