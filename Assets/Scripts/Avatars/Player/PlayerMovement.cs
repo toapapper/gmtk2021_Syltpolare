@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slope")]
     [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private int _leftIndexPoint;
+    [SerializeField] private int _rightIndexPoint;
     [SerializeField] private float _slopeCheckDistance = 0.5f;
     [SerializeField] private float _maxSlopeAngle;
     [SerializeField] private PhysicsMaterial2D _defaultFricition;
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveHorizontal(InputContext context)
     {
-        if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
+        if (_rigidbodyStack.Stack.StackedCount <= _bodiesOnTopLimit)
             _horizontalValue = context.Value;
         else
             _horizontalValue = 0;
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
+                if (_rigidbodyStack.Stack.StackedCount <= _bodiesOnTopLimit)
                 {
                     if (_isGrounded && _canWalkOnSlope)
                     {
@@ -94,8 +96,8 @@ public class PlayerMovement : MonoBehaviour
         _rigidbodyStack = GetComponent<RigidbodyStack>();
 
         Vector2[] points = _polyCollider.points;
-        _point1 = points[5];
-        _point2 = points[6];
+        _point1 = points[_leftIndexPoint];
+        _point2 = points[_rightIndexPoint];
     }
 
     private void FixedUpdate()
@@ -189,8 +191,10 @@ public class PlayerMovement : MonoBehaviour
 
             _slopeDownAngleOld = _slopeDownAngle;
 
+#if UNITY_EDITOR
             Debug.DrawRay(hit.point, _slopeNormalPerpendicular, Color.red);
             Debug.DrawRay(hit.point, hit.normal, Color.green);
+#endif
         }
 
         _canWalkOnSlope = _slopeDownAngle <= _maxSlopeAngle;

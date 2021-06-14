@@ -246,7 +246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6487ebdfa2aaba41a16d53a9d640f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbodyStack: {fileID: 4819487099641606967}
   _target: {fileID: 1146619912999057654}
   _possessColor: {r: 0.015686275, g: 1, b: 0.8980393, a: 1}
   _notPossessColor: {r: 0, g: 0, b: 0, a: 1}
@@ -298,7 +297,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05916433}
+  m_Offset: {x: 0, y: -0.052532613}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -309,7 +308,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.53, y: 0.32832864}
+  m_Size: {x: 0.39, y: 0.16326344}
   m_EdgeRadius: 0
 --- !u!114 &7715677703234253307
 MonoBehaviour:
@@ -663,6 +662,8 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
+  _leftIndexPoint: 5
+  _rightIndexPoint: 6
   _slopeCheckDistance: 0.5
   _maxSlopeAngle: 45
   _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
@@ -686,8 +687,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8596179144718848936}
         m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
-        m_MethodName: OnEyeColorChange
-        m_Mode: 0
+        m_MethodName: OnPossessChange
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -724,6 +725,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _changedStackEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8596179144718848936}
+        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
+        m_MethodName: OnStackChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5218119415158847278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,7 +802,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46134
+  m_InstanceId: 74102
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

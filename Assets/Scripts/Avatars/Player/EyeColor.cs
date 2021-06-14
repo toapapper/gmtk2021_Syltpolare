@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class EyeColor : MonoBehaviour
 {
-    [SerializeField] private RigidbodyStack _rigidbodyStack;
     [SerializeField] private SpriteRenderer _target;
     [SerializeField] private Color _possessColor = Color.white;
     [SerializeField] private Color _notPossessColor = Color.white;
     [SerializeField] private Color _cannotMoveColor = Color.white;
     [SerializeField] private int _bodiesOnTopLimit = 1;
 
-    public void OnEyeColorChange()
+    RigidbodyStack.BodyStack _bodyStack;
+
+    public void OnPossessChange()
+    {
+        ChangeEyeColor();
+    }
+
+    public void OnStackChange(RigidbodyStack.BodyStack bodyStack)
+    {
+        _bodyStack = bodyStack;
+
+        ChangeEyeColor();
+    }
+
+    private void ChangeEyeColor()
     {
         if (Possess.GetCurrentPossessed == transform.parent.gameObject)
         {
-            if (_rigidbodyStack.Count > _bodiesOnTopLimit)
+            if (_bodyStack.StackedCount > _bodiesOnTopLimit)
                 _target.color = _cannotMoveColor;
             else
                 _target.color = _possessColor;

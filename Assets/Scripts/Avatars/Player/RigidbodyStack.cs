@@ -2,56 +2,58 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class RigidbodyStack : MonoBehaviour
 {
-    public int Count => _count;
-    private float StackedForces => _stackedForces;
+    public BodyStack Stack => _bodyStack;
+
+    [SerializeField] private UnityEvent<BodyStack> _changedStackEvent;
 
     private Rigidbody2D _rigidbody;
     private List<RigidbodyStack> _underObject = new List<RigidbodyStack>();
     private List<RigidbodyStack> _overObjects = new List<RigidbodyStack>();
 
-    private int _count;
-    private float _stackedForces;
+    private BodyStack _bodyStack;
 
-    public (int, float) GetRecursiveUpData()
+    public struct BodyStack
     {
-        int count = 0;
-        float stackedForces = 0;
-
-        for (int i = 0; i < _overObjects.Count; i++)
-        {
-            (int, float) data = _overObjects[i].GetRecursiveUpData();
-            count += data.Item1;
-            stackedForces += data.Item2;
-        }
-
-        _count = count;
-        _stackedForces = stackedForces;
-
-        count += 1;
-        stackedForces += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
-
-        return (count, stackedForces);
+        public int StackedCount;
+        public float StackedForce;
     }
 
-    public void GetRecursiveDownData(int count, float stackedForces, bool init)
+    public BodyStack GetRecursiveUpData()
+    {
+        BodyStack bodyStack = new BodyStack { };
+
+        for (int i = 0; i < _overObjects.Count; i++)
+            bodyStack = _overObjects[i].GetRecursiveUpData();
+
+        _bodyStack = bodyStack;
+
+        bodyStack.StackedCount += 1;
+        bodyStack.StackedForce += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+
+        _changedStackEvent.Invoke(_bodyStack);
+
+        return bodyStack;
+    }
+
+    public void GetRecursiveDownData(BodyStack bodyStack, bool init)
     {
         if (!init)
         {
-            _count = count;
-            _stackedForces = stackedForces;
+            _bodyStack = bodyStack;
 
-            count += 1;
-            stackedForces += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+            bodyStack.StackedCount += 1;
+            bodyStack.StackedForce += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
         }
 
         for (int i = 0; i < _underObject.Count; i++)
-        {
-            _underObject[i].GetRecursiveDownData(count, stackedForces, false);
-        }
+            _underObject[i].GetRecursiveDownData(bodyStack, false);
+
+        _changedStackEvent.Invoke(_bodyStack);
     }
 
     private void Start()
@@ -71,8 +73,8 @@ public class RigidbodyStack : MonoBehaviour
 
                 _overObjects.Add(rigidbodyStack);
                 rigidbodyStack._underObject.Add(this);
-                (int, float) data = GetRecursiveUpData();
-                GetRecursiveDownData(data.Item1, data.Item2, true);
+                BodyStack bodyStack = GetRecursiveUpData();
+                GetRecursiveDownData(bodyStack, true);
             }
         }
     }
@@ -87,8 +89,8 @@ public class RigidbodyStack : MonoBehaviour
             {
                 _overObjects.Remove(rigidbodyStack);
                 rigidbodyStack._underObject.Remove(this);
-                (int, float) data = GetRecursiveUpData();
-                GetRecursiveDownData(data.Item1, data.Item2, true);
+                BodyStack bodyStack = GetRecursiveUpData();
+                GetRecursiveDownData(bodyStack, true);
             }
         }
     }
