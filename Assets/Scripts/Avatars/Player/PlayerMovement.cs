@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Celezt.Times;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(RigidbodyStack))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PolygonCollider2D), typeof(RigidbodyStack))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Move")]
@@ -27,12 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _fallDrag = 0.01f;
     [SerializeField] private bool _isFlipped;
 
-    private BoxCollider2D _collider;
     private Rigidbody2D _rigidbody;
     private RigidbodyStack _rigidbodyStack;
+    private PolygonCollider2D _polyCollider;
 
-    private Vector2 _colliderSize;
     private Vector2 _slopeNormalPerpendicular;
+    private Vector2 _point1;
+    private Vector2 _point2;
 
     private Duration _jumpDuration;
 
@@ -88,11 +89,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        _collider = GetComponent<BoxCollider2D>();
+        _polyCollider = GetComponent<PolygonCollider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbodyStack = GetComponent<RigidbodyStack>();
 
-        _colliderSize = _collider.size;
+        Vector2[] points = _polyCollider.points;
+        _point1 = points[5];
+        _point2 = points[6];
     }
 
     private void FixedUpdate()
@@ -104,11 +107,11 @@ public class PlayerMovement : MonoBehaviour
 
         SlopeCheck(position);
 
-        if (_isGrounded && !_isOnSlope && !_isJumping)
+        if (_isGrounded && !_isOnSlope)
         {
             combinedForce += new Vector2(_horizontalValue * _horizontalForceGrounded, 0);
         }
-        else if (_isGrounded && _isOnSlope && !_isJumping && _canWalkOnSlope)
+        else if (_isGrounded && _isOnSlope && _canWalkOnSlope)
         {
             combinedForce += new Vector2(-_horizontalValue * _horizontalForceGrounded * _slopeNormalPerpendicular.x, -_horizontalValue * _horizontalForceGrounded * _slopeNormalPerpendicular.y);
         }
@@ -139,9 +142,8 @@ public class PlayerMovement : MonoBehaviour
     {
         // Takes movement direction into account and checks in front of the collider.
         Vector2 checkPosition = ((_horizontalValue >= 0) ?
-            position + new Vector2(_colliderSize.x / 2, 0) :
-            position - new Vector2(_colliderSize.x / 2, 0))
-            - new Vector2(0.0f, _colliderSize.y / 2);
+            position - new Vector2(_point1.x, -_point1.y) :
+            position - new Vector2(_point2.x, -_point2.y));
 
         SlopeCheckHorizontal(checkPosition);
         SlopeCheckVertical(checkPosition);
@@ -172,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SlopeCheckVertical(Vector2 checkPosition)
     {
-        RaycastHit2D hit = Physics2D.Raycast(checkPosition, Vector2.down, _slopeCheckDistance, _groundMask);
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, -transform.up, _slopeCheckDistance, _groundMask);
 
         if (hit)
         {
@@ -181,7 +183,9 @@ public class PlayerMovement : MonoBehaviour
             _slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
 
             if (_slopeDownAngle != _slopeDownAngleOld)
+            {
                 _isOnSlope = true;
+            }
 
             _slopeDownAngleOld = _slopeDownAngle;
 
