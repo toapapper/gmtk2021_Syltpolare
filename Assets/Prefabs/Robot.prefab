@@ -452,7 +452,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -646,7 +646,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f368e851c906f46b76fd2c70f1dd1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalForce: 4000
+  _horizontalForceGrounded: 4000
+  _horizontalForceElevation: 3000
   _horizontalDrag: 0.1
   _jumpImpulse: 240
   _jumpDrag: 0.1
@@ -656,6 +657,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _slopeCheckDistance: 0.5
+  _maxSlopeAngle: 45
+  _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
+  _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
   _isFlipped: 0
 --- !u!114 &8923350234285715272

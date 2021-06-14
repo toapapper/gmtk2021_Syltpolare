@@ -18,7 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slope")]
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private float _slopeCheckDistance;
+    [SerializeField] private float _slopeCheckDistance = 0.5f;
+    [SerializeField] private float _maxSlopeAngle;
+    [SerializeField] private PhysicsMaterial2D _defaultFricition;
+    [SerializeField] private PhysicsMaterial2D _slopeFriction;
 
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
@@ -40,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _isOnSlope;
     private bool _isJumping;
     private bool _isGrounded;
+    private bool _canWalkOnSlope;
 
     public void OnMoveHorizontal(InputContext context)
     {
@@ -55,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
             case InputContext.InputState.Performed:
                 if (_rigidbodyStack.Count <= _bodiesOnTopLimit)
                 {
-                    if (_isGrounded)
+                    if (_isGrounded && _canWalkOnSlope)
                     {
                         _jumpDuration = new Duration(_jumpTime);
                         _isJumping = true;
@@ -100,11 +104,11 @@ public class PlayerMovement : MonoBehaviour
 
         SlopeCheck(position);
 
-        if (_isGrounded && !_isOnSlope)
+        if (_isGrounded && !_isOnSlope && !_isJumping)
         {
             combinedForce += new Vector2(_horizontalValue * _horizontalForceGrounded, 0);
         }
-        else if (_isGrounded && _isOnSlope)
+        else if (_isGrounded && _isOnSlope && !_isJumping && _canWalkOnSlope)
         {
             combinedForce += new Vector2(-_horizontalValue * _horizontalForceGrounded * _slopeNormalPerpendicular.x, -_horizontalValue * _horizontalForceGrounded * _slopeNormalPerpendicular.y);
         }
@@ -112,8 +116,6 @@ public class PlayerMovement : MonoBehaviour
         {
             combinedForce += new Vector2(_horizontalValue * _horizontalForceElevation, 0);
         }
-
-
 
         if (_isJumping && _jumpDuration.IsActive)
         {
@@ -186,5 +188,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(hit.point, _slopeNormalPerpendicular, Color.red);
             Debug.DrawRay(hit.point, hit.normal, Color.green);
         }
+
+        _canWalkOnSlope = _slopeDownAngle <= _maxSlopeAngle;
+
+        // Change friction.
+        if (_isOnSlope && _horizontalValue == 0.0f && _canWalkOnSlope)
+            _rigidbody.sharedMaterial = _slopeFriction;
+        else
+            _rigidbody.sharedMaterial = _defaultFricition;
     }
 }
