@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         _polyCollider = GetComponent<PolygonCollider2D>();
         _rigidbody = GetComponent<Rigidbody2D>();
