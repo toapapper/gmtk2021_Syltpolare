@@ -652,11 +652,10 @@ MonoBehaviour:
   _jumpDrag: 0.1
   _jumpTime: 0.3
   _bodiesOnTopLimit: 1
-  _groundCollider: {fileID: 6878161246129770311}
-  _groundCollisionMask:
+  _groundMask:
     serializedVersion: 2
-    m_Bits: 384
-  slopeUpwardsMultiplier: 2.5
+    m_Bits: 128
+  _slopeCheckDistance: 0.5
   _fallDrag: 0.01
   _isFlipped: 0
 --- !u!114 &8923350234285715272
