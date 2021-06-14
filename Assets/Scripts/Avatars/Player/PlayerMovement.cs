@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpImpulse = 200;
     [SerializeField] private float _jumpDrag = 0.1f;
     [SerializeField] private float _jumpTime = 0.5f;
-    [SerializeField] private int _bodiesOnTopLimit = 1;
+    [SerializeField] private float _massLimit = 159.0f;
 
     [Header("Slope")]
     [SerializeField] private LayerMask _groundMask;
@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveHorizontal(InputContext context)
     {
-        if (_rigidbodyStack.Stack.StackedCount <= _bodiesOnTopLimit)
+        if (_rigidbodyStack.Stack.StackedMass <= _massLimit)
             _horizontalValue = context.Value;
         else
             _horizontalValue = 0;
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         switch (context.State)
         {
             case InputContext.InputState.Performed:
-                if (_rigidbodyStack.Stack.StackedCount <= _bodiesOnTopLimit)
+                if (_rigidbodyStack.Stack.StackedMass <= _massLimit)
                 {
                     if (_isGrounded && _canWalkOnSlope)
                     {

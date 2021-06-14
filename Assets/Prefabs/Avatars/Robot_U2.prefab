@@ -250,7 +250,7 @@ MonoBehaviour:
   _possessColor: {r: 0.015686275, g: 1, b: 0.8980393, a: 1}
   _notPossessColor: {r: 0, g: 0, b: 0, a: 1}
   _cannotMoveColor: {r: 1, g: 0, b: 0.6169982, a: 1}
-  _bodiesOnTopLimit: 1
+  _massLimit: 159
 --- !u!1 &4519505669300229266
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 5218119415158847278}
   - component: {fileID: 3738187039458794329}
   m_Layer: 8
-  m_Name: Robot
+  m_Name: Robot_U2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,14 +658,14 @@ MonoBehaviour:
   _jumpImpulse: 240
   _jumpDrag: 0.1
   _jumpTime: 0.3
-  _bodiesOnTopLimit: 1
+  _massLimit: 159
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
   _leftIndexPoint: 5
   _rightIndexPoint: 6
   _slopeCheckDistance: 0.5
-  _maxSlopeAngle: 45
+  _maxSlopeAngle: 50
   _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
   _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
@@ -802,7 +802,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 74102
+  m_InstanceId: 30864
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

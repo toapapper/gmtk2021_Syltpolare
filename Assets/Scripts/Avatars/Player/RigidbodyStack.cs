@@ -20,7 +20,7 @@ public class RigidbodyStack : MonoBehaviour
     public struct BodyStack
     {
         public int StackedCount;
-        public float StackedForce;
+        public float StackedMass;
     }
 
     public BodyStack GetRecursiveUpData()
@@ -33,7 +33,7 @@ public class RigidbodyStack : MonoBehaviour
         _bodyStack = bodyStack;
 
         bodyStack.StackedCount += 1;
-        bodyStack.StackedForce += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+        bodyStack.StackedMass += _rigidbody.mass;
 
         _changedStackEvent.Invoke(_bodyStack);
 
@@ -47,7 +47,7 @@ public class RigidbodyStack : MonoBehaviour
             _bodyStack = bodyStack;
 
             bodyStack.StackedCount += 1;
-            bodyStack.StackedForce += Mathf.Abs(_rigidbody.mass * Physics.gravity.y);
+            bodyStack.StackedMass += _rigidbody.mass;
         }
 
         for (int i = 0; i < _underObject.Count; i++)

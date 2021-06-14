@@ -8,7 +8,7 @@ public class EyeColor : MonoBehaviour
     [SerializeField] private Color _possessColor = Color.white;
     [SerializeField] private Color _notPossessColor = Color.white;
     [SerializeField] private Color _cannotMoveColor = Color.white;
-    [SerializeField] private int _bodiesOnTopLimit = 1;
+    [SerializeField] private float _massLimit = 159.0f;
 
     RigidbodyStack.BodyStack _bodyStack;
 
@@ -28,7 +28,7 @@ public class EyeColor : MonoBehaviour
     {
         if (Possess.GetCurrentPossessed == transform.parent.gameObject)
         {
-            if (_bodyStack.StackedCount > _bodiesOnTopLimit)
+            if (_bodyStack.StackedMass > _massLimit)
                 _target.color = _cannotMoveColor;
             else
                 _target.color = _possessColor;
