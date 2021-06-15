@@ -418,7 +418,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5995106986398497682}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -458,7 +458,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
+  m_Material: {fileID: 6200000, guid: acab04910b721f046bf659fe79da9b95, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -670,6 +670,7 @@ MonoBehaviour:
   _ledgeCheckDistance: 0.5
   _maxSlopeAngle: 50
   _ledgeForce: {x: 3000, y: 3000}
+  _UseModifiedPhysicsMaterial: 0
   _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
   _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
@@ -806,7 +807,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 33258
+  m_InstanceId: 61064
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +965,7 @@ GameObject:
   - component: {fileID: 6279520186718294208}
   - component: {fileID: 8761796232609146132}
   - component: {fileID: 1940022589029544137}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Robot - WheelDustParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

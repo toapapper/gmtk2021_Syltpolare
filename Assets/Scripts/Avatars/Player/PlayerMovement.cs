@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Celezt.Times;
+using MyBox;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PolygonCollider2D), typeof(RigidbodyStack))]
 public class PlayerMovement : MonoBehaviour
@@ -26,8 +28,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _ledgeCheckDistance = 0.5f;
     [SerializeField] private float _maxSlopeAngle;
     [SerializeField] private Vector2 _ledgeForce = new Vector2(3000, 3000);
-    [SerializeField] private PhysicsMaterial2D _defaultFricition;
-    [SerializeField] private PhysicsMaterial2D _slopeFriction;
+    [SerializeField] private bool _UseModifiedPhysicsMaterial;
+    [SerializeField, ConditionalField(nameof(_UseModifiedPhysicsMaterial))] private PhysicsMaterial2D _defaultFricition;
+    [SerializeField, ConditionalField(nameof(_UseModifiedPhysicsMaterial))] private PhysicsMaterial2D _slopeFriction;
 
     [Header("Fall")]
     [SerializeField] private float _fallDrag = 0.01f;
@@ -59,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMoveHorizontal(InputContext context)
     {
-        if (_rigidbodyStack.Stack.StackedMass <= _massLimit)
+        if (_rigidbodyStack != null && _rigidbodyStack.Stack.StackedMass <= _massLimit)
             _horizontalValue = context.Value;
         else
             _horizontalValue = 0;
@@ -206,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(checkPosition, -up, _slopeCheckDistance, _groundMask);
 
-        if (hit)
+        if (hit && hit.transform.gameObject != gameObject)
         {
             _isSlopeHit = true;
 
@@ -231,22 +234,24 @@ public class PlayerMovement : MonoBehaviour
 
         _canWalkOnSlope = _slopeDownAngle <= _maxSlopeAngle;
 
-        // Change friction.
-        if (_isOnSlope && _horizontalValue == 0.0f && _canWalkOnSlope)
-            _rigidbody.sharedMaterial = _slopeFriction;
-        else
-            _rigidbody.sharedMaterial = _defaultFricition;
+        if (_UseModifiedPhysicsMaterial)
+        {
+            if (_isOnSlope && _horizontalValue == 0.0f && _canWalkOnSlope)
+                _rigidbody.sharedMaterial = _slopeFriction;
+            else
+                _rigidbody.sharedMaterial = _defaultFricition;
+        }
     }
 
     private void EdgeCheckVertical(Vector3 position, Vector2 checkPosition, Vector2 up)
     {
         RaycastHit2D hit = Physics2D.Raycast(checkPosition, -up, _ledgeCheckDistance, _groundMask);
 
-        if (hit)
+        if (hit && hit.transform.gameObject != gameObject)
         {
             _isOnLedge = !_isSlopeHit;
 
-            if (_isOnLedge && _horizontalValue != 0) // Push up if on a edge.
+            if (_isOnLedge && _horizontalValue != 0 && !_isJumping) // Push if on a ledge.
                 _rigidbody.AddForce(new Vector2((_isLookingLeft ? _ledgeForce.x : -_ledgeForce.x), _ledgeForce.y));
 
 #if UNITY_EDITOR

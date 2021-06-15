@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &559424223
 SpriteRenderer:
@@ -153,7 +153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1146619912999057654
 SpriteRenderer:
@@ -251,6 +251,80 @@ MonoBehaviour:
   _notPossessColor: {r: 0, g: 0, b: 0, a: 1}
   _cannotMoveColor: {r: 1, g: 0, b: 0.6169982, a: 1}
   _massLimit: 159
+--- !u!1 &3710389295694699401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8208712814540442215}
+  - component: {fileID: 8449575355386211986}
+  - component: {fileID: 1848987664535276247}
+  m_Layer: 8
+  m_Name: Robot - PushArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8208712814540442215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710389295694699401}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5995106986398497681}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8449575355386211986
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710389295694699401}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06920743}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.32092553, y: 0.36158514}
+  m_EdgeRadius: 0
+--- !u!114 &1848987664535276247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710389295694699401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78232ce269e0af740807b992cca048a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: {x: 10000, y: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!1 &4519505669300229266
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +356,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6878161246129770311
 BoxCollider2D:
@@ -383,7 +457,7 @@ GameObject:
   - component: {fileID: 4819487099641606967}
   - component: {fileID: 5218119415158847278}
   - component: {fileID: 3738187039458794329}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Robot_U3
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -401,6 +475,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8208712814540442215}
   - {fileID: 2282676248128889254}
   - {fileID: 1643677132937045185}
   - {fileID: 268485398}
@@ -418,7 +493,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5995106986398497682}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -457,7 +532,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
+  m_Material: {fileID: 6200000, guid: acab04910b721f046bf659fe79da9b95, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -657,8 +732,9 @@ MonoBehaviour:
   _ledgeCheckDistance: 0.5
   _maxSlopeAngle: 50
   _ledgeForce: {x: 6000, y: 6000}
+  _UseModifiedPhysicsMaterial: 0
   _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
-  _slopeFriction: {fileID: 0}
+  _slopeFriction: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
   _fallDrag: 0.01
   _isFlipped: 0
 --- !u!114 &8923350234285715272
@@ -793,7 +869,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46586
+  m_InstanceId: 63552
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +901,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &269464821305030071
 SpriteRenderer:
@@ -917,7 +993,7 @@ GameObject:
   - component: {fileID: 6279520186718294208}
   - component: {fileID: 8761796232609146132}
   - component: {fileID: 1940022589029544137}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Robot - WheelDustParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +1012,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8761796232609146132
 ParticleSystem:

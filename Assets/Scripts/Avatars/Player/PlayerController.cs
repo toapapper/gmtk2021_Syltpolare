@@ -77,6 +77,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        float horizontalValue = Input.GetAxisRaw(InputControls.Horizontal);
+        _moveHorizontalEvent.Invoke(new InputContext(horizontalValue, InputContext.InputState.Canceled));
+    }
+
     private void OnDisable()
     {
         _moveHorizontalEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
