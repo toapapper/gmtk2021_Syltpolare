@@ -25,7 +25,7 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public void Clear()
     {
-        if (_targets.Count > 0 && !_emptyIsUsed)
+        if (_targets.Count > 0 && !_emptyIsUsed && _empty != null)
         {
             Transform firstTransform = First;
             _empty.transform.position = firstTransform.position;
@@ -72,7 +72,7 @@ public class CameraManager : MonoBehaviour
     /// <returns>If transform exist.</returns>
     public bool RemoveMember(Transform trans)
     {
-        if (!_emptyIsUsed && _targets.Count == 1)
+        if (!_emptyIsUsed && _targets.Count == 1 && _empty != null)
         {
             Transform firstTransform = First;
             _empty.transform.position = firstTransform.position;

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveParticles : MonoBehaviour
+public class OnMoveParticles : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _particleSystem;
 
-    public void OnGround(GroundCheck.TriggerState state, Collider2D collision)
+    public void OnGroundChange(GroundCheck.TriggerState state, Collider2D collision)
     {
         switch (state)
         {

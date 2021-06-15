@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tilt : MonoBehaviour
+public class OnTilt : MonoBehaviour
 {
     [SerializeField] Transform _targetTransform;
     [SerializeField] float _rotationScale = 20.0f;
@@ -11,7 +11,7 @@ public class Tilt : MonoBehaviour
     private float _horizontalValue;
     private Quaternion _slerpHorizontalQuaternion;
 
-    public void OnTilt(InputContext context)
+    public void OnTiltChange(InputContext context)
     {
         _horizontalValue = context.Value;
     }

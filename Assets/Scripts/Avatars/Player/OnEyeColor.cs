@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyeColor : MonoBehaviour
+public class OnEyeColor : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _target;
     [SerializeField] private Color _possessColor = Color.white;

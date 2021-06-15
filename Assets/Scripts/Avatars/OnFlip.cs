@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flip : MonoBehaviour
+public class OnFlip : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _spriteRenderer;
 
-    public void OnFlip(InputContext context)
+    public void OnFlipChange(InputContext context)
     {
         if (context.Value > 0)
             _spriteRenderer.flipX = false;

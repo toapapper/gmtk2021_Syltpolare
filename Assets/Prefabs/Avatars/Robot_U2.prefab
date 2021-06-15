@@ -329,8 +329,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3034501728915922730}
-        m_TargetAssemblyTypeName: MoveParticles, Assembly-CSharp
-        m_MethodName: OnGround
+        m_TargetAssemblyTypeName: OnMoveParticles, Assembly-CSharp
+        m_MethodName: OnGroundChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -491,8 +491,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1689796417331249171}
-        m_TargetAssemblyTypeName: Tilt, Assembly-CSharp
-        m_MethodName: OnTilt
+        m_TargetAssemblyTypeName: OnTilt, Assembly-CSharp
+        m_MethodName: OnTiltChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -503,8 +503,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 7874864482588463285}
-        m_TargetAssemblyTypeName: Flip, Assembly-CSharp
-        m_MethodName: OnFlip
+        m_TargetAssemblyTypeName: OnFlip, Assembly-CSharp
+        m_MethodName: OnFlipChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -515,8 +515,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 882004544404585996}
-        m_TargetAssemblyTypeName: Flip, Assembly-CSharp
-        m_MethodName: OnFlip
+        m_TargetAssemblyTypeName: OnFlip, Assembly-CSharp
+        m_MethodName: OnFlipChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -527,8 +527,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3750023115987675979}
-        m_TargetAssemblyTypeName: Tilt, Assembly-CSharp
-        m_MethodName: OnTilt
+        m_TargetAssemblyTypeName: OnTilt, Assembly-CSharp
+        m_MethodName: OnTiltChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -653,7 +653,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _horizontalForceGrounded: 4000
-  _horizontalForceSlope: 5000
   _horizontalForceElevation: 3000
   _horizontalDrag: 0.1
   _jumpImpulse: 240
@@ -808,7 +807,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 70504
+  m_InstanceId: 82524
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
