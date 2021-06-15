@@ -29,11 +29,10 @@ public class Possess : MonoBehaviour
         if (Count == 1) // Switch to that possessable if it is the only one in the scene.
         {
             _currentPossessed = gameObject;
-            _targetGroup.AddMember(gameObject.transform, 1, 0);
+            _cameraManager.AddMember(gameObject.transform);
             _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
             _currentPossessed.GetComponent<PlayerController>().enabled = true;
             _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
-            SwitchPossessed(gameObject);
         }
     }
 
@@ -47,8 +46,9 @@ public class Possess : MonoBehaviour
         {
             if (Count == 1)
             {
-                RemoveAll();
+                Clear();
                 _currentPossessed = null;
+                _cameraManager.Clear();
                 gameObject.GetComponent<Possess>()._changePossessedEvent.Invoke();
 
                 return;
@@ -63,7 +63,7 @@ public class Possess : MonoBehaviour
     [SerializeField] private UnityEvent _changePossessedEvent;
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
-    private static CinemachineTargetGroup _targetGroup;
+    private static CameraManager _cameraManager;
     private static GameObject _currentPossessed;
 
     public void OnPossess(InputContext context)
@@ -80,8 +80,8 @@ public class Possess : MonoBehaviour
 
     private void Awake()
     {
-        if (_targetGroup == null)
-            _targetGroup = GameObject.Find("CM Follow").GetComponent<CinemachineTargetGroup>();
+        if (_cameraManager == null)
+            _cameraManager = Camera.main.GetComponent<CameraManager>();
     }
 
     private void OnEnable()
@@ -108,8 +108,8 @@ public class Possess : MonoBehaviour
             _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
             gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
             gameObject.GetComponent<PlayerMovement>().enabled = false;
-            Array.Clear(_targetGroup.m_Targets, 0, _targetGroup.m_Targets.Length);
-            _targetGroup.AddMember(_currentPossessed.transform, 1, 0);              // Add possessed to camera targets.
+            _cameraManager.Clear();
+            _cameraManager.AddMember(_currentPossessed.transform);              // Add possessed to camera targets.
 
             for (int i = 0; i < Count; i++)
             {
@@ -118,7 +118,7 @@ public class Possess : MonoBehaviour
         }
     }
 
-    private static void RemoveAll()
+    private static void Clear()
     {
         for (int i = 0; i < _possessableRobots.Count; i++)
         {
@@ -127,6 +127,5 @@ public class Possess : MonoBehaviour
         }
 
         _possessableRobots.Clear();
-
     }
 }

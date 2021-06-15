@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _horizontalForceGrounded: 4000
+  _horizontalForceSlope: 5000
   _horizontalForceElevation: 3000
   _horizontalDrag: 0.1
   _jumpImpulse: 240
@@ -807,7 +808,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 61064
+  m_InstanceId: 70504
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
