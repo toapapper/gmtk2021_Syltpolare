@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623938036426538760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.5, z: -0.1}
+  m_LocalPosition: {x: 0.06, y: 0.5, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
@@ -194,7 +194,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 676ce666e16d7784684d9c2820c78068, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -434,8 +434,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.378, y: 1.5}
-      - {x: -0.378, y: 1.5}
+    - - {x: 0.378, y: 1}
+      - {x: 0, y: 1.5}
+      - {x: -0.378, y: 1}
       - {x: -0.379, y: -0.30670676}
       - {x: -0.18, y: -0.5}
       - {x: 0.18, y: -0.5}
@@ -648,10 +649,14 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 128
-  _leftIndexPoint: 3
-  _rightIndexPoint: 4
-  _slopeCheckDistance: 0.5
+  _leftSlopeIndexPoint: 4
+  _rightSlopeIndexPoint: 5
+  _leftLedgeIndexPoint: 3
+  _rightLedgeIndexPoint: 6
+  _slopeCheckDistance: 0.3
+  _ledgeCheckDistance: 0.5
   _maxSlopeAngle: 50
+  _ledgeForce: {x: 6000, y: 6000}
   _defaultFricition: {fileID: 6200000, guid: 6f69eca83f14dac4191e519f855ff0be, type: 2}
   _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
@@ -788,7 +793,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 50002
+  m_InstanceId: 46586
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

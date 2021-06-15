@@ -18,10 +18,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slope")]
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private int _leftIndexPoint;
-    [SerializeField] private int _rightIndexPoint;
+    [SerializeField, Min(0)] private int _leftSlopeIndexPoint;
+    [SerializeField, Min(0)] private int _rightSlopeIndexPoint;
+    [SerializeField, Min(0)] private int _leftLedgeIndexPoint;
+    [SerializeField, Min(0)] private int _rightLedgeIndexPoint;
     [SerializeField] private float _slopeCheckDistance = 0.5f;
+    [SerializeField] private float _ledgeCheckDistance = 0.5f;
     [SerializeField] private float _maxSlopeAngle;
+    [SerializeField] private Vector2 _ledgeForce = new Vector2(3000, 3000);
     [SerializeField] private PhysicsMaterial2D _defaultFricition;
     [SerializeField] private PhysicsMaterial2D _slopeFriction;
 
@@ -33,17 +37,22 @@ public class PlayerMovement : MonoBehaviour
     private RigidbodyStack _rigidbodyStack;
     private PolygonCollider2D _polyCollider;
 
+    private Duration _jumpDuration;
+
     private Vector2 _slopeNormalPerpendicular;
     private Vector2 _point1;
     private Vector2 _point2;
-
-    private Duration _jumpDuration;
+    private Vector2 _point3;
+    private Vector2 _point4;
 
     private float _slopeDownAngle;
     private float _slopeSideAngle;
     private float _slopeDownAngleOld;
     private float _horizontalValue;
+    private bool _isLookingLeft;
     private bool _isOnSlope;
+    private bool _isOnLedge;
+    private bool _isSlopeHit;
     private bool _isJumping;
     private bool _isGrounded;
     private bool _canWalkOnSlope;
@@ -96,8 +105,10 @@ public class PlayerMovement : MonoBehaviour
         _rigidbodyStack = GetComponent<RigidbodyStack>();
 
         Vector2[] points = _polyCollider.points;
-        _point1 = points[_leftIndexPoint];
-        _point2 = points[_rightIndexPoint];
+        _point1 = points[_leftSlopeIndexPoint];
+        _point2 = points[_rightSlopeIndexPoint];
+        _point3 = points[_leftLedgeIndexPoint];
+        _point4 = points[_rightLedgeIndexPoint];
     }
 
     private void FixedUpdate()
@@ -105,9 +116,17 @@ public class PlayerMovement : MonoBehaviour
         Vector2 combinedForce = Vector2.zero;
         Vector2 combinedImpulse = Vector2.zero;
 
-        Vector2 position = transform.position;
+        Vector3 position = transform.position;
+        Vector2 up = transform.up;
+        Vector2 right = transform.right;
 
-        SlopeCheck(position);
+        if (_horizontalValue < 0)
+            _isLookingLeft = false;
+        else if (_horizontalValue > 0)
+            _isLookingLeft = true;
+
+        SlopeCheck(position, up, right);
+        EdgeCheck(position, up);
 
         if (_isGrounded && !_isOnSlope)
         {
@@ -140,20 +159,29 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = velocity;
     }
 
-    private void SlopeCheck(Vector2 position)
+    private void SlopeCheck(Vector3 position, Vector2 up, Vector2 right)
     {
         // Takes movement direction into account and checks in front of the collider.
-        Vector2 checkPosition = ((_horizontalValue >= 0) ?
-            position - new Vector2(_point1.x, -_point1.y) :
-            position - new Vector2(_point2.x, -_point2.y));
+        Vector2 checkPosition = (_isLookingLeft ?
+            position - new Vector3(_point1.x, -_point1.y) :
+            position - new Vector3(_point2.x, -_point2.y));
 
-        SlopeCheckHorizontal(checkPosition);
-        SlopeCheckVertical(checkPosition);
+        SlopeCheckHorizontal(checkPosition, right);
+        SlopeCheckVertical(checkPosition, up);
     }
 
-    private void SlopeCheckHorizontal(Vector2 checkPosition)
+    private void EdgeCheck(Vector3 position, Vector2 up)
     {
-        Vector2 right = transform.right;
+        // Takes movement direction into account and checks in front of the collider.
+        Vector2 checkPosition = (_isLookingLeft ?
+            position - new Vector3(_point3.x, -_point3.y) :
+            position - new Vector3(_point4.x, -_point4.y));
+
+        EdgeCheckVertical(position, checkPosition, up);
+    }
+
+    private void SlopeCheckHorizontal(Vector2 checkPosition, Vector2 right)
+    {
         RaycastHit2D slopeHitFront = Physics2D.Raycast(checkPosition, right, _slopeCheckDistance, _groundMask);
         RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPosition, -right, _slopeCheckDistance, _groundMask);
 
@@ -174,12 +202,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SlopeCheckVertical(Vector2 checkPosition)
+    private void SlopeCheckVertical(Vector2 checkPosition, Vector2 up)
     {
-        RaycastHit2D hit = Physics2D.Raycast(checkPosition, -transform.up, _slopeCheckDistance, _groundMask);
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, -up, _slopeCheckDistance, _groundMask);
 
         if (hit)
         {
+            _isSlopeHit = true;
+
             _slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
 
             _slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
@@ -196,6 +226,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(hit.point, hit.normal, Color.green);
 #endif
         }
+        else
+            _isSlopeHit = false;
 
         _canWalkOnSlope = _slopeDownAngle <= _maxSlopeAngle;
 
@@ -204,5 +236,25 @@ public class PlayerMovement : MonoBehaviour
             _rigidbody.sharedMaterial = _slopeFriction;
         else
             _rigidbody.sharedMaterial = _defaultFricition;
+    }
+
+    private void EdgeCheckVertical(Vector3 position, Vector2 checkPosition, Vector2 up)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(checkPosition, -up, _ledgeCheckDistance, _groundMask);
+
+        if (hit)
+        {
+            _isOnLedge = !_isSlopeHit;
+
+            if (_isOnLedge && _horizontalValue != 0) // Push up if on a edge.
+                _rigidbody.AddForce(new Vector2((_isLookingLeft ? _ledgeForce.x : -_ledgeForce.x), _ledgeForce.y));
+
+#if UNITY_EDITOR
+            if (_isOnLedge)
+                Debug.DrawRay(hit.point, hit.normal, Color.blue);
+            else
+                Debug.DrawRay(hit.point, hit.normal, Color.yellow);
+#endif
+        }
     }
 }

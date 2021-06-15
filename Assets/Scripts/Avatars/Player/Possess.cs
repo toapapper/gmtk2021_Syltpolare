@@ -32,6 +32,7 @@ public class Possess : MonoBehaviour
             _targetGroup.AddMember(gameObject.transform, 1, 0);
             _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
             _currentPossessed.GetComponent<PlayerController>().enabled = true;
+            _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
             SwitchPossessed(gameObject);
         }
     }
@@ -86,6 +87,7 @@ public class Possess : MonoBehaviour
     private void OnEnable()
     {
         GetComponent<PlayerController>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
         _changePossessedEvent.Invoke();
 
         Add(gameObject);
@@ -103,7 +105,9 @@ public class Possess : MonoBehaviour
         if (_currentPossessed != gameObject)
         {
             _currentPossessed.GetComponent<PlayerController>().enabled = true;      // Activate possessed's controller.
+            _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
             gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
+            gameObject.GetComponent<PlayerMovement>().enabled = false;
             Array.Clear(_targetGroup.m_Targets, 0, _targetGroup.m_Targets.Length);
             _targetGroup.AddMember(_currentPossessed.transform, 1, 0);              // Add possessed to camera targets.
 
@@ -119,6 +123,7 @@ public class Possess : MonoBehaviour
         for (int i = 0; i < _possessableRobots.Count; i++)
         {
             _possessableRobots[i].GetComponent<PlayerController>().enabled = false;
+            _possessableRobots[i].GetComponent<PlayerMovement>().enabled = false;
         }
 
         _possessableRobots.Clear();
