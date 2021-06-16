@@ -8,17 +8,51 @@ public class Plug : MonoBehaviour
     public bool held;
     public bool attracted;
     public bool pluggedIn;
-    Rigidbody2D rigidbody;
+    Rigidbody2D _rigidbody;
 
+    CableBaseScript cableBase;
+
+    Animator animator;
+
+    private float animationLength = .667f;
+    private float animTimer = 0;
+
+    private float killNextTime = .05f;
+    private float killNextTimer = 0;
+
+    public bool dieing = false;
+
+    public CableSegmentScript preceedingCableSegment;
 
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        _rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        cableBase = transform.GetComponentInParent<CableBaseScript>();
+        animator = GetComponent<Animator>();
+        animator.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(killNextTimer > 0)
+        {
+            killNextTimer -= Time.deltaTime;
+            if (killNextTimer <= 0 && preceedingCableSegment != null && !preceedingCableSegment.dieing)
+                preceedingCableSegment.Kill();
+        }
+
+        if (animTimer > 0)
+        {
+            animTimer -= Time.deltaTime;
+
+            if (animTimer <= 0)
+            {
+                cableBase.CableDied();
+                Destroy(gameObject, .01f);
+            }
+        }
+
         if (attracted == true && held == false)
         {
             Attracted();
@@ -36,16 +70,35 @@ public class Plug : MonoBehaviour
             Possess.Remove(transform.root.gameObject);
         }
     }
-        
-    
+
+
+    public void Kill()
+    {
+        animTimer = animationLength;
+        dieing = true;
+        animator.enabled = true;
+
+        killNextTimer = killNextTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Dangerous"))
+        {
+            Kill();
+
+            cableBase.OnCableBreak();
+        }
+    }
+
 
     void Attracted()
     {
-        rigidbody.gravityScale = 0;
-        rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
+        _rigidbody.gravityScale = 0;
+        _rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
         if (Mathf.Abs(Destination.x - transform.position.x) < .5f && Mathf.Abs(Destination.y - transform.position.y) < .5f)
         {
-            rigidbody.MovePosition(Destination);
+            _rigidbody.MovePosition(Destination);
             Plugged();
         }
     }
@@ -53,20 +106,20 @@ public class Plug : MonoBehaviour
     public void UnPlugg()
     {
         pluggedIn = false;
-        rigidbody.constraints = RigidbodyConstraints2D.None;
+        _rigidbody.constraints = RigidbodyConstraints2D.None;
     }
 
     void Plugged()
     {
         pluggedIn = true;
-        rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
     }
 
     void Held()
     {
-        rigidbody.rotation = 0;
-        rigidbody.constraints = RigidbodyConstraints2D.None;
+        _rigidbody.rotation = 0;
+        _rigidbody.constraints = RigidbodyConstraints2D.None;
         pluggedIn = false;
-        rigidbody.gravityScale = 1;
+        _rigidbody.gravityScale = 1;
     }
 }

@@ -27,7 +27,7 @@ public class Socket : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)//håll reda på plugs inom range, om denna inte är upptagen attrahera dem.
     {
         if (occupiced == false)
         {

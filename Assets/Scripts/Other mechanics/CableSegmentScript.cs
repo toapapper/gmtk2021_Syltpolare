@@ -8,6 +8,7 @@ public class CableSegmentScript : MonoBehaviour
 
     public CableSegmentScript preceedingSegment = null;
     public CableSegmentScript nextSegment = null;
+    public Plug nextPlug = null;
 
     Animator animator;
 
@@ -50,6 +51,8 @@ public class CableSegmentScript : MonoBehaviour
                     preceedingSegment.Kill();
                 if (nextSegment != null && nextSegment.dieing != true)
                     nextSegment.Kill();
+                else if (nextPlug != null && nextPlug.dieing != true)
+                    nextPlug.Kill();
             }
                 
         }
