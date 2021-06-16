@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Plug : MonoBehaviour
 {
+    private GameObject m_player;
+
     public Vector3 Destination;
+    protected bool attractable = true;
     public bool held;
-    public bool attracted;
     public bool pluggedIn;
+    protected Socket socket = null;
     Rigidbody2D _rigidbody;
 
     CableBaseScript cableBase;
 
     Animator animator;
+
+
+    private float releaseTime = 2f;//sekunder som den inte kan attraheras till en socket efter den "releasats" med X
+    private float releaseTimer = 0;
 
     private float animationLength = .667f;
     private float animTimer = 0;
@@ -30,11 +37,21 @@ public class Plug : MonoBehaviour
         cableBase = transform.GetComponentInParent<CableBaseScript>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
+
+        m_player = transform.parent.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (releaseTimer > 0)
+        {
+            releaseTimer -= Time.deltaTime;
+            attractable = false;
+        }
+        else
+            attractable = true;
+
         if(killNextTimer > 0)
         {
             killNextTimer -= Time.deltaTime;
@@ -52,31 +69,35 @@ public class Plug : MonoBehaviour
                 Destroy(gameObject, .01f);
             }
         }
-
-        if (attracted == true && held == false)
+        
+        if (held == true && pluggedIn)
         {
-            Attracted();
+            UnPlugg();
         }
-        if (held == true)
-        {
-            Held();
-        }
-        if (pluggedIn == true && !Possess.Contains(transform.root.gameObject))
+        if (pluggedIn == true && !Possess.Contains(m_player))
         {
             Possess.Add(transform.root.gameObject);
         }
-        else if (pluggedIn == false && Possess.Contains(transform.root.gameObject))
+        else if (pluggedIn == false && Possess.Contains(m_player))
         {
             Possess.Remove(transform.root.gameObject);
         }
     }
 
+    public void Release()
+    {
+        releaseTimer = releaseTime;
+        UnPlugg();
+    }
 
     public void Kill()
     {
         animTimer = animationLength;
         dieing = true;
         animator.enabled = true;
+
+        if (pluggedIn)
+            UnPlugg();
 
         killNextTimer = killNextTime;
     }
@@ -91,35 +112,36 @@ public class Plug : MonoBehaviour
         }
     }
 
-
-    void Attracted()
+    public void Attract(Vector2 attractor, float attractionForce)
     {
-        _rigidbody.gravityScale = 0;
-        _rigidbody.MovePosition(Destination - transform.position * Time.deltaTime);
-        if (Mathf.Abs(Destination.x - transform.position.x) < .5f && Mathf.Abs(Destination.y - transform.position.y) < .5f)
+        if (attractable && !held)
         {
-            _rigidbody.MovePosition(Destination);
-            Plugged();
+            Vector2 dirVector = attractor - (Vector2)transform.position;
+            _rigidbody.AddForce(dirVector.normalized * attractionForce);
         }
     }
 
     public void UnPlugg()
     {
         pluggedIn = false;
+        if (socket != null)
+            socket.Unplugg(this);
+        socket = null;
         _rigidbody.constraints = RigidbodyConstraints2D.None;
     }
 
-    void Plugged()
+    public bool PlugIn(Socket socket)
     {
-        pluggedIn = true;
-        _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        if (attractable && !held)
+        {
+            this.socket = socket;
+            pluggedIn = true;
+            _rigidbody.MovePosition(socket.transform.position);
+            _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            return true;
+        }
+        else
+            return false;
     }
-
-    void Held()
-    {
-        _rigidbody.rotation = 0;
-        _rigidbody.constraints = RigidbodyConstraints2D.None;
-        pluggedIn = false;
-        _rigidbody.gravityScale = 1;
-    }
+    
 }

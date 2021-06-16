@@ -17,9 +17,6 @@ public class CableBaseScript : MonoBehaviour
     public int totalCableSegments;
     public int deadCableSegments;
 
-    private float releaseTimer = 0;
-    private float releaseTime = .5f;
-
     private float timeOutDeathTime = 1f;
     public float timeOutDeathTimer = 0;
 
@@ -31,11 +28,6 @@ public class CableBaseScript : MonoBehaviour
 
     private void Update()
     {
-        if(releaseTimer > 0)
-        {
-            releaseTimer -= Time.deltaTime;
-            plug.attracted = false;
-        }
 
         //kolla också om alla kablar e döda, gör så de ökar räkningen när de dör
 
@@ -112,9 +104,7 @@ public class CableBaseScript : MonoBehaviour
 
     public void ReleaseCable(InputContext context)
     {
-        releaseTimer = releaseTime;
-        plug.attracted = false;
-        plug.UnPlugg();
+        plug.Release();
     } 
     
 
