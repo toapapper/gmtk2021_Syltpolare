@@ -6,20 +6,24 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private UnityEvent<InputContext> _escapeEvent;
     [SerializeField] private UnityEvent<InputContext> _moveHorizontalEvent;
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
     [SerializeField] private UnityEvent<InputContext> _switchEvent;
 
     [SerializeField] private UnityEvent<InputContext> _pickupEvent;
     [SerializeField] private UnityEvent<InputContext> _throwEvent;
-    [SerializeField] private UnityEvent<InputContext> _releasePlugEvent;//release from connected jack
-    [SerializeField] private UnityEvent<InputContext> _dropPlugEvent;//drop from hand
+    [SerializeField] private UnityEvent<InputContext> _releasePlugEvent;
+    [SerializeField] private UnityEvent<InputContext> _dropPlugEvent;
 
 
     private float _oldHorizontalValue;
 
     private void Update()
     {
+        if (Time.timeScale <= 0)    // Prevent using player controls if time scale is zero.
+            return;
+
         float horizontalValue = Input.GetAxisRaw(InputControls.Horizontal);
 
         if (horizontalValue != _oldHorizontalValue)
@@ -66,12 +70,12 @@ public class PlayerController : MonoBehaviour
             _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetButtonUp(InputControls.Release))
         {
             _releasePlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetButtonUp(InputControls.Drop))
         {
             _dropPlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
         }
