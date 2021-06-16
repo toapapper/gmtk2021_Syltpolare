@@ -17,9 +17,6 @@ public class CableBaseScript : MonoBehaviour
     public int totalCableSegments;
     public int deadCableSegments;
 
-    private float releaseTimer = 0;
-    private float releaseTime = .5f;
-
     private float timeOutDeathTime = 1f;
     public float timeOutDeathTimer = 0;
 
@@ -31,11 +28,6 @@ public class CableBaseScript : MonoBehaviour
 
     private void Update()
     {
-        if(releaseTimer > 0)
-        {
-            releaseTimer -= Time.deltaTime;
-            plug.attracted = false;
-        }
 
         //kolla också om alla kablar e döda, gör så de ökar räkningen när de dör
 
@@ -57,11 +49,11 @@ public class CableBaseScript : MonoBehaviour
         if (cableToSpawn != null)
         {
             spawnedCable = Instantiate(cableToSpawn,transform);
-            spawnedCable.transform.Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;//Därför måste den första cableSegment finnas nära plats 0,0 i prefaben
+            spawnedCable.transform.Find("CableSegment").GetComponent<HingeJoint2D>().connectedBody = myRigidBody;
             plug = spawnedCable.transform.Find("plug").GetComponent<Plug>();
 
             //räkna antal cablesegments här
-            totalCableSegments = spawnedCable.transform.childCount - 1;//-1 för plugen e inte kabel
+            totalCableSegments = spawnedCable.transform.childCount - 1;//-1 för plug(g)en e inte kabel
             CableSegmentScript previousgObj = null;
 
             for(int i = 0; i < totalCableSegments; i++)
@@ -84,7 +76,11 @@ public class CableBaseScript : MonoBehaviour
 
                 previousgObj = currObj;
             }
-
+            if (previousgObj != null)
+            {
+                plug.preceedingCableSegment = previousgObj;
+                previousgObj.nextPlug = plug;
+            }
 
             deadCableSegments = 0;
             timeOutDeathTimer = 0;
@@ -102,15 +98,13 @@ public class CableBaseScript : MonoBehaviour
 
         deadCableSegments++;
 
-        if (deadCableSegments >= totalCableSegments)
+        if (deadCableSegments >= totalCableSegments + 1)//räkna med plug-en
             DeleteCable();
     }
 
     public void ReleaseCable(InputContext context)
     {
-        releaseTimer = releaseTime;
-        plug.attracted = false;
-        plug.UnPlugg();
+        plug.Release();
     } 
     
 
@@ -123,7 +117,8 @@ public class CableBaseScript : MonoBehaviour
 
     public void OnCableBreak()
     {
-        timeOutDeathTimer = timeOutDeathTime;
+        if(timeOutDeathTimer <= 0)
+            timeOutDeathTimer = timeOutDeathTime;
     }
 
 }

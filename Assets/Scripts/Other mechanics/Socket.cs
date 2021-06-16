@@ -4,62 +4,85 @@ using UnityEngine;
 
 public class Socket : MonoBehaviour
 {
-    public bool occupiced = false;
-    public Collider2D occupiedBy;
+    public bool occupied = false;
+    public Plug occupiedBy;
 
-    private void Start()
+    List<Plug> plugsNearby = new List<Plug>();
+    public float pluggedInDistance = .2f;
+
+    public float attractionForce = 600f;
+
+    private void Update()
     {
-        StartCoroutine(onCoroutine());
-    }
-    IEnumerator onCoroutine()
-    {
-        while (true)
+        List<int> removeAt = new List<int>();
+        for(int i = 0; i < plugsNearby.Count; i++)
         {
-            yield return new WaitForSeconds(1f);
-            if (occupiedBy == null)
+            Plug currentPlug = plugsNearby[i];
+            //rensa listan från plugs som har 'Destroy'ats
+            if (currentPlug == null)
             {
-                occupiced = false;
+                removeAt.Add(i);
+                continue;
             }
-            if (occupiced == false)
+
+            if (!occupied)
             {
-                occupiedBy = null;
+                //attrahera plug:
+                currentPlug.Attract(transform.position, attractionForce);
+                if (Vector2.Distance(transform.position, currentPlug.transform.position) < pluggedInDistance)
+                    PlugIn(currentPlug);
             }
+        }
+        foreach (int i in removeAt)//rensa
+            plugsNearby.RemoveAt(i);
+        removeAt.Clear();
+
+
+        if (occupiedBy == null)
+        {
+            occupied = false;
+        }
+        if (occupied == false)
+        {
+            occupiedBy = null;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected void PlugIn(Plug plug)
     {
-        if (occupiced == false)
+        if (plug.PlugIn(this))
         {
-            if (collision.gameObject.tag == "Plug")
-            {
-                collision.gameObject.GetComponent<Plug>().Destination = transform.position;
-                collision.gameObject.GetComponent<Plug>().attracted = true;
-                occupiedBy = collision;
-                occupiced = true;
-            }
+            occupied = true;
+            occupiedBy = plug;
         }
-        else if (occupiced == true)
-        {
-            if (collision == occupiedBy)
-            {
+    }
 
+    public void Unplugg(Plug plug)
+    {
+        if (occupied == plug)
+            occupiedBy = null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)//håll reda på plugs inom range, om denna inte är upptagen attrahera dem.
+    {
+        if (collision.CompareTag("Plug"))
+        {
+            Plug collPlug = collision.gameObject.GetComponent<Plug>();
+            if (!plugsNearby.Contains(collPlug))
+            {
+                plugsNearby.Add(collPlug);
             }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (occupiced == true)
+        if (collision.CompareTag("Plug"))
         {
-            if (collision.gameObject.tag == "Plug" && collision == occupiedBy)
+            Plug collPlug = collision.gameObject.GetComponent<Plug>();
+            if (plugsNearby.Contains(collPlug))
             {
-                collision.gameObject.GetComponent<Plug>().attracted = false;
-                occupiced = false;
+                plugsNearby.Remove(collPlug);
             }
-        }
-        if (occupiedBy == null)
-        {
-            occupiced = false;
         }
     }
 
