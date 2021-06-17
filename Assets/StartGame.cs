@@ -13,7 +13,7 @@ public class StartGame : MonoBehaviour
         _gameScene.LoadScene();
     }
 
-    public void OnExit()
+    public void OnQuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
