@@ -83,7 +83,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &7359149113077836371
@@ -148,7 +148,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.2, y: 0}
-  m_ConnectedAnchor: {x: -0.29800028, y: 0.00020089999}
+  m_ConnectedAnchor: {x: -0.29799992, y: 0.00020089974}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {x: 0, y: 0, z: 0}
   held: 0
-  attracted: 0
   pluggedIn: 0
+  dieing: 0
   preceedingCableSegment: {fileID: 0}
 --- !u!1 &3713975781599715366
 GameObject:
@@ -219,6 +219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4f1081791378044b9f8a11b5220656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preceedingSegment: {fileID: 0}
+  nextSegment: {fileID: 0}
+  nextPlug: {fileID: 0}
+  dieing: 0
 --- !u!114 &9098040728000868131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4f1081791378044b9f8a11b5220656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  preceedingSegment: {fileID: 0}
+  nextSegment: {fileID: 0}
+  nextPlug: {fileID: 0}
+  dieing: 0
 --- !u!1001 &206908812119434708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,11 +256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 4.563
+      value: 0.022000015
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -17.470135
+      value: -0.00013483208
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedRigidBody
@@ -340,11 +348,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: -0.2979997
+      value: -0.2979999
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.0003363214
+      value: 0.00033573183
       objectReference: {fileID: 0}
     - target: {fileID: 1039662975823707373, guid: f1e43729ffa70b44c946b2d0a649d857, type: 3}
       propertyPath: m_ConnectedRigidBody
