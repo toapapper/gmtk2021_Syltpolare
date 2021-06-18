@@ -5,6 +5,7 @@ using MyBox;
 
 public class Parallax : MonoBehaviour
 {
+    [SerializeField] private int _pixelUnit = 100;
     [SerializeField] private float _parallaxEffectHorizontal = 1.0f;
     [SerializeField] private float _parallaxEffectVertical = 1.0f;
 
@@ -29,7 +30,7 @@ public class Parallax : MonoBehaviour
         float distanceVertical = cameraPosition.y * _parallaxEffectVertical;
 
         Vector3 position = transform.position;
-        transform.position = new Vector3(RoundToPixels(_startPositon.x + distanceHorizontal, 16), RoundToPixels(_startPositon.y + distanceVertical, 16), position.z);
+        transform.position = new Vector3(RoundToPixels(_startPositon.x + distanceHorizontal, _pixelUnit), RoundToPixels(_startPositon.y + distanceVertical, _pixelUnit), position.z);
         if (tempHorizontal > _startPositon.x + _length.x)
             _startPositon.x += _length.x;
         else if (tempHorizontal < _startPositon.x - _length.x)
