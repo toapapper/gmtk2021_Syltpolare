@@ -183,10 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57099b08e6aa1e546af6d653d008c542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parallaxEffectHorizontal: 0.9
+  _parallaxEffectHorizontal: 0.8
   _parallaxEffectVertical: 0.8
-  _usePixelPerfect: 1
-  _pixelPerUnit: 16
 --- !u!1 &6073015228693980511
 GameObject:
   m_ObjectHideFlags: 0

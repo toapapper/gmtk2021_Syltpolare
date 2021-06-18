@@ -29,11 +29,19 @@ public class Parallax : MonoBehaviour
         float distanceVertical = cameraPosition.y * _parallaxEffectVertical;
 
         Vector3 position = transform.position;
-        transform.position = new Vector3(_startPositon.x + distanceHorizontal, _startPositon.y + distanceVertical, position.z);
-
+        transform.position = new Vector3(RoundToPixels(_startPositon.x + distanceHorizontal, 16), RoundToPixels(_startPositon.y + distanceVertical, 16), position.z);
         if (tempHorizontal > _startPositon.x + _length.x)
             _startPositon.x += _length.x;
         else if (tempHorizontal < _startPositon.x - _length.x)
             _startPositon.x -= _length.x;
+    }
+
+    private float RoundToPixels(float value, int unit) => Mathf.Round(value* unit) / unit;
+
+    private Vector2 RoundToPixels(Vector2 vector, int unit)
+    {
+        vector.x = Mathf.Round(vector.x * unit) / unit;
+        vector.y = Mathf.Round(vector.y * unit) / unit;
+        return vector;
     }
 }
