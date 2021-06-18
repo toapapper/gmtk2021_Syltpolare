@@ -549,6 +549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570faf0fd24508e408218bb0c3b55ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _escapeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _moveHorizontalEvent:
     m_PersistentCalls:
       m_Calls:
@@ -869,7 +872,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 82986
+  m_InstanceId: 22880
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
