@@ -24,6 +24,9 @@ public class Possess : MonoBehaviour
     /// <param name="gameObject"></param>
     public static void Add(GameObject gameObject)
     {
+        if (gameObject.GetComponent<Possess>() is null)
+            return;
+
         _possessableRobots.Add(gameObject);
 
         if (_cameraManager.IsStarted && Count == 1) // Switch to that possessable if it is the only one in the scene.
@@ -80,8 +83,7 @@ public class Possess : MonoBehaviour
 
     private void Awake()
     {
-        if (_cameraManager == null)
-            _cameraManager = Camera.main.GetComponent<CameraManager>();
+        _cameraManager = Camera.main.GetComponent<CameraManager>();
     }
 
     private void OnEnable()
