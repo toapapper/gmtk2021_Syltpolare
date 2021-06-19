@@ -26,7 +26,7 @@ public class Possess : MonoBehaviour
     {
         _possessableRobots.Add(gameObject);
 
-        if (Count == 1) // Switch to that possessable if it is the only one in the scene.
+        if (_cameraManager.IsStarted && Count == 1) // Switch to that possessable if it is the only one in the scene.
         {
             _currentPossessed = gameObject;
             _cameraManager.AddMember(gameObject.transform);

@@ -7,6 +7,8 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
+    public bool IsStarted => _isStarted;
+
     [SerializeField] private CinemachineTargetGroup _cmFollow;
 
     private List<Transform> _targets = new List<Transform>();
@@ -14,6 +16,7 @@ public class CameraManager : MonoBehaviour
     private GameObject _empty;
 
     private bool _emptyIsUsed;
+    private bool _isStarted;
 
     public int Count => _emptyIsUsed ? _targets.Count - 1 : _targets.Count;
 
@@ -84,15 +87,24 @@ public class CameraManager : MonoBehaviour
         if (_targets.Remove(trans))
         {
             _cmFollow.RemoveMember(trans);
+
             return true;
         }
 
         return false;
     }
 
+    private void Awake()
+    {
+        for (int i = 0; i < _cmFollow.m_Targets.Length; i++)
+            _targets.Add(_cmFollow.m_Targets[i].target);
+    }
+
     private void Start()
     {
         _empty = new GameObject("EmptyPivot");
+
+        _isStarted = true;
     }
 
     private void OnDestroy()
