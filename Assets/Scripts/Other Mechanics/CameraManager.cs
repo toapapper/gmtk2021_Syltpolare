@@ -8,13 +8,40 @@ using Cinemachine;
 public class CameraManager : MonoBehaviour
 {
     public bool IsStarted => _isStarted;
+    public Vector3 Velocity => _velocity;
+    public Vector3 Damping
+    {
+        get
+        {
+            CinemachineFramingTransposer framingTransposer =_cm.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+            if (framingTransposer == null)
+                throw new Exception(nameof(CinemachineFramingTransposer) + " was null");
+
+            return new Vector3(framingTransposer.m_XDamping, framingTransposer.m_YDamping, framingTransposer.m_ZDamping);
+        }
+        set
+        {
+            CinemachineFramingTransposer framingTransposer = _cm.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+            if (framingTransposer == null)
+                throw new Exception(nameof(CinemachineFramingTransposer) + " was null");
+
+            framingTransposer.m_XDamping = value.x;
+            framingTransposer.m_YDamping = value.y;
+            framingTransposer.m_ZDamping = value.z;
+        }
+    }
 
     [SerializeField] private CinemachineTargetGroup _cmFollow;
 
     private List<Transform> _targets = new List<Transform>();
 
     private GameObject _empty;
+    private CinemachineVirtualCamera _cm;
 
+    private Vector3 _oldPosition;
+    private Vector3 _velocity;
     private bool _emptyIsUsed;
     private bool _isStarted;
 
@@ -98,6 +125,8 @@ public class CameraManager : MonoBehaviour
     {
         for (int i = 0; i < _cmFollow.m_Targets.Length; i++)
             _targets.Add(_cmFollow.m_Targets[i].target);
+
+        _cm = transform.GetComponentInChildren<CinemachineVirtualCamera>();
     }
 
     private void Start()
@@ -105,6 +134,14 @@ public class CameraManager : MonoBehaviour
         _empty = new GameObject("EmptyPivot");
 
         _isStarted = true;
+        _oldPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        Vector3 position = transform.position;
+        _velocity = (position - _oldPosition) / Time.deltaTime;
+        _oldPosition = position;
     }
 
     private void OnDestroy()
