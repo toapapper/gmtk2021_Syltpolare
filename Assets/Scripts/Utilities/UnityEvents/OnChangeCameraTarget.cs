@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Celezt.UnityEvent
+namespace Celezt.Event
 {
+    [AddComponentMenu("Celezt/Events/On Change Camera Target")]
     public class OnChangeCameraTarget : MonoBehaviour
     {
         [SerializeField] Transform _target;

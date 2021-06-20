@@ -4,9 +4,9 @@ using UnityEngine;
 using MyBox;
 
 
-namespace Celezt.UnityEvent
+namespace Celezt.Event
 {
-    [AddComponentMenu("Celezt/Unity Events/On Scene")]
+    [AddComponentMenu("Celezt/Events/On Scene")]
     public class OnScene : MonoBehaviour
     {
         [SerializeField] private SceneReference _scene;

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
 
-namespace Celezt.UnityEvent
+namespace Celezt.Event
 {
+    [AddComponentMenu("Celezt/Events/On Set Active")]
     public class OnSetActive : MonoBehaviour
     {
         [SerializeField] GameObject _gameObjectToSet;

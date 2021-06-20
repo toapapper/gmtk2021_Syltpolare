@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Celezt.UnityEvent
+namespace Celezt.Event
 {
-    [AddComponentMenu("Celezt/Unity Events/On Quit")]
+    [AddComponentMenu("Celezt/Events/On Quit")]
     public class OnQuit : MonoBehaviour
     {
         public void OnQuitGame()

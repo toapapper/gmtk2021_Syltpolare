@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OnEyeColor : MonoBehaviour
 {
+    [SerializeField] private Possess _possessable;
     [SerializeField] private SpriteRenderer _target;
     [SerializeField] private Color _possessColor = Color.white;
     [SerializeField] private Color _notPossessColor = Color.white;
@@ -26,7 +27,7 @@ public class OnEyeColor : MonoBehaviour
 
     private void ChangeEyeColor()
     {
-        if (Possess.GetCurrentPossessed == transform.parent.gameObject)
+        if (Possess.GetCurrentPossessed == _possessable.gameObject)
         {
             if (_bodyStack.StackedMass > _massLimit)
                 _target.color = _cannotMoveColor;

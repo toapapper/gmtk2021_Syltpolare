@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &559424223
 SpriteRenderer:
@@ -131,8 +131,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1643677132937045185}
   - component: {fileID: 1146619912999057654}
-  - component: {fileID: 3750023115987675979}
-  - component: {fileID: 882004544404585996}
   - component: {fileID: 8596179144718848936}
   m_Layer: 0
   m_Name: 'Robot - EyeSprite '
@@ -148,12 +146,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1623938036426538760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 1
+  m_Father: {fileID: 2282676248128889254}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1146619912999057654
 SpriteRenderer:
@@ -174,7 +172,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6e1d9d9dd866b14489063e759df36869, type: 2}
+  - {fileID: 2100000, guid: 2ad8950f7040b9743a557579192c543b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,34 +204,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3750023115987675979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623938036426538760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b94d3ee012d3c314a8274d9e04bc8e55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetTransform: {fileID: 1643677132937045185}
-  _rotationScale: 20
-  _rotationSpeed: 5
---- !u!114 &882004544404585996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623938036426538760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d10aa2f987d5199489b41f5afbe15ed6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 1146619912999057654}
 --- !u!114 &8596179144718848936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6487ebdfa2aaba41a16d53a9d640f8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _possessable: {fileID: 8923350234285715272}
   _target: {fileID: 1146619912999057654}
   _possessColor: {r: 0.015686275, g: 1, b: 0.8980393, a: 1}
   _notPossessColor: {r: 0, g: 0, b: 0, a: 1}
@@ -282,7 +253,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6878161246129770311
 BoxCollider2D:
@@ -402,7 +373,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2282676248128889254}
-  - {fileID: 1643677132937045185}
   - {fileID: 268485398}
   - {fileID: 6666785148126459816}
   - {fileID: 6279520186718294208}
@@ -508,30 +478,6 @@ MonoBehaviour:
       - m_Target: {fileID: 7874864482588463285}
         m_TargetAssemblyTypeName: OnFlip, Assembly-CSharp
         m_MethodName: OnFlipChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 882004544404585996}
-        m_TargetAssemblyTypeName: OnFlip, Assembly-CSharp
-        m_MethodName: OnFlipChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3750023115987675979}
-        m_TargetAssemblyTypeName: OnTilt, Assembly-CSharp
-        m_MethodName: OnTiltChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -810,7 +756,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 146142
+  m_InstanceId: 105848
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +788,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1643677132937045185}
   m_Father: {fileID: 5995106986398497681}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -956,7 +903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10aa2f987d5199489b41f5afbe15ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 269464821305030071}
 --- !u!1001 &2576903481465310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -970,7 +916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6281520894294559006, guid: 046ca42481645404e8b574d429785244, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6281520894294559006, guid: 046ca42481645404e8b574d429785244, type: 3}
       propertyPath: m_LocalPosition.x
