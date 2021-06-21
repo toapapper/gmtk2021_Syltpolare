@@ -33,8 +33,8 @@ public class Possess : MonoBehaviour
             _currentPossessed = gameObject;
             _cameraManager.AddMember(gameObject.transform);
             _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
-            _currentPossessed.GetComponentInHierarchy<PlayerController>().enabled = true;
-            _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
+            _currentPossessed.GetComponentInHierarchy<PlayerController>()?.SetEnabled(true);
+            _currentPossessed.GetComponent<PlayerMovement>()?.SetEnabled(true);
         }
     }
 
@@ -87,9 +87,9 @@ public class Possess : MonoBehaviour
 
     private void OnEnable()
     {
-
         gameObject.GetComponentInHierarchy<PlayerController>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;
+
         _changePossessedEvent.Invoke();
 
         Add(gameObject);
@@ -124,8 +124,8 @@ public class Possess : MonoBehaviour
     {
         for (int i = 0; i < _possessableRobots.Count; i++)
         {
-            _possessableRobots[i].GetComponentInHierarchy<PlayerController>().enabled = false;
-            _possessableRobots[i].GetComponent<PlayerMovement>().enabled = false;
+            _possessableRobots[i].GetComponentInHierarchy<PlayerController>()?.SetEnabled(false);
+            _possessableRobots[i].GetComponent<PlayerMovement>()?.SetEnabled(false);
         }
 
         _possessableRobots.Clear();

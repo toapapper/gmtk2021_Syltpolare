@@ -30,4 +30,10 @@ public static partial class ComponentExtension
 
         return null;
     }
+
+    public static void SetEnabled(this Behaviour behaviour, bool isEnabled)
+    {
+        if (behaviour != null)
+            behaviour.enabled = isEnabled;
+    }
 }
