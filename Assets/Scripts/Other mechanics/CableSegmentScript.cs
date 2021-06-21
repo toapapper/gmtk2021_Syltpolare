@@ -54,7 +54,7 @@ public class CableSegmentScript : MonoBehaviour
                 else if (nextPlug != null && nextPlug.dieing != true)
                     nextPlug.Kill();
             }
-                
+
         }
 
     }
@@ -78,4 +78,13 @@ public class CableSegmentScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Dangerous"))
+        {
+            Kill();
+
+            cableBase.OnCableBreak();
+        }
+    }
 }

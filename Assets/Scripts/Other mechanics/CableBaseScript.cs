@@ -91,11 +91,9 @@ public class CableBaseScript : MonoBehaviour
 
         //
     }
-    
+
     public void CableDied()
     {
-        Debug.Log("Cable dIed");
-
         deadCableSegments++;
 
         if (deadCableSegments >= totalCableSegments + 1)//räkna med plug-en
@@ -105,8 +103,8 @@ public class CableBaseScript : MonoBehaviour
     public void ReleaseCable(InputContext context)
     {
         plug.Release();
-    } 
-    
+    }
+
 
     public void DeleteCable()
     {

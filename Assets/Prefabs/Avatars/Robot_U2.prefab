@@ -347,11 +347,11 @@ GameObject:
   - component: {fileID: 5995106986398497681}
   - component: {fileID: 5872775797557853536}
   - component: {fileID: 3343127471816941089}
-  - component: {fileID: 8514874743555079423}
-  - component: {fileID: 8923350234285715272}
-  - component: {fileID: 1011092239}
   - component: {fileID: 4819487099641606967}
-  - component: {fileID: 5218119415158847278}
+  - component: {fileID: 8923350234285715272}
+  - component: {fileID: 5650695410370786711}
+  - component: {fileID: 8514874743555079423}
+  - component: {fileID: 1011092239}
   - component: {fileID: 3738187039458794329}
   m_Layer: 8
   m_Name: Robot_U2
@@ -433,6 +433,115 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4819487099641606967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995106986398497682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changedStackEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8596179144718848936}
+        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
+        m_MethodName: OnStackChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8923350234285715272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995106986398497682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9e61b4f37e1646b97ef42fb097b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changePossessedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8596179144718848936}
+        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
+        m_MethodName: OnPossessChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5650695410370786711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5995106986398497682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04deedc8780ff14c9c0413c48e2c709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5995106986398497682}
+  PermaDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5650695410370786711}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RespawnableDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5650695410370786711}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: SpawnOnLast
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5650695410370786711}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8514874743555079423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,33 +577,6 @@ MonoBehaviour:
   _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
   _isFlipped: 0
---- !u!114 &8923350234285715272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995106986398497682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe9e61b4f37e1646b97ef42fb097b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _changePossessedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8596179144718848936}
-        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
-        m_MethodName: OnPossessChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1011092239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,47 +593,6 @@ MonoBehaviour:
   totalCableSegments: 0
   deadCableSegments: 0
   timeOutDeathTimer: 0
---- !u!114 &4819487099641606967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995106986398497682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _changedStackEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8596179144718848936}
-        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
-        m_MethodName: OnStackChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5218119415158847278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995106986398497682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92571619bcf5119459c2f63b59c74697, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pluggedIn: 0
-  type: SmallRobot
 --- !u!114 &3738187039458794329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,7 +641,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 50622
+  m_InstanceId: 123890
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

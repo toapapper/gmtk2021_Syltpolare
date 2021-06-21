@@ -5,7 +5,7 @@ using MyBox;
 
 public class Parallax : MonoBehaviour
 {
-    [SerializeField] private bool _loopBackground = false;
+    [SerializeField] private bool _loopBackground = true;
     [SerializeField] private float _parallaxEffectHorizontal = 1.0f;
     [SerializeField] private float _parallaxEffectVertical = 1.0f;
 
