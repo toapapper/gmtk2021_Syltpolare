@@ -5,8 +5,7 @@ using MyBox;
 
 public class Parallax : MonoBehaviour
 {
-    [SerializeField] private bool loopingBackground = false;
-
+    [SerializeField] private bool _loopBackground = false;
     [SerializeField] private float _parallaxEffectHorizontal = 1.0f;
     [SerializeField] private float _parallaxEffectVertical = 1.0f;
 
@@ -32,8 +31,8 @@ public class Parallax : MonoBehaviour
 
         Vector3 position = transform.position;
         transform.position = new Vector3(_startPositon.x + distanceHorizontal, _startPositon.y + distanceVertical, position.z);
-        //transform.position = new Vector3(RoundToPixels(_startPositon.x + distanceHorizontal), RoundToPixels(_startPositon.y + distanceVertical), position.z);
-        if (loopingBackground)
+
+        if (_loopBackground)
         {
             if (tempHorizontal > _startPositon.x + _length.x)
                 _startPositon.x += _length.x;

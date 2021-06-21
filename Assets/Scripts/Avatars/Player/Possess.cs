@@ -23,12 +23,15 @@ public class Possess : MonoBehaviour
     /// <param name="gameObject"></param>
     public static void Add(GameObject gameObject)
     {
+        if (_possessableRobots.Contains(gameObject))
+            return;
+
         if (gameObject.GetComponent<Possess>() is null)
             return;
 
         _possessableRobots.Add(gameObject);
 
-        if (_cameraManager.IsStarted && Count == 1) // Switch to that possessable if it is the only one in the scene.
+        if (Count == 1) // Switch to that possessable if it is the only one in the scene.
         {
             _currentPossessed = gameObject;
             _cameraManager.AddMember(gameObject.transform);

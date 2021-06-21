@@ -7,7 +7,6 @@ using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
-    public bool IsStarted => _isStarted;
     public Vector3 Velocity => _velocity;
     public Vector3 Damping
     {
@@ -127,14 +126,22 @@ public class CameraManager : MonoBehaviour
             _targets.Add(_cmFollow.m_Targets[i].target);
 
         _cm = transform.GetComponentInChildren<CinemachineVirtualCamera>();
+        _empty = new GameObject("EmptyPivot");
     }
 
     private void Start()
     {
-        _empty = new GameObject("EmptyPivot");
-
-        _isStarted = true;
         _oldPosition = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        if (Count == 0)
+        {
+            _empty.transform.position = transform.position;
+            AddMember(_empty.transform);
+            _emptyIsUsed = true;
+        }
     }
 
     private void Update()
