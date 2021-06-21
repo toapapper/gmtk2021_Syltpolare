@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcff20f18d746434b9e947bbd12caf97, type: 3}
+  m_Name: Robot_U2_Reference
+  m_EditorClassIdentifier: 
+  Value: {fileID: 5995106986398497682, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}

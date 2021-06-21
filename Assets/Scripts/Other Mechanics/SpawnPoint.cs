@@ -8,15 +8,17 @@ using MyBox;
 public class SpawnPoint : MonoBehaviour
 {
     #region Global
-    public static SpawnPoint GetLastSpawnPoint => _spawnPointHistory.LastOrDefault();
+    public static SpawnPoint LastSpawnPoint => _spawnPointHistory.LastOrDefault();
     public static int HistoryCount => _spawnPointHistory.Count;
     public static int SpawnPointCount => _spawnPoints.Count;
 
+    public static IEnumerator GetEnumerator() => _spawnPointHistory.GetEnumerator();
+
     public static void Spawn(GameObject gameObject, Transform parent)
     {
-        if (GetLastSpawnPoint != null)
+        if (LastSpawnPoint != null)
         {
-            Transform transform = GetLastSpawnPoint.transform;
+            Transform transform = LastSpawnPoint.transform;
             Instantiate(gameObject, transform.position, transform.rotation, parent);
         }
         else
@@ -27,7 +29,11 @@ public class SpawnPoint : MonoBehaviour
     private static List<SpawnPoint> _spawnPointHistory = new List<SpawnPoint>();
     #endregion
 
-    public bool IsSpawnPointActivated => _activated;
+    public bool IsSpawnPointActivated
+    {
+        get => _activated;
+        set => _activated = value;
+    }
 
     [SerializeField, Tag] private string _activationTag;
     [SerializeField] private UnityEvent _activationEvent;
@@ -55,7 +61,9 @@ public class SpawnPoint : MonoBehaviour
     {
         if (!_activated)
         {
-            _activated = true;
+            _activated = true;                                  // Activate this spawn point.
+            if (HistoryCount > 0)
+                LastSpawnPoint.IsSpawnPointActivated = false;    // Deactivate the previous spawn point.
             _spawnPointHistory.Add(this);
             _activationEvent.Invoke();
         }

@@ -499,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04deedc8780ff14c9c0413c48e2c709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 5995106986398497682}
+  _prefab: {fileID: 11400000, guid: 3a5e0c876256dc849957fc24aea5e35e, type: 2}
   PermaDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -641,7 +641,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 123890
+  m_InstanceId: 142540
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,9 @@ public class DeathZone : MonoBehaviour
         if (obj.TryGetComponent(out Death onDeath))
         {
             if (_isRespawnable)
-                onDeath.RespawnableDeathEvent.Invoke();
+                onDeath.RespawnableDeathEvent?.Invoke();
             else
-                onDeath.PermaDeathEvent.Invoke();
+                onDeath.PermaDeathEvent?.Invoke();
         }
     }
 }

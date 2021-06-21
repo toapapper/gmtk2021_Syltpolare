@@ -195,10 +195,10 @@ GameObject:
   - component: {fileID: 2322047842315475286}
   - component: {fileID: 2489151694401822631}
   - component: {fileID: 6732415828843314406}
-  - component: {fileID: 369749581255679544}
-  - component: {fileID: 638789855830871439}
   - component: {fileID: 3596464896308711920}
-  - component: {fileID: 4278718480331511273}
+  - component: {fileID: 638789855830871439}
+  - component: {fileID: 3268685943239924741}
+  - component: {fileID: 369749581255679544}
   - component: {fileID: 4678045331931969950}
   - component: {fileID: 2322047842315475284}
   m_Layer: 8
@@ -281,6 +281,115 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &3596464896308711920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322047842315475285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changedStackEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 306446384327111023}
+        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
+        m_MethodName: OnStackChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &638789855830871439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322047842315475285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9e61b4f37e1646b97ef42fb097b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changePossessedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 306446384327111023}
+        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
+        m_MethodName: OnPossessChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3268685943239924741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2322047842315475285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a04deedc8780ff14c9c0413c48e2c709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 11400000, guid: c1a30314d3403a44b95d6a31e83ddbe1, type: 2}
+  PermaDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3268685943239924741}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  RespawnableDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3268685943239924741}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: SpawnOnLast
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3268685943239924741}
+        m_TargetAssemblyTypeName: Death, Assembly-CSharp
+        m_MethodName: DestroyObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &369749581255679544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,74 +425,6 @@ MonoBehaviour:
   _slopeFriction: {fileID: 0}
   _fallDrag: 0.01
   _isFlipped: 0
---- !u!114 &638789855830871439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322047842315475285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe9e61b4f37e1646b97ef42fb097b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _changePossessedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 306446384327111023}
-        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
-        m_MethodName: OnPossessChange
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3596464896308711920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322047842315475285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4014783b79201d44b820654797af1d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _changedStackEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 306446384327111023}
-        m_TargetAssemblyTypeName: EyeColor, Assembly-CSharp
-        m_MethodName: OnStackChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4278718480331511273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2322047842315475285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92571619bcf5119459c2f63b59c74697, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pluggedIn: 0
-  type: SmallRobot
 --- !u!114 &4678045331931969950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,7 +473,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 30352
+  m_InstanceId: 140728
 --- !u!114 &2322047842315475284
 MonoBehaviour:
   m_ObjectHideFlags: 0

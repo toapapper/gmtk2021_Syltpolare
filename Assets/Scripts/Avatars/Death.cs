@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class Death : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private PrefabReference _prefab;
 
     public UnityEvent PermaDeathEvent;
     public UnityEvent RespawnableDeathEvent;
 
     public void SpawnOnLast()
     {
-        SpawnPoint.Spawn(_prefab, transform.parent);
+        SpawnPoint.Spawn(_prefab.Value, transform.parent);
     }
 
     public void DestroyObject()
