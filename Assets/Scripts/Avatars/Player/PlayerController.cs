@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<InputContext> _escapeEvent;
     [SerializeField] private UnityEvent<InputContext> _moveHorizontalEvent;
     [SerializeField] private UnityEvent<InputContext> _jumpEvent;
     [SerializeField] private UnityEvent<InputContext> _switchEvent;

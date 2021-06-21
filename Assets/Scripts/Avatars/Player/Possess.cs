@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(PlayerController))]
 public class Possess : MonoBehaviour
 {
     /// <summary>
@@ -34,7 +33,7 @@ public class Possess : MonoBehaviour
             _currentPossessed = gameObject;
             _cameraManager.AddMember(gameObject.transform);
             _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
-            _currentPossessed.GetComponent<PlayerController>().enabled = true;
+            _currentPossessed.GetComponentInHierarchy<PlayerController>().enabled = true;
             _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
         }
     }
@@ -88,7 +87,8 @@ public class Possess : MonoBehaviour
 
     private void OnEnable()
     {
-        GetComponent<PlayerController>().enabled = false;
+
+        gameObject.GetComponentInHierarchy<PlayerController>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;
         _changePossessedEvent.Invoke();
 
@@ -106,9 +106,9 @@ public class Possess : MonoBehaviour
 
         if (_currentPossessed != gameObject)
         {
-            _currentPossessed.GetComponent<PlayerController>().enabled = true;      // Activate possessed's controller.
+            _currentPossessed.GetComponentInHierarchy<PlayerController>().enabled = true;      // Activate possessed's controller.
             _currentPossessed.GetComponent<PlayerMovement>().enabled = true;
-            gameObject.GetComponent<PlayerController>().enabled = false;            // Disable current controller.
+            gameObject.GetComponentInHierarchy<PlayerController>().enabled = false;            // Disable current controller.
             gameObject.GetComponent<PlayerMovement>().enabled = false;
             _cameraManager.Clear();
             _cameraManager.AddMember(_currentPossessed.transform);              // Add possessed to camera targets.
@@ -124,7 +124,7 @@ public class Possess : MonoBehaviour
     {
         for (int i = 0; i < _possessableRobots.Count; i++)
         {
-            _possessableRobots[i].GetComponent<PlayerController>().enabled = false;
+            _possessableRobots[i].GetComponentInHierarchy<PlayerController>().enabled = false;
             _possessableRobots[i].GetComponent<PlayerMovement>().enabled = false;
         }
 
