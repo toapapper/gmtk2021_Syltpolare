@@ -18,7 +18,7 @@ public class SpawnPoint : MonoBehaviour
     {
         if (LastSpawnPoint != null)
         {
-            Transform transform = LastSpawnPoint.transform;
+            Transform transform = LastSpawnPoint._spawn;
             Instantiate(gameObject, transform.position, transform.rotation, parent);
         }
         else
@@ -38,7 +38,14 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField, Tag] private string _activationTag;
     [SerializeField] private UnityEvent _activationEvent;
 
+    private Transform _spawn;
+
     private bool _activated;
+
+    private void Awake()
+    {
+        _spawn = GameObject.Find("Spawn").transform;
+    }
 
     private void OnEnable()
     {
