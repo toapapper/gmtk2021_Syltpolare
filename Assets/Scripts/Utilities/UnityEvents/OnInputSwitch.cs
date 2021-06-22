@@ -24,30 +24,33 @@ namespace Celezt.Event
 
         public void OnInputSwitchChange(InputContext context)
         {
-            if (_state == InputContext.InputState.Canceled)
+            if (isActiveAndEnabled)
             {
-                switch (context.State)
+                if (_state == InputContext.InputState.Canceled)
                 {
-                    case InputContext.InputState.Performed:
-                        _duration = new Duration(_cancelTime);
-                        break;
-                    case InputContext.InputState.Canceled:
-                        if (!_duration.IsActive)
-                            return;
-                        break;
-                    default:
-                        break;
+                    switch (context.State)
+                    {
+                        case InputContext.InputState.Performed:
+                            _duration = new Duration(_cancelTime, false);
+                            break;
+                        case InputContext.InputState.Canceled:
+                            if (!_duration.IsActive)
+                                return;
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
 
-            if (context.State == _state)
-            {
-                _isOn = !_isOn;
+                if (context.State == _state)
+                {
+                    _isOn = !_isOn;
 
-                if (_isOn)
-                    _onEvent.Invoke();
-                else
-                    _offEvent.Invoke();
+                    if (_isOn)
+                        _onEvent.Invoke();
+                    else
+                        _offEvent.Invoke();
+                }
             }
         }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 783014484740791626}
   - component: {fileID: 3913694424680749299}
   - component: {fileID: 9210547697987560691}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UIText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

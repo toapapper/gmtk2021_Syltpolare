@@ -74,6 +74,7 @@ namespace Celezt.Times
         [SerializeField] private float _timeLeft;
         [SerializeField] private float _initTime;
         private bool _paused;
+        private bool _isScaledTime;
 
         public bool Equals(Duration other) => ID == other.ID;
         public override bool Equals(object obj) => (obj != null) ? obj.GetHashCode() == GetHashCode() : false;
@@ -83,7 +84,7 @@ namespace Celezt.Times
         public bool Pause()
         {
             if (!_paused)
-                _pauseGameTime = Time.time;
+                _pauseGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
 
             return _paused = true;
         }
@@ -91,7 +92,7 @@ namespace Celezt.Times
         {
             if (_paused)
             {
-                float currentTime = Time.time;
+                float currentTime = _isScaledTime ? Time.time : Time.unscaledTime;
                 float deltaTime = currentTime - _pauseGameTime;
                 _pauseGameTime = currentTime;
                 _oldGameTime += deltaTime;
@@ -115,7 +116,7 @@ namespace Celezt.Times
 
         public void Set(float duration)
         {
-            _oldGameTime = Time.time;
+            _oldGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timeLeft = duration;
@@ -130,7 +131,7 @@ namespace Celezt.Times
             if (_paused || float.IsPositiveInfinity(_timeLeft))
                 return;
 
-            float currentTime = Time.time;
+            float currentTime = _isScaledTime ? Time.time : Time.unscaledTime;
             float deltaTime = currentTime - _oldGameTime;
             _oldGameTime = currentTime;
 
@@ -140,10 +141,11 @@ namespace Celezt.Times
                 _timeLeft = 0;
         }
 
-        public Duration(float duration)
+        public Duration(float duration, bool isScaledTime = true)
         {
             ID = ++_counter;
-            _oldGameTime = Time.time;
+            _isScaledTime = isScaledTime;
+            _oldGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timeLeft = duration;
