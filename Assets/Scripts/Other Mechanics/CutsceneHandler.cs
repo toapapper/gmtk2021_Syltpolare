@@ -7,12 +7,8 @@ public class CutsceneHandler : MonoBehaviour
 {
     private PlayableDirector _currentDirector;
 
-    private bool _isSceneSkipped = true;
-    private float _timeToSkipTo;
-
     public void GetDirector(PlayableDirector director)
     {
-        _isSceneSkipped = false;
         _currentDirector = director;
     }
 

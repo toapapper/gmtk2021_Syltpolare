@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Death : MonoBehaviour
+public class OnDeath : MonoBehaviour
 {
     [SerializeField] private PrefabReference _prefab;
 
@@ -12,7 +12,7 @@ public class Death : MonoBehaviour
 
     public void SpawnOnLast()
     {
-        SpawnPoint.Spawn(_prefab.Value, transform.parent);
+        SpawnPoint.Spawn(_prefab.Value);
     }
 
     public void DestroyObject()

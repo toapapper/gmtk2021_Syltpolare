@@ -11,7 +11,7 @@ public class DeathZone : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject obj = collision.gameObject;
-        if (obj.TryGetComponent(out Death onDeath))
+        if (obj.TryGetComponent(out OnDeath onDeath))
         {
             if (_isRespawnable)
                 onDeath.RespawnableDeathEvent?.Invoke();
