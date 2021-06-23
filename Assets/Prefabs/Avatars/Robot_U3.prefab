@@ -91,7 +91,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014446145736273969, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}
       propertyPath: m_InstanceId
-      value: -50692
+      value: -68094
       objectReference: {fileID: 0}
     - target: {fileID: 1014446145736273969, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}
       propertyPath: m_ShapePathHash
@@ -260,6 +260,10 @@ PrefabInstance:
     - target: {fileID: 5995106986398497682, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}
       propertyPath: m_Name
       value: Robot_U3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995106986398497682, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8514874743555079423, guid: a1f49b0e4b02f114198cd5480a16fe50, type: 3}
       propertyPath: _jumpImpulse
