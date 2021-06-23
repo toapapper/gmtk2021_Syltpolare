@@ -1,0 +1,307 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1487219306910258288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3419862063658280167}
+  - component: {fileID: 7896293254775242678}
+  - component: {fileID: 4035084969024957243}
+  - component: {fileID: 7409756578096028882}
+  - component: {fileID: 3835733800136981350}
+  - component: {fileID: 74832558118346235}
+  m_Layer: 8
+  m_Name: RobotOverheat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3419862063658280167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5981123324690804884}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7896293254775242678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633edd787e42eff46b22cf2c13b2ad88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _delay: 0
+  _routeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4035084969024957243}
+        m_TargetAssemblyTypeName: Celezt.Event.OnInputHold, Assembly-CSharp
+        m_MethodName: OnHoldActivation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4035084969024957243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d992ae3aad0ea2348b3938fbfd568628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _time: 2
+  _startEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7409756578096028882}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _endEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _cancelEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 74832558118346235}
+        m_TargetAssemblyTypeName: Celezt.PlayableRangeRemap, Assembly-CSharp
+        m_MethodName: MirrorCurrentTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!320 &7409756578096028882
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: b4641050b91a0c14ea94536f3081e462, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -4265753371732019123, guid: b4641050b91a0c14ea94536f3081e462, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1589944205085312986, guid: b4641050b91a0c14ea94536f3081e462, type: 2}
+    value: {fileID: 6933070223474585625}
+  m_ExposedReferences:
+    m_References:
+    - ff03c0fcae74c284087a87a5444cd517: {fileID: 8625149891037991382}
+--- !u!114 &3835733800136981350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ae448c1f54dfe4f8b0ef120a3429a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &74832558118346235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487219306910258288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c943a5f4e85544292e20b4af1623a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range:
+    Min: 0.25
+    Max: 2
+  ToRange:
+    Min: 2
+    Max: 2.5
+  _outsideRangeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3835733800136981350}
+        m_TargetAssemblyTypeName: Celezt.PlayableHandler, Assembly-CSharp
+        m_MethodName: OnSkipTo
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7409756578096028882}
+        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &6933070223474585625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7062936791531546078}
+  - component: {fileID: 6156802139149890599}
+  m_Layer: 8
+  m_Name: RobotOverheat - Emitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7062936791531546078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6933070223474585625}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5981123324690804884}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6156802139149890599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6933070223474585625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e88715408af20b4dba573dc3a360df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particleSystem: {fileID: 7371053292948250664}
+--- !u!1001 &9003071761094221960
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3419862063658280167}
+    m_Modifications:
+    - target: {fileID: 811745452806287710, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_Name
+      value: RobotOverheat - SmokeParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+--- !u!1 &8625149891037991382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 811745452806287710, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+  m_PrefabInstance: {fileID: 9003071761094221960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5981123324690804884 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3454368569874223132, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+  m_PrefabInstance: {fileID: 9003071761094221960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7371053292948250664 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1925970513851072672, guid: d62ecc03ef65e3a43a6f331d126d2291, type: 3}
+  m_PrefabInstance: {fileID: 9003071761094221960}
+  m_PrefabAsset: {fileID: 0}

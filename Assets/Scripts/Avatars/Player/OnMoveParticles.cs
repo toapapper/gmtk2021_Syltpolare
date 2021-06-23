@@ -12,14 +12,12 @@ public class OnMoveParticles : MonoBehaviour
         {
             case GroundCheck.TriggerState.Grounded:
                 {
-                    ParticleSystem.EmissionModule emission = _particleSystem.emission;
-                    emission.enabled = true;
+                    _particleSystem.Play();
                 }
                 break;
             case GroundCheck.TriggerState.Elevation:
                 {
-                    ParticleSystem.EmissionModule emission = _particleSystem.emission;
-                    emission.enabled = false;
+                    _particleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
                 }
                 break;
         }
