@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcff20f18d746434b9e947bbd12caf97, type: 3}
   m_Name: Robot_U2_Wireless_Reference
   m_EditorClassIdentifier: 
-  Value: {fileID: 2322047842315475285, guid: e7301610a0fa55740823c6c42ea13b7f, type: 3}
+  Value: {fileID: 3998702380767040675, guid: 0692ea494eb90df489ace576c6719605, type: 3}
