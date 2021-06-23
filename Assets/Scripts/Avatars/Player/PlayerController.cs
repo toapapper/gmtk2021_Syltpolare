@@ -69,14 +69,22 @@ public class PlayerController : MonoBehaviour
             _throwEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
 
-        if (Input.GetButtonUp(InputControls.Release))
+        if (Input.GetButtonDown(InputControls.Release))
         {
-            _releasePlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
+            _releasePlugEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
+        }
+        else if (Input.GetButtonUp(InputControls.Release))
+        {
+            _releasePlugEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
 
-        if (Input.GetButtonUp(InputControls.Drop))
+        if (Input.GetButtonDown(InputControls.Drop))
         {
-            _dropPlugEvent.Invoke(new InputContext(0, InputContext.InputState.Performed));
+            _dropPlugEvent.Invoke(new InputContext(1, InputContext.InputState.Performed));
+        }
+        else if (Input.GetButtonUp(InputControls.Drop))
+        {
+            _dropPlugEvent.Invoke(new InputContext(0, InputContext.InputState.Canceled));
         }
     }
 

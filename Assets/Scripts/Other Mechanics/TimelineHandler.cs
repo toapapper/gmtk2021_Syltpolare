@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class CutsceneHandler : MonoBehaviour
+public class TimelineHandler : MonoBehaviour
 {
     private PlayableDirector _currentDirector;
 

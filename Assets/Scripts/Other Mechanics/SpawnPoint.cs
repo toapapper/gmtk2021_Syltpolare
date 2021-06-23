@@ -7,7 +7,7 @@ using MyBox;
 
 public class SpawnPoint : MonoBehaviour
 {
-    #region Global
+    #region Globals
     public static SpawnPoint LastSpawnPoint => _spawnPointHistory.LastOrDefault();
     public static int HistoryCount => _spawnPointHistory.Count;
     public static int SpawnPointCount => _spawnPoints.Count;
@@ -48,6 +48,32 @@ public class SpawnPoint : MonoBehaviour
     private bool _isActivated;
     private bool _isFirstTimeActivated;
 
+    /// <summary>
+    /// Activate a spawn point. Deactivate any previous activated.
+    /// </summary>
+    public void Activate()
+    {
+        if (!_isActivated)
+        {
+            _isActivated = true;                                // Activate this spawn point.
+
+            if (HistoryCount > 0)
+            {
+                LastSpawnPoint._isActivated = false;            // Deactivate the previous spawn point.
+                LastSpawnPoint._deactivateEvent.Invoke();
+            }
+
+            _spawnPointHistory.Add(this);
+            _activateEvent.Invoke();
+
+            if (_isFirstTimeActivated)                          // If it is the first time it has been activated.
+            {
+                _isFirstTimeActivated = false;
+                _firstTimeActivateEvent.Invoke();
+            }
+        }
+    }
+
     private void Awake()
     {
         _spawn = transform.Find("Spawn");
@@ -70,28 +96,5 @@ public class SpawnPoint : MonoBehaviour
     {
         if (collision.tag == _activationTag)
             Activate();
-    }
-
-    private void Activate()
-    {
-        if (!_isActivated)
-        {
-            _isActivated = true;                                // Activate this spawn point.
-
-            if (HistoryCount > 0)
-            {
-                LastSpawnPoint._isActivated = false;            // Deactivate the previous spawn point.
-                LastSpawnPoint._deactivateEvent.Invoke();
-            }
-
-            _spawnPointHistory.Add(this);
-            _activateEvent.Invoke();
-
-            if (_isFirstTimeActivated)                          // If it is the first time it has been activated.
-            {
-                _isFirstTimeActivated = false;
-                _firstTimeActivateEvent.Invoke();
-            }
-        }
     }
 }

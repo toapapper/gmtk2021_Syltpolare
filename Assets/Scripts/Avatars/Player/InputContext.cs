@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public readonly struct InputContext
 {
     public readonly float Value;

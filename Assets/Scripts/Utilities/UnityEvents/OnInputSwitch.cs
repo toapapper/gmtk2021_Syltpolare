@@ -13,8 +13,8 @@ namespace Celezt.Event
         [SerializeField] private InputContext.InputState _state = InputContext.InputState.Performed;
         [SerializeField, ConditionalField(nameof(_state), false, InputContext.InputState.Canceled)] float _cancelTime = 2.0f;
         [SerializeField, Tooltip("Set Active by default.")] private bool _setOn;
-        [SerializeField] private UnityEvent _onEvent;
-        [SerializeField] private UnityEvent _offEvent;
+        [SerializeField] private UnityEvent<InputContext> _onEvent;
+        [SerializeField] private UnityEvent<InputContext> _offEvent;
 
         private Duration _duration;
 
@@ -47,9 +47,9 @@ namespace Celezt.Event
                     _isOn = !_isOn;
 
                     if (_isOn)
-                        _onEvent.Invoke();
+                        _onEvent.Invoke(context);
                     else
-                        _offEvent.Invoke();
+                        _offEvent.Invoke(context);
                 }
             }
         }
@@ -58,10 +58,14 @@ namespace Celezt.Event
         {
             _isOn = _setOn;
 
+            InputContext context = _state == InputContext.InputState.Performed ?
+                new InputContext(1, InputContext.InputState.Performed) :
+                new InputContext(0, InputContext.InputState.Canceled);
+
             if (_isOn)
-                _onEvent.Invoke();
+                _onEvent.Invoke(context);
             else
-                _offEvent.Invoke();
+                _offEvent.Invoke(context);
         }
     }
 }

@@ -10,6 +10,9 @@ public class OnDeath : MonoBehaviour
     public UnityEvent PermaDeathEvent;
     public UnityEvent RespawnableDeathEvent;
 
+    public void PermaDeathInvoke() => PermaDeathEvent.Invoke();
+    public void RespawnableDeathInvoke() => RespawnableDeathEvent.Invoke();
+
     public void SpawnOnLast()
     {
         SpawnPoint.Spawn(_prefab.Value);

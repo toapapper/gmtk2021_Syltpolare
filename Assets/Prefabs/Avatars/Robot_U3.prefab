@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &559424223
 SpriteRenderer:
@@ -367,9 +367,21 @@ MonoBehaviour:
   _releasePlugEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1011092239}
-        m_TargetAssemblyTypeName: CableBaseScript, Assembly-CSharp
-        m_MethodName: ReleaseCable
+      - m_Target: {fileID: 7063677697671696070}
+        m_TargetAssemblyTypeName: Celezt.Event.OnInputUpLimit, Assembly-CSharp
+        m_MethodName: OnInputUpLimitActivate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5310624334183415688}
+        m_TargetAssemblyTypeName: Celezt.Event.OnInputHold, Assembly-CSharp
+        m_MethodName: OnHoldActivation
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -424,7 +436,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8449575355386211986
 BoxCollider2D:
@@ -499,7 +511,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6878161246129770311
 BoxCollider2D:
@@ -618,8 +630,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4322676349948382646}
-  - {fileID: 8208712814540442215}
   - {fileID: 2282676248128889254}
+  - {fileID: 7192170251868407097}
+  - {fileID: 6815813294220752433}
+  - {fileID: 8208712814540442215}
   - {fileID: 268485398}
   - {fileID: 6666785148126459816}
   - {fileID: 2604456184041851379}
@@ -887,7 +901,7 @@ MonoBehaviour:
   - {x: -0.2533223, y: -0.44048768, z: 0}
   m_ShapePathHash: 1649835027
   m_Mesh: {fileID: 0}
-  m_InstanceId: 140244
+  m_InstanceId: 66372
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +934,7 @@ Transform:
   m_Children:
   - {fileID: 1643677132937045185}
   m_Father: {fileID: 5995106986398497681}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &269464821305030071
 SpriteRenderer:
@@ -1000,6 +1014,136 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10aa2f987d5199489b41f5afbe15ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8113367443448053203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6815813294220752433}
+  - component: {fileID: 7063677697671696070}
+  m_Layer: 8
+  m_Name: Robot - Unplug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6815813294220752433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113367443448053203}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5995106986398497681}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7063677697671696070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113367443448053203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de3a50017c181542bcb41376cb6c045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cancelTime: 0.25
+  _startEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _performEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1011092239}
+        m_TargetAssemblyTypeName: CableBaseScript, Assembly-CSharp
+        m_MethodName: ReleaseCable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _cancelEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!1 &8869287776544917121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7192170251868407097}
+  - component: {fileID: 5310624334183415688}
+  m_Layer: 8
+  m_Name: Robot - ExplodeItself
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7192170251868407097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869287776544917121}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5995106986398497681}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5310624334183415688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869287776544917121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d992ae3aad0ea2348b3938fbfd568628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _time: 2
+  _startEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _endEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4486946817695731309}
+        m_TargetAssemblyTypeName: OnDeath, Assembly-CSharp
+        m_MethodName: RespawnableDeathInvoke
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _cancelEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &8289036610372976877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,7 +1157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6281520894294559006, guid: 046ca42481645404e8b574d429785244, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6281520894294559006, guid: 046ca42481645404e8b574d429785244, type: 3}
       propertyPath: m_LocalPosition.x

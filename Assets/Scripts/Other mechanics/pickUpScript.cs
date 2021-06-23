@@ -77,7 +77,8 @@ public class pickUpScript : MonoBehaviour
 
     public void ReleaseItem(InputContext context)
     {
-        ReleaseItemPrivate();
+        if (context.State == InputContext.InputState.Canceled)
+            ReleaseItemPrivate();
     }
 
     private void ReleaseItemPrivate()
