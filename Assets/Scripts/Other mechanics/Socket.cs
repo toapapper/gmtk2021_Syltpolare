@@ -12,7 +12,7 @@ public class Socket : MonoBehaviour
     public float pluggedInDistance = .2f;
 
     public float attractionForce = 600f;
-    [HideInInspector] public bool powered = false;//bara kollas av andra saker, mer behöver inte göras i detta scriptet
+    public bool powered = true;//bara kollas av andra saker, mer behöver inte göras i detta scriptet
 
     [HideInInspector] public Circuit circuit = null;
     
