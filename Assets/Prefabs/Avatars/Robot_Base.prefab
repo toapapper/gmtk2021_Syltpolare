@@ -836,10 +836,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f320705e08986f43b1195b92ad7844e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powered: 0
+  inherentlyPowered: 0
   cableToSpawn: {fileID: 138092793672301109, guid: 111159e086fac714093123e107779042, type: 3}
-  totalCableSegments: 0
-  deadCableSegments: 0
-  timeOutDeathTimer: 0
+  cableAmount: 1
 --- !u!114 &1014446145736273969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +869,7 @@ MonoBehaviour:
   - {x: -0.37890613, y: -0.3089337, z: 0}
   m_ShapePathHash: 1455150491
   m_Mesh: {fileID: 0}
-  m_InstanceId: 159618
+  m_InstanceId: 84000
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,9 +1173,9 @@ MonoBehaviour:
   _releasePlugEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6170068631869530811}
-        m_TargetAssemblyTypeName: Celezt.Event.OnInputUpLimit, Assembly-CSharp
-        m_MethodName: OnInputUpLimitActivate
+      - m_Target: {fileID: 83451692161612966}
+        m_TargetAssemblyTypeName: Celezt.Event.OnInputRouter, Assembly-CSharp
+        m_MethodName: Connect
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
