@@ -6,6 +6,8 @@ public class CableSegmentScript : MonoBehaviour
 {
     CableBaseScript cableBase;
 
+    public int cableIndex = -1;
+
     public CableSegmentScript preceedingSegment = null;
     public CableSegmentScript nextSegment = null;
     public Plug nextPlug = null;
@@ -37,7 +39,7 @@ public class CableSegmentScript : MonoBehaviour
 
             if (animTimer <= 0)
             {
-                cableBase.CableDied();
+                cableBase.CableDied(cableIndex);
                 Destroy(gameObject, .01f);
             }
         }
@@ -74,7 +76,7 @@ public class CableSegmentScript : MonoBehaviour
         {
             Kill();
 
-            cableBase.OnCableBreak();
+            cableBase.OnCableBreak(cableIndex);
         }
     }
 
@@ -84,7 +86,7 @@ public class CableSegmentScript : MonoBehaviour
         {
             Kill();
 
-            cableBase.OnCableBreak();
+            cableBase.OnCableBreak(cableIndex);
         }
     }
 }

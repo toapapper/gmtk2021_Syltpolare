@@ -60,6 +60,15 @@ public class pickUpScript : MonoBehaviour
                 gobj.GetComponent<Rigidbody2D>().AddForce(currentDiffVector.normalized * pushForce);
             }
         }
+
+        if(mousedOverPlugs != null)
+        {
+            foreach(GameObject gobj in mousedOverPlugs)
+            {
+                if(heldItem != gobj)
+                    gobj.GetComponent<Rigidbody2D>().AddForce(currentDiffVector.normalized * pushForce);
+            }
+        }
     }
 
     public void PickUpGo(GameObject go)

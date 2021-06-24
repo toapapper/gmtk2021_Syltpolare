@@ -8,15 +8,17 @@ public class Plug : MonoBehaviour
 
     public Vector3 Destination;
     protected bool attractable = true;
+    public bool drawingPower = false;//sann om drar kraft ifrån en socket. Om sann så kan den inte samtidigt ge kraft till den socketen.
     public bool held;
     public bool pluggedIn;
-    protected Socket socket = null;
+    public Socket socket { get; protected set; } = null;
     Rigidbody2D _rigidbody;
 
-    CableBaseScript cableBase;
+    public int cableIndex = -1;
+
+    public CableBaseScript cableBase { get; protected set; }
 
     Animator animator;
-
 
     private float releaseTime = 2f;//sekunder som den inte kan attraheras till en socket efter den "releasats" med X
     private float releaseTimer = 0;
@@ -52,35 +54,27 @@ public class Plug : MonoBehaviour
         else
             attractable = true;
 
+        //explosions-animation och sånt
         if(killNextTimer > 0)
         {
             killNextTimer -= Time.deltaTime;
             if (killNextTimer <= 0 && preceedingCableSegment != null && !preceedingCableSegment.dieing)
                 preceedingCableSegment.Kill();
         }
-
         if (animTimer > 0)
         {
             animTimer -= Time.deltaTime;
 
             if (animTimer <= 0)
             {
-                cableBase.CableDied();
+                cableBase.CableDied(cableIndex);
                 Destroy(gameObject, .01f);
             }
         }
-        
+
         if (held == true && pluggedIn)
         {
             UnPlugg();
-        }
-        if (pluggedIn == true && !Possess.Contains(m_player))
-        {
-            Possess.Add(transform.root.gameObject);
-        }
-        else if (pluggedIn == false && Possess.Contains(m_player))
-        {
-            Possess.Remove(transform.root.gameObject);
         }
     }
 
@@ -101,14 +95,13 @@ public class Plug : MonoBehaviour
 
         killNextTimer = killNextTime;
     }
-
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Dangerous"))
         {
             Kill();
-
-            cableBase.OnCableBreak();
+            cableBase.OnCableBreak(cableIndex);
         }
     }
 
@@ -138,6 +131,7 @@ public class Plug : MonoBehaviour
             pluggedIn = true;
             _rigidbody.MovePosition(socket.transform.position);
             _rigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+            
             return true;
         }
         else

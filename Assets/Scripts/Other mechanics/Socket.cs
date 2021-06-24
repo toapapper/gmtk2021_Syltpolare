@@ -2,18 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Socket : MonoBehaviour
 {
-    public bool occupied = false;
-    public Plug occupiedBy;
+    [HideInInspector] public bool occupied = false;
+    [HideInInspector] public Plug occupiedBy;
 
     List<Plug> plugsNearby = new List<Plug>();
     public float pluggedInDistance = .2f;
 
     public float attractionForce = 600f;
+    [HideInInspector] public bool powered = false;//bara kollas av andra saker, mer behöver inte göras i detta scriptet
+
+    [HideInInspector] public Circuit circuit = null;
+    
+    protected SpriteRenderer sr;
+    protected Color UnpoweredColor = Color.grey;
+
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     private void Update()
     {
+        if (powered)
+            sr.color = Color.white;
+        else
+            sr.color = UnpoweredColor;
+
         List<int> removeAt = new List<int>();
         for(int i = 0; i < plugsNearby.Count; i++)
         {
@@ -24,6 +41,9 @@ public class Socket : MonoBehaviour
                 removeAt.Add(i);
                 continue;
             }
+
+            if (currentPlug.held)
+                continue;
 
             if (!occupied)
             {
@@ -48,19 +68,30 @@ public class Socket : MonoBehaviour
         }
     }
 
+    public void SetCircuit(Circuit circuit)
+    {
+        this.circuit = circuit;
+    }
+
     protected void PlugIn(Plug plug)
     {
         if (plug.PlugIn(this))
         {
             occupied = true;
             occupiedBy = plug;
+            if(circuit != null)
+                circuit.SocketPluggedIn();
         }
     }
 
     public void Unplugg(Plug plug)
     {
-        if (occupied == plug)
+        if (occupiedBy == plug)
+        {
             occupiedBy = null;
+            if (circuit != null)
+                circuit.SocketUnplugged();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)//håll reda på plugs inom range, om denna inte är upptagen attrahera dem.
