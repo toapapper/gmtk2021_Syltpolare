@@ -58,7 +58,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: robot_2_sheet_0
+  m_Name: AC_Robot_U2
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Run
