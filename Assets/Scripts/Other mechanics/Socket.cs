@@ -42,10 +42,10 @@ public class Socket : MonoBehaviour
                 continue;
             }
 
-            if (currentPlug.held)
+            if (currentPlug.held || !currentPlug.attractable)
                 continue;
 
-            if (!occupied)
+            if (!occupied && currentPlug.attractable)
             {
                 //attrahera plug:
                 currentPlug.Attract(transform.position, attractionForce);
