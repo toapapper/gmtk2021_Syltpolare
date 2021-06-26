@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.Timeline;
 
-public class ParticleSystemClipEditor : MonoBehaviour
+namespace Celezt.Timeline
 {
-    // Start is called before the first frame update
-    void Start()
+    [CustomEditor(typeof(ParticleSystemClip)), CanEditMultipleObjects]
+    public class ParticleSystemClipEditor : Editor
     {
-        
-    }
+        private SerializedProperty _text;
+        private SerializedProperty _fontColor;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnEnable()
+        {
+
+        }
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }

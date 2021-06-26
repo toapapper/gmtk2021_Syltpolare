@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEditor.Timeline;
 
-public class ParticleSystemTrackEditor : MonoBehaviour
+namespace Celezt.Timeline
 {
-    // Start is called before the first frame update
-    void Start()
+    [CustomEditor(typeof(ParticleSystemTrack)), CanEditMultipleObjects]
+    public class ParticleSystemTrackEditor : Editor
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnEnable()
+        {
+
+        }
+
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }
