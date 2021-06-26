@@ -37,11 +37,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Template:
     Text: Who Are You?
-    FontColor:
-      r: 0.7490196
-      g: 0
-      b: 0
-      a: 1
+    FontColor: {r: 0.7490196, g: 0, b: 0, a: 1}
 --- !u!114 &-1067893573228678392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -62,7 +58,6 @@ MonoBehaviour:
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
   m_Children: []
-  m_CacheSorted: 1
   m_Clips:
   - m_Version: 1
     m_Start: 1.1333333333333333
@@ -76,8 +71,10 @@ MonoBehaviour:
     m_BlendInDuration: -1
     m_BlendOutDuration: 0.20000000000000018
     m_MixInCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
         value: 0
         inSlope: 0
         outSlope: 0
@@ -85,7 +82,8 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - time: 1
+      - serializedVersion: 3
+        time: 1
         value: 1
         inSlope: 0
         outSlope: 0
@@ -97,7 +95,26 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
-      m_Curve: []
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -111,7 +128,6 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: SubtitleClip
-    <DirtyIndex>k__BackingField: 423
   - m_Version: 1
     m_Start: 2.75
     m_ClipIn: 0
@@ -124,13 +140,19 @@ MonoBehaviour:
     m_BlendInDuration: 0.20000000000000018
     m_BlendOutDuration: -1
     m_MixInCurve:
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_MixOutCurve:
+      serializedVersion: 2
       m_Curve:
-      - time: 0
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
         value: 1
         inSlope: 0
         outSlope: 0
@@ -138,7 +160,23 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - time: 1
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
         value: 0
         inSlope: 0
         outSlope: 0
@@ -159,12 +197,8 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: SubtitleClip
-    <DirtyIndex>k__BackingField: 1444
   m_Markers:
     m_Objects: []
-    m_CacheDirty: 0
-    m_HasNotifications: 0
-  <DirtyIndex>k__BackingField: 88
   Template:
     FadeIn: 1
 --- !u!114 &-341285113211489882
@@ -181,11 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Template:
     Text: Hello
-    FontColor:
-      r: 1
-      g: 0
-      b: 1
-      a: 1
+    FontColor: {r: 0.99431837, g: 1, b: 0, a: 1}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
