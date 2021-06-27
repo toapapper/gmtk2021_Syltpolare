@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Celezt.Timeline
+namespace Celezt
 {
     [AddComponentMenu("Celezt/Playable/Playable Handler")]
     public class PlayableHandler : MonoBehaviour

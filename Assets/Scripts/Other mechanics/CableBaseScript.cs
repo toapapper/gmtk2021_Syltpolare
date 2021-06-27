@@ -119,7 +119,7 @@ public class CableBaseScript : MonoBehaviour
                 plugs[index].preceedingCableSegment = previousgObj;
                 previousgObj.nextPlug = plugs[index];
             }
-
+            
             spawnedCables[index] = cable;
             deadCableSegments[index] = 0;
             timeOutDeathTimer[index] = 0;
@@ -127,7 +127,7 @@ public class CableBaseScript : MonoBehaviour
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
     }
-
+    
     public void CableDied(int index)
     {
         deadCableSegments[index]++;
@@ -148,7 +148,7 @@ public class CableBaseScript : MonoBehaviour
 
         }
     }
-
+    
     protected bool CheckPowered()
     {
         if (inherentlyPowered)
