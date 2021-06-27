@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 using MyBox;
 using Celezt.Mathematics;
 
-namespace Celezt
+namespace Celezt.Timeline
 {
     [AddComponentMenu("Celezt/Playable/Playable Range Remap")]
     public class PlayableRangeRemap : MonoBehaviour
