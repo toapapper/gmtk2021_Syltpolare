@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6505512956594365996}
   - component: {fileID: 6505512956594366419}
   m_Layer: 0
-  m_Name: CutsceneManager
+  m_Name: TimelineManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
