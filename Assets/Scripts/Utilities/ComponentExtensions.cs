@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static partial class ComponentExtension
+public static partial class ComponentExtensions
 {
     /// <summary>
     /// Try to find specified component first on itself, children and lastly parents until no more parent is found.

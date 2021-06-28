@@ -11,6 +11,6 @@ namespace Celezt.Timeline
         public double StartTime { get; set; }
         public double EndTime { get; set; }
 
-        public ExposedReference<ConditionBehaviour> From;
+        public ExposedReference<ConditionBehaviour> ConditionSource;
     }
 }

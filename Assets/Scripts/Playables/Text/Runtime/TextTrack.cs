@@ -16,6 +16,16 @@ namespace Celezt.Timeline
 
         public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
         {
+            foreach (TimelineClip clip in GetClips())
+            {
+                if (clip.asset is TextClip)
+                {
+                    TextClip textClip = clip.asset as TextClip;
+                    TextBehaviour behaviour = textClip.Template;
+                    clip.displayName = behaviour.Text;
+                }
+            }
+
             ScriptPlayable<TextMixerBehaviour> playable = ScriptPlayable<TextMixerBehaviour>.Create(graph, Template, inputCount);
             return playable;
         }

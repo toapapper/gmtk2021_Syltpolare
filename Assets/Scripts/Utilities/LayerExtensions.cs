@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static partial class LayerExtension
+public static partial class LayerExtensions
 {
     /// <summary>
     /// If the layer exist inside the included layers.

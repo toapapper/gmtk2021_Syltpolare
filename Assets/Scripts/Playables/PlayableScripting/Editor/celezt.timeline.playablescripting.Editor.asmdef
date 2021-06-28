@@ -1,0 +1,17 @@
+{
+    "name": "celezt.timeline.playablescripting.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:02f771204943f4a40949438e873e3eff",
+        "GUID:adf39411d8adae7459be8bf2e7d26cb7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -21,7 +21,7 @@ namespace Celezt.Timeline
                 {
                     WhileClip whileClip = clip.asset as WhileClip;
                     WhileBehaviour behaviour = whileClip.Template;
-                    ConditionBehaviour condition = behaviour.From.Resolve(graph.GetResolver());
+                    ConditionBehaviour condition = behaviour.ConditionSource.Resolve(graph.GetResolver());
                     clip.displayName = "While " + (condition != null ? condition.name : "");
 
                     behaviour.StartTime = clip.start;

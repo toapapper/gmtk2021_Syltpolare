@@ -11,6 +11,8 @@ namespace Celezt.Timeline
     {
         private PlayableDirector _playableDirector;
 
+        private List<PlayableBehaviour> _oldBehaviours = new List<PlayableBehaviour>();
+
         public override void OnPlayableCreate(Playable playable)
         {
             _playableDirector = playable.GetGraph().GetResolver() as PlayableDirector;
@@ -18,27 +20,44 @@ namespace Celezt.Timeline
 
         public override void ProcessFrame(Playable playable, FrameData info, object playerData)
         {
-            int inputCount = playable.GetInputCount();
-
-            for (int i = 0; i < inputCount; i++)
+            if (Application.isPlaying)
             {
-                float inputWeight = playable.GetInputWeight(i);
+                int inputCount = playable.GetInputCount();
 
-                if (inputWeight > 0.0f)
+                List<PlayableBehaviour> currentBehaviours = new List<PlayableBehaviour>();
+
+                for (int i = 0; i < inputCount; i++)
                 {
-                    ScriptPlayable<WhileBehaviour> inputPlayable = (ScriptPlayable<WhileBehaviour>)playable.GetInput(i);
-                    WhileBehaviour input = inputPlayable.GetBehaviour();
-                    ConditionBehaviour condition = input.From.Resolve(playable.GetGraph().GetResolver());
+                    float inputWeight = playable.GetInputWeight(i);
 
-                    if (condition != null)
+                    if (inputWeight > 0.0f)
                     {
-                        if (!condition.Condition)
-                        {
-                            if (_playableDirector.time + info.deltaTime >= input.EndTime)
-                                _playableDirector.time = input.StartTime;
-                        }
+                        ScriptPlayable<WhileBehaviour> inputPlayable = (ScriptPlayable<WhileBehaviour>)playable.GetInput(i);
+                        WhileBehaviour input = inputPlayable.GetBehaviour();
+
+                        currentBehaviours.Add(input);
                     }
                 }
+
+                for (int i = 0; i < currentBehaviours.Count; i++)
+                    _oldBehaviours.Remove(currentBehaviours[i]);
+
+                for (int i = 0; i < _oldBehaviours.Count; i++)
+                {
+                    if (_oldBehaviours[i] is WhileBehaviour)
+                    {
+                        WhileBehaviour input = _oldBehaviours[i] as WhileBehaviour;
+                        ConditionBehaviour condition = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
+
+                        if (condition == null)
+                            return;
+
+                        if (!condition.Condition)
+                            _playableDirector.time = (_oldBehaviours[i] as WhileBehaviour).StartTime;
+                    }
+                }
+
+                _oldBehaviours = currentBehaviours;
             }
         }
     }

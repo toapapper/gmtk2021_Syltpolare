@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MyBox;
 
 public class Parallax : MonoBehaviour
@@ -14,12 +15,16 @@ public class Parallax : MonoBehaviour
     private Vector2 _length;
     private Vector2 _startPositon;
 
-    private void Start()
+    private void OnEnable()
     {
         _mainCameraTransform = Camera.main.transform;
 
         _startPositon = transform.position;
-        _length = GetComponent<SpriteRenderer>().bounds.size;
+        Debug.Log(transform.position);
+        if (TryGetComponent(out SpriteRenderer spriteRenderer))
+            _length = spriteRenderer.bounds.size;
+        else if (TryGetComponent(out RectTransform rectTransform))
+            _length = rectTransform.GetWorldRect().size;
     }
 
     private void LateUpdate()

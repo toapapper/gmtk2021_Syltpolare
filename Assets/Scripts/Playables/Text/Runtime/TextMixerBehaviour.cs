@@ -21,6 +21,7 @@ namespace Celezt.Timeline
             if (!trackBinding)
                 return;
 
+            bool activate = false;
             int inputCount = playable.GetInputCount();
             for (int i = 0; i < inputCount; i++)
             {
@@ -28,6 +29,8 @@ namespace Celezt.Timeline
 
                 if (inputWeight > 0.0f)
                 {
+                    activate = true;
+
                     ScriptPlayable<TextBehaviour> inputPlayable = (ScriptPlayable<TextBehaviour>)playable.GetInput(i);
 
                     TextBehaviour input = inputPlayable.GetBehaviour();
@@ -36,6 +39,8 @@ namespace Celezt.Timeline
                     finalColor += input.FontColor * inputWeight;
                 }
             }
+
+            trackBinding.gameObject.SetActive(activate);
 
             trackBinding.text = finalText;
             trackBinding.color = new Color(finalColor.r, finalColor.g, finalColor.b, finalAlpha);
