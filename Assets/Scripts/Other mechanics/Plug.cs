@@ -7,7 +7,7 @@ public class Plug : MonoBehaviour
     private GameObject m_player;
 
     public Vector3 Destination;
-    protected bool attractable = true;
+    public bool attractable { get; protected set; } = true;
     public bool drawingPower = false;//sann om drar kraft ifrån en socket. Om sann så kan den inte samtidigt ge kraft till den socketen.
     public bool held;
     public bool pluggedIn;

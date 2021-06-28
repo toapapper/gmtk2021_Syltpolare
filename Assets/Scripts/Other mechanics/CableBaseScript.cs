@@ -119,7 +119,7 @@ public class CableBaseScript : MonoBehaviour
                 plugs[index].preceedingCableSegment = previousgObj;
                 previousgObj.nextPlug = plugs[index];
             }
-
+            
             spawnedCables[index] = cable;
             deadCableSegments[index] = 0;
             timeOutDeathTimer[index] = 0;
@@ -127,9 +127,12 @@ public class CableBaseScript : MonoBehaviour
         else
             Debug.Log("INGEN KABEL ATT SPAWNA ASSÅ!");
     }
-
+    
     public void CableDied(int index)
     {
+        if (index > cableAmount - 1)
+            return;
+
         deadCableSegments[index]++;
 
         if (deadCableSegments[index] >= totalCableSegments[index] + 1)//räkna med plug-en
@@ -148,7 +151,7 @@ public class CableBaseScript : MonoBehaviour
 
         }
     }
-
+    
     protected bool CheckPowered()
     {
         if (inherentlyPowered)
@@ -165,6 +168,9 @@ public class CableBaseScript : MonoBehaviour
 
     public void DeleteCable(int index)
     {
+        if (index > cableAmount - 1)
+            return;
+
         timeOutDeathTimer[index] = 0;
         Destroy(spawnedCables[index]);
         SpawnCable(index);
@@ -172,6 +178,9 @@ public class CableBaseScript : MonoBehaviour
 
     public void OnCableBreak(int index)
     {
+        if (index > cableAmount - 1)
+            return;
+
         if(timeOutDeathTimer[index] <= 0)
             timeOutDeathTimer[index] = timeOutDeathTime;
     }
