@@ -8,6 +8,7 @@ using UnityEngine.Events;
 
 public class Possess : MonoBehaviour
 {
+    #region Global
     /// <summary>
     /// The currently possessed object.
     /// </summary>
@@ -26,10 +27,11 @@ public class Possess : MonoBehaviour
         if (_possessableRobots.Contains(gameObject))
             return;
 
-        if (gameObject.GetComponent<Possess>() is null)
+        if (!gameObject.TryGetComponent(out Possess possess))
             return;
 
         _possessableRobots.Add(gameObject);
+        _possessComponents.Add(possess);
 
         if (Count == 1) // Switch to that possessable if it is the only one in the scene.
         {
@@ -39,6 +41,8 @@ public class Possess : MonoBehaviour
             _currentPossessed.GetComponentInHierarchy<PlayerController>()?.SetEnabled(true);
             _currentPossessed.GetComponent<PlayerMovement>()?.SetEnabled(true);
         }
+
+        AddEvent.Invoke(_possessComponents.AsReadOnly());
     }
 
     /// <summary>
@@ -47,6 +51,9 @@ public class Possess : MonoBehaviour
     /// <param name="gameObject"></param>
     public static void Remove(GameObject gameObject)
     {
+        if (!gameObject.TryGetComponent(out Possess possess))
+            return;
+
         if (gameObject == _currentPossessed)
         {
             if (Count == 1)
@@ -54,7 +61,7 @@ public class Possess : MonoBehaviour
                 Clear();
                 _currentPossessed = null;
                 _cameraManager.Clear();
-                gameObject.GetComponent<Possess>()._changePossessedEvent.Invoke();
+                possess._changePossessedEvent.Invoke();
 
                 return;
             }
@@ -62,14 +69,24 @@ public class Possess : MonoBehaviour
             SwitchPossessed(gameObject);
         }
 
+
         _possessableRobots.Remove(gameObject);
+        _possessComponents.Remove(possess);
+
+        RemoveEvent.Invoke(_possessComponents.AsReadOnly());
     }
 
-    [SerializeField] private UnityEvent _changePossessedEvent;
+    public delegate void PossessHandler(IReadOnlyList<Possess> possesses);
+    public static event PossessHandler AddEvent = delegate { };
+    public static event PossessHandler RemoveEvent = delegate { };
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
+    private static List<Possess> _possessComponents = new List<Possess>();
     private static CameraManager _cameraManager;
     private static GameObject _currentPossessed;
+    #endregion
+
+    [SerializeField] private UnityEvent _changePossessedEvent;
 
     public void OnPossess(InputContext context)
     {
@@ -118,7 +135,7 @@ public class Possess : MonoBehaviour
 
             for (int i = 0; i < Count; i++)
             {
-                _possessableRobots[i].GetComponent<Possess>()._changePossessedEvent.Invoke();
+                _possessComponents[i]._changePossessedEvent.Invoke();
             }
         }
     }
@@ -131,6 +148,10 @@ public class Possess : MonoBehaviour
             _possessableRobots[i].GetComponent<PlayerMovement>()?.SetEnabled(false);
         }
 
+
         _possessableRobots.Clear();
+        _possessComponents.Clear();
+
+        RemoveEvent.Invoke(_possessComponents.AsReadOnly());
     }
 }
