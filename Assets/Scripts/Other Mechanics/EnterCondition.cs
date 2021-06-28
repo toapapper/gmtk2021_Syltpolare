@@ -11,7 +11,7 @@ public class EnterCondition : ConditionBehaviour
 
     [SerializeField, Tag] private string _tag;
 
-    private bool _condition;
+    private bool _condition = true;
 
     private int _insideTrigger;
 
@@ -22,7 +22,7 @@ public class EnterCondition : ConditionBehaviour
             _insideTrigger++;
 
             if (_insideTrigger >= 1)
-                _condition = true;
+                _condition = false;
         }
     }
 
@@ -33,7 +33,7 @@ public class EnterCondition : ConditionBehaviour
             Mathf.Max(0, --_insideTrigger);
 
             if (_insideTrigger == 0)
-                _condition = false;
+                _condition = true;
         }
     }
 }

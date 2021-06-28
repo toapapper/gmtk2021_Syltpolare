@@ -52,7 +52,7 @@ namespace Celezt.Timeline
                         if (condition == null)
                             return;
 
-                        if (!condition.Condition)
+                        if (condition.Condition)
                             _playableDirector.time = (_oldBehaviours[i] as WhileBehaviour).StartTime;
                     }
                 }
