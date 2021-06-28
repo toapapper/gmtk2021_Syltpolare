@@ -130,6 +130,9 @@ public class CableBaseScript : MonoBehaviour
 
     public void CableDied(int index)
     {
+        if (index > cableAmount - 1)
+            return;
+
         deadCableSegments[index]++;
 
         if (deadCableSegments[index] >= totalCableSegments[index] + 1)//räkna med plug-en
@@ -165,6 +168,9 @@ public class CableBaseScript : MonoBehaviour
 
     public void DeleteCable(int index)
     {
+        if (index > cableAmount - 1)
+            return;
+
         timeOutDeathTimer[index] = 0;
         Destroy(spawnedCables[index]);
         SpawnCable(index);
@@ -172,7 +178,10 @@ public class CableBaseScript : MonoBehaviour
 
     public void OnCableBreak(int index)
     {
-        if(timeOutDeathTimer[index] <= 0)
+        if (index > cableAmount - 1)
+            return;
+
+        if (timeOutDeathTimer[index] <= 0)
             timeOutDeathTimer[index] = timeOutDeathTime;
     }
 
