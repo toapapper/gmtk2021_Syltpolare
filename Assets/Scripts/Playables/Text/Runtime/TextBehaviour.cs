@@ -9,6 +9,7 @@ namespace Celezt.Timeline
     [System.Serializable]
     public class TextBehaviour : PlayableBehaviour
     {
+        [TextArea]
         public string Text;
         public Color FontColor = Color.white;
     }

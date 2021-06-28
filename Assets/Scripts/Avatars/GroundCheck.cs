@@ -8,7 +8,7 @@ public class GroundCheck : MonoBehaviour
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private UnityEvent<TriggerState, Collider2D> _groundCheckEvent;
 
-    private int _insideCollision;
+    private int _insideTrigger;
 
     public enum TriggerState
     {
@@ -20,9 +20,9 @@ public class GroundCheck : MonoBehaviour
     {
         if (_layerMask.Contains(collision.gameObject.layer))
         {
-            _insideCollision++;
+            _insideTrigger++;
 
-            if (_insideCollision >= 1)
+            if (_insideTrigger >= 1)
                 _groundCheckEvent.Invoke(TriggerState.Grounded, collision);
         }
     }
@@ -31,11 +31,10 @@ public class GroundCheck : MonoBehaviour
     {
         if (_layerMask.Contains(collision.gameObject.layer))
         {
-            Mathf.Max(0, --_insideCollision);
+            Mathf.Max(0, --_insideTrigger);
 
-            if (_insideCollision == 0)
+            if (_insideTrigger == 0)
                 _groundCheckEvent.Invoke(TriggerState.Elevation, collision);
         }
     }
-
 }
