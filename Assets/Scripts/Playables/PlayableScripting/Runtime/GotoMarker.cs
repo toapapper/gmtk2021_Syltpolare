@@ -6,11 +6,10 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
-    public class GotoMarker : Marker, INotification
+    public class GotoMarker : Marker
     {
-        [SerializeField] private ExposedReference<ConditionBehaviour> ConditionSource;
-        [SerializeField] private bool Invert = true;
-
-        public PropertyName id => new PropertyName();
+        public ExposedReference<ConditionBehaviour> ConditionSource;
+        public bool Invert;
+        public bool EmitOnce = true;
     }
 }

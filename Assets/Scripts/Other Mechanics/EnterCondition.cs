@@ -8,7 +8,11 @@ using MyBox;
 [RequireComponent(typeof(Collider2D))]
 public class EnterCondition : ConditionBehaviour
 {
-    public override bool Condition => _condition;
+    public override bool Condition
+    {
+        get => _condition;
+        set => _condition = value;
+    }
 
     [SerializeField, Tag] private string _tag;
     [SerializeField] private UnityEvent _enterEvent;

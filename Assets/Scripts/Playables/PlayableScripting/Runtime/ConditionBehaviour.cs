@@ -6,6 +6,6 @@ namespace Celezt.Timeline
 {
     public abstract class ConditionBehaviour : MonoBehaviour
     {
-        public abstract bool Condition { get; }
+        public abstract bool Condition { get; set; }
     }
 }
