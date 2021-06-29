@@ -9,7 +9,7 @@ namespace Celezt.Timeline
 {
     [TrackColor(0.5f, 0.5f, 0.5f)]
     [TrackClipType(typeof(WhileClip))]
-    public class PlayableScriptingTrack : TrackAsset
+    public class PlayableScriptingTrack : TrackAsset, INotificationReceiver
     {
         public PlayableScriptingMixerBehaviour Template = new PlayableScriptingMixerBehaviour();
 
@@ -31,6 +31,11 @@ namespace Celezt.Timeline
 
             ScriptPlayable<PlayableScriptingMixerBehaviour> playable = ScriptPlayable<PlayableScriptingMixerBehaviour>.Create(graph, Template, inputCount);
             return playable;
+        }
+
+        public void OnNotify(Playable origin, INotification notification, object context)
+        {
+            Debug.Log(notification);
         }
     }
 }

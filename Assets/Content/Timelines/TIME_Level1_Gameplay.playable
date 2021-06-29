@@ -701,6 +701,7 @@ MonoBehaviour:
     ConditionSource:
       exposedName: 4662d2652b490554595419acfce0de17
       defaultValue: {fileID: 0}
+    Invert: 1
 --- !u!114 &3928143792663387946
 MonoBehaviour:
   m_ObjectHideFlags: 1
