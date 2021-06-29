@@ -12,5 +12,6 @@ namespace Celezt.Timeline
         public double EndTime { get; set; }
 
         public ExposedReference<ConditionBehaviour> ConditionSource;
+        public bool Invert = true;
     }
 }

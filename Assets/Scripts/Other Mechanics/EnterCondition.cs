@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Celezt.Timeline;
 using MyBox;
 
@@ -10,8 +11,10 @@ public class EnterCondition : ConditionBehaviour
     public override bool Condition => _condition;
 
     [SerializeField, Tag] private string _tag;
+    [SerializeField] private UnityEvent _enterEvent;
+    [SerializeField] private UnityEvent _exitEvent;
 
-    private bool _condition = true;
+    private bool _condition;
 
     private int _insideTrigger;
 
@@ -22,7 +25,10 @@ public class EnterCondition : ConditionBehaviour
             _insideTrigger++;
 
             if (_insideTrigger >= 1)
-                _condition = false;
+            {
+                _condition = true;
+                _enterEvent.Invoke();
+            }
         }
     }
 
@@ -33,7 +39,10 @@ public class EnterCondition : ConditionBehaviour
             Mathf.Max(0, --_insideTrigger);
 
             if (_insideTrigger == 0)
-                _condition = true;
+            {
+                _condition = false;
+                _exitEvent.Invoke();
+            }
         }
     }
 }

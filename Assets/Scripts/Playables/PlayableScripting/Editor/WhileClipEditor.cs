@@ -10,10 +10,12 @@ namespace Celezt.Timeline
     public class WhileClipEditor : Editor
     {
         private SerializedProperty _conditionSource;
+        private SerializedProperty _invert;
 
         private void OnEnable()
         {
             _conditionSource = serializedObject.FindProperty("Template.ConditionSource");
+            _invert = serializedObject.FindProperty("Template.Invert");
         }
 
         public override void OnInspectorGUI()
@@ -21,6 +23,7 @@ namespace Celezt.Timeline
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(_conditionSource);
+            EditorGUILayout.PropertyField(_invert);
 
             serializedObject.ApplyModifiedProperties();
         }
