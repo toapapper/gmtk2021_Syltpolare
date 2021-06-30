@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 567181039247340560}
   - component: {fileID: 258895209326013775}
   m_Layer: 0
-  m_Name: ConditionTrigger
+  m_Name: AreaConditionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +75,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tag: Player
+  _firstEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _firstExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &258895209326013775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89eab487af1b8494fb3f8b6aa276a609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gizmo: console.infoicon
+  _gizmo: Areas\area_interact
+  _tint: {r: 1, g: 0.889333, b: 0, a: 1}
   _allowScaling: 1
   _placement: 1

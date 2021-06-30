@@ -10,8 +10,11 @@ namespace Celezt.Timeline
     {
         public double StartTime { get; set; }
         public double EndTime { get; set; }
+        public bool HasBeenEligible { get; set; } = false;
 
         public ExposedReference<ConditionBehaviour> ConditionSource;
         public bool Invert = true;
+        [Tooltip("Only need the condition to be eligible once whiles inside the clip.")]
+        public bool OnlyEligibleOnce = false;
     }
 }

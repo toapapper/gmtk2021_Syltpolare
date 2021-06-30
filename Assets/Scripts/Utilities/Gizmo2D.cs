@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Gizmo2D : MonoBehaviour
 {
+#if UNITY_EDITOR
     [SerializeField] private string _gizmo;
+    [SerializeField] private Color _tint = Color.white;
     [SerializeField] private bool _allowScaling = true;
     [SerializeField] private Placement _placement = Placement.Transform;
 
@@ -35,6 +37,7 @@ public class Gizmo2D : MonoBehaviour
                 break;
         }
 
-        Gizmos.DrawIcon(position, _gizmo, _allowScaling);
+        Gizmos.DrawIcon(position, _gizmo, _allowScaling, _tint);
     }
+#endif
 }

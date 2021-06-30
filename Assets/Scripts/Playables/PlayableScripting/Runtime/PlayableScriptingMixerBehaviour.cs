@@ -34,35 +34,61 @@ namespace Celezt.Timeline
         {
             List<PlayableBehaviour> currentBehaviours = new List<PlayableBehaviour>();
 
+            // -------------------------------------------------------
+            //                   While inside clip
+            // -------------------------------------------------------
             int inputCount = playable.GetInputCount();
             for (int i = 0; i < inputCount; i++)
             {
                 float inputWeight = playable.GetInputWeight(i);
-
                 if (inputWeight > 0.0f)
                 {
-                    ScriptPlayable<WhileBehaviour> inputPlayable = (ScriptPlayable<WhileBehaviour>)playable.GetInput(i);
-                    WhileBehaviour input = inputPlayable.GetBehaviour();
+                    Playable play = playable.GetInput(i);
+                    if (play.GetPlayableType().Equals(typeof(WhileBehaviour)))
+                    {
+                        WhileBehaviour input = ((ScriptPlayable<WhileBehaviour>)play).GetBehaviour();
+                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
 
-                    currentBehaviours.Add(input);
+                        if (conditionBehaviour == null)
+                            return;
+
+                        if (input.OnlyEligibleOnce && (input.Invert ? conditionBehaviour.Condition : !conditionBehaviour.Condition))
+                            input.HasBeenEligible = true;
+
+                        currentBehaviours.Add(input);
+                    }
                 }
             }
 
+            // ------------------------------------------------------
+            //                  When exit clip
+            // ------------------------------------------------------
+
+            // Remove until only clips no longer inside the scope is left.
             for (int i = 0; i < currentBehaviours.Count; i++)
                 _oldBehaviours.Remove(currentBehaviours[i]);
 
             for (int i = 0; i < _oldBehaviours.Count; i++)
             {
-                if (_oldBehaviours[i] is WhileBehaviour)
+                switch (_oldBehaviours[i])
                 {
-                    WhileBehaviour input = _oldBehaviours[i] as WhileBehaviour;
-                    ConditionBehaviour condition = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
+                    case WhileBehaviour input:
+                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
 
-                    if (condition == null)
-                        return;
+                        if (conditionBehaviour == null)
+                            break;
 
-                    if (input.Invert ? !condition.Condition : condition.Condition)
-                        _playableDirector.time = (_oldBehaviours[i] as WhileBehaviour).StartTime;
+                        if (input.OnlyEligibleOnce ? input.HasBeenEligible : false)
+                        {
+                            input.HasBeenEligible = false;
+                            break;
+                        }
+
+                        if (input.Invert ? !conditionBehaviour.Condition : conditionBehaviour.Condition)
+                            _playableDirector.time = input.StartTime;
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -73,21 +99,25 @@ namespace Celezt.Timeline
         {
             for (int i = 0; i < Markers.Count; i++)
             {
-                if (Markers[i] is GotoMarker)
+                switch (Markers[i])
                 {
-                    GotoMarker input = Markers[i] as GotoMarker;
-                    ConditionBehaviour condition = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
+                    case GotoMarker input:
+                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
+                        bool condition = conditionBehaviour.Condition;
 
-                    if (condition == null)
-                        return;
+                        if (conditionBehaviour == null)
+                            return;
 
-                    if (input.Invert ? !condition.Condition : condition.Condition)
-                    {
-                        if (input.EmitOnce)
-                            condition.Condition = input.Invert;
+                        if ((input.Invert ? !condition : condition) &&
+                            (input.EmitOnce ? input.OldCondition != condition : true))
+                        {
+                            _playableDirector.time = input.time;
+                        }
 
-                        _playableDirector.time = input.time;
-                    }
+                        input.OldCondition = condition;
+                        break;
+                    default:
+                        break;
                 }
             }
         }

@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89eab487af1b8494fb3f8b6aa276a609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gizmo: d_Import@2x
+  _gizmo: Areas\area_spawn
+  _tint: {r: 1, g: 0.2971698, b: 0.899092, a: 1}
   _allowScaling: 1
   _placement: 1
 --- !u!1 &7857037215664346791
