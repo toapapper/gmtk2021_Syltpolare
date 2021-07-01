@@ -29,6 +29,8 @@ namespace Celezt.Timeline
                 }
             }
 
+            CreateMarkers();
+
             ScriptPlayable<PlayableScriptingMixerBehaviour> playable = ScriptPlayable<PlayableScriptingMixerBehaviour>.Create(graph, Template, inputCount);
             return playable;
         }
