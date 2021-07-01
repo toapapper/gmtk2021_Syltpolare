@@ -12,7 +12,7 @@ namespace Celezt.Timeline
     {
         public List<IMarker> Markers = new List<IMarker>();
 
-        private List<PlayableBehaviour> _oldBehaviours = new List<PlayableBehaviour>();
+        private List<(Playable, PlayableScriptingBehaviour)> _oldBehaviours = new List<(Playable, PlayableScriptingBehaviour)>();
 
         private PlayableDirector _playableDirector;
 
@@ -29,68 +29,37 @@ namespace Celezt.Timeline
                 ProcessMarkers(playable, info, playerData);
             }
         }
-
         private void ProcessClips(Playable playable, FrameData info, object playerData)
         {
-            List<PlayableBehaviour> currentBehaviours = new List<PlayableBehaviour>();
+            List<(Playable, PlayableScriptingBehaviour)> currentBehaviours = new List<(Playable, PlayableScriptingBehaviour)>();
 
-            // -------------------------------------------------------
-            //                   While inside clip
-            // -------------------------------------------------------
             int inputCount = playable.GetInputCount();
             for (int i = 0; i < inputCount; i++)
             {
-                float inputWeight = playable.GetInputWeight(i);
-                if (inputWeight > 0.0f)
+                if (playable.GetInputWeight(i) > 0.0f)
                 {
+                    PlayableScriptingBehaviour input = null;
+
                     Playable play = playable.GetInput(i);
-                    if (play.GetPlayableType().Equals(typeof(WhileBehaviour)))
+
+                    if (GetBehaviour<WhileBehaviour>(play, out input)) { }
+                    else if (GetBehaviour<IfBehaviour>(play, out input)) { }
+
+                    if (input != null)
                     {
-                        WhileBehaviour input = ((ScriptPlayable<WhileBehaviour>)play).GetBehaviour();
-                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
-
-                        if (conditionBehaviour == null)
-                            return;
-
-                        if (input.OnlyEligibleOnce && (input.Invert ? conditionBehaviour.Condition : !conditionBehaviour.Condition))
-                            input.HasBeenEligible = true;
-
-                        currentBehaviours.Add(input);
+                        input.ProcessMixerFrame(_playableDirector, play, info, playerData);
+                        currentBehaviours.Add((play, input));
                     }
                 }
             }
-
-            // ------------------------------------------------------
-            //                  When exit clip
-            // ------------------------------------------------------
 
             // Remove until only clips no longer inside the scope is left.
             for (int i = 0; i < currentBehaviours.Count; i++)
                 _oldBehaviours.Remove(currentBehaviours[i]);
 
+            // Calls after exiting a clip.
             for (int i = 0; i < _oldBehaviours.Count; i++)
-            {
-                switch (_oldBehaviours[i])
-                {
-                    case WhileBehaviour input:
-                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
-
-                        if (conditionBehaviour == null)
-                            break;
-
-                        if (input.OnlyEligibleOnce ? input.HasBeenEligible : false)
-                        {
-                            input.HasBeenEligible = false;
-                            break;
-                        }
-
-                        if (input.Invert ? !conditionBehaviour.Condition : conditionBehaviour.Condition)
-                            _playableDirector.time = input.StartTime;
-                        break;
-                    default:
-                        break;
-                }
-            }
+                _oldBehaviours[i].Item2.PostMixerFrame(_playableDirector, _oldBehaviours[i].Item1, info, playerData);
 
             _oldBehaviours = currentBehaviours;
         }
@@ -120,6 +89,18 @@ namespace Celezt.Timeline
                         break;
                 }
             }
+        }
+
+        private static bool GetBehaviour<T>(Playable playable, out PlayableScriptingBehaviour behaviour) where T : PlayableScriptingBehaviour, new()
+        {
+            if (playable.GetPlayableType().Equals(typeof(T)))
+            {
+                behaviour = ((ScriptPlayable<T>)playable).GetBehaviour();
+                return true;
+            }
+
+            behaviour = null;
+            return false;
         }
     }
 }

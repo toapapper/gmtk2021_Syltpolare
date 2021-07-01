@@ -6,11 +6,11 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
-    public class TextClip : PlayableAsset, ITimelineClipAsset
+    public class TextAsset : PlayableAsset, ITimelineClipAsset
     {
         public TextBehaviour Template = new TextBehaviour();
 
-        public ClipCaps clipCaps => ClipCaps.Blending;
+        public ClipCaps clipCaps => ClipCaps.All;
 
         public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
         {

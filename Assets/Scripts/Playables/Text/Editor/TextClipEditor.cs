@@ -6,7 +6,7 @@ using UnityEditor.Timeline;
 
 namespace Celezt.Timeline
 {
-    [CustomEditor(typeof(TextClip)), CanEditMultipleObjects]
+    [CustomEditor(typeof(TextAsset)), CanEditMultipleObjects]
     public class TextClipEditor : Editor
     {
         private SerializedProperty _text;

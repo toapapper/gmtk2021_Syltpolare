@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Celezt.Timeline
 {
     [TrackColor(0.5f, 0.5f, 0.5f)]
-    [TrackClipType(typeof(WhileClip))]
+    [TrackClipType(typeof(PlayableScriptingAsset))]
     public class PlayableScriptingTrack : TrackAsset
     {
         public PlayableScriptingMixerBehaviour Template = new PlayableScriptingMixerBehaviour();
@@ -17,12 +17,12 @@ namespace Celezt.Timeline
         {
             foreach (TimelineClip clip in GetClips())
             {
-                if (clip.asset is WhileClip)
+                if (clip.asset is PlayableScriptingAsset)
                 {
-                    WhileClip whileClip = clip.asset as WhileClip;
-                    WhileBehaviour behaviour = whileClip.Template;
+                    PlayableScriptingAsset asset = clip.asset as PlayableScriptingAsset;
+                    PlayableScriptingBehaviour behaviour = asset.BehaviourReference;
                     ConditionBehaviour condition = behaviour.ConditionSource.Resolve(graph.GetResolver());
-                    clip.displayName = "While " + (condition != null ? condition.name : "");
+                    clip.displayName = asset.ToString() + " " + (condition != null ? condition.name : "");
 
                     behaviour.StartTime = clip.start;
                     behaviour.EndTime = clip.end;

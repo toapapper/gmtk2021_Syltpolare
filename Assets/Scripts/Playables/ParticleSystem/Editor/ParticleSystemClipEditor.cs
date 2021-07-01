@@ -6,7 +6,7 @@ using UnityEditor.Timeline;
 
 namespace Celezt.Timeline
 {
-    [CustomEditor(typeof(ParticleSystemClip)), CanEditMultipleObjects]
+    [CustomEditor(typeof(ParticleSystemAsset)), CanEditMultipleObjects]
     public class ParticleSystemClipEditor : Editor
     {
         private SerializedProperty _text;

@@ -6,16 +6,18 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
-    public class WhileClip : PlayableAsset, ITimelineClipAsset
+    public class WhileAsset : PlayableScriptingAsset
     {
-        public WhileBehaviour Template = new WhileBehaviour();
+        public override PlayableScriptingBehaviour BehaviourReference => Template;
 
-        public ClipCaps clipCaps => ClipCaps.Blending;
+        public WhileBehaviour Template = new WhileBehaviour();
 
         public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
         {
             ScriptPlayable<WhileBehaviour> playable = ScriptPlayable<WhileBehaviour>.Create(graph, Template);
             return playable;
         }
+
+        public override string ToString() => "While";
     }
 }

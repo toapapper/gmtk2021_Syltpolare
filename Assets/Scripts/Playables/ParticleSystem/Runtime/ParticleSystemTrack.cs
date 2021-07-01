@@ -8,7 +8,7 @@ namespace Celezt.Timeline
 {
     [TrackColor(1, 1, 0)]
     [TrackBindingType(typeof(ParticleSystem))]
-    [TrackClipType(typeof(ParticleSystemClip))]
+    [TrackClipType(typeof(ParticleSystemAsset))]
     public class ParticleSystemTrack : TrackAsset
     {
         public ParticleSystemMixerBehaviour Template = new ParticleSystemMixerBehaviour();

@@ -9,7 +9,7 @@ namespace Celezt.Timeline
 {
     [TrackColor(1, 0, 1)]
     [TrackBindingType(typeof(Text))]
-    [TrackClipType(typeof(TextClip))]
+    [TrackClipType(typeof(TextAsset))]
     public class TextTrack : TrackAsset
     {
         public TextMixerBehaviour Template = new TextMixerBehaviour();
@@ -18,9 +18,9 @@ namespace Celezt.Timeline
         {
             foreach (TimelineClip clip in GetClips())
             {
-                if (clip.asset is TextClip)
+                if (clip.asset is TextAsset)
                 {
-                    TextClip textClip = clip.asset as TextClip;
+                    TextAsset textClip = clip.asset as TextAsset;
                     TextBehaviour behaviour = textClip.Template;
                     clip.displayName = behaviour.Text;
                 }

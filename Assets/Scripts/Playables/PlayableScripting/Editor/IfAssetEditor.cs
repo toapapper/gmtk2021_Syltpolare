@@ -6,8 +6,8 @@ using UnityEditor.Timeline;
 
 namespace Celezt.Timeline
 {
-    [CustomEditor(typeof(WhileClip)), CanEditMultipleObjects]
-    public class WhileClipEditor : Editor
+    [CustomEditor(typeof(IfAsset)), CanEditMultipleObjects]
+    public class IfAssetEditor : Editor
     {
         private SerializedProperty _conditionSource;
         private SerializedProperty _invert;

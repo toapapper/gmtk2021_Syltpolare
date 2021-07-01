@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
-    public class ParticleSystemClip : PlayableAsset, ITimelineClipAsset
+    public class ParticleSystemAsset : PlayableAsset, ITimelineClipAsset
     {
         public ParticleSystemBehaviour Template = new ParticleSystemBehaviour();
 
