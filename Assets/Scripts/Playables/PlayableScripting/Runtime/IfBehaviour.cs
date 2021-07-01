@@ -8,13 +8,11 @@ namespace Celezt.Timeline
     [System.Serializable]
     public class IfBehaviour : PlayableScriptingBehaviour
     {
-        public bool HasBeenEligible { get; set; } = false;
-
         public bool Invert;
-
         [Tooltip("Only need the condition to be eligible once whiles inside the clip.")]
         public bool OnlyEligibleOnce = true;
 
+        private bool _hasBeenEligible = false;
 
         public override void ProcessMixerFrame(PlayableDirector playableDirector, Playable playable, FrameData info, object playerData)
         {
@@ -32,9 +30,9 @@ namespace Celezt.Timeline
 
         public override void PostMixerFrame(PlayableDirector playableDirector, Playable playable, FrameData info, object playerData)
         {
-            if (OnlyEligibleOnce ? HasBeenEligible : false)
+            if (OnlyEligibleOnce ? _hasBeenEligible : false)
             {
-                HasBeenEligible = false;
+                _hasBeenEligible = false;
                 return;
             }
         }

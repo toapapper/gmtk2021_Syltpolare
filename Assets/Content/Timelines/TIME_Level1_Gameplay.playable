@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects: []
---- !u!114 &-7485265804305274917
+--- !u!114 &-5224661659037715776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,15 +204,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40daff09f7ea21247af885860af94c29, type: 3}
-  m_Name: WhileAsset
+  m_Script: {fileID: 11500000, guid: b8f08c0dd595d3640a2f93129f161f45, type: 3}
+  m_Name: Goto Marker
   m_EditorClassIdentifier: 
-  Template:
-    ConditionSource:
-      exposedName: 1be5b9a7811d0fc4da00a759000a0dbf
-      defaultValue: {fileID: 0}
-    Invert: 1
-    OnlyEligibleOnce: 1
+  m_Time: 4.533333333333333
+  ConditionSource:
+    exposedName: 49674fb4de75fc04a96ee54cb193ad0c
+    defaultValue: {fileID: 0}
+  Invert: 1
+  EmitOnce: 1
 --- !u!114 &-4225772934469617023
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -235,24 +235,6 @@ MonoBehaviour:
   m_Loop: 0
   m_Version: 1
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
---- !u!114 &-4200400852215177055
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f08c0dd595d3640a2f93129f161f45, type: 3}
-  m_Name: Goto Marker
-  m_EditorClassIdentifier: 
-  m_Time: 5.15
-  ConditionSource:
-    exposedName: 55dbfbbb74a14914babf684b0dac621b
-    defaultValue: {fileID: 0}
-  Invert: 0
-  EmitOnce: 1
 --- !u!114 &-2183973315297847494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,7 +260,25 @@ MonoBehaviour:
     m_Objects: []
   Template:
     FadeIn: 1
---- !u!114 &-1564417886472093891
+--- !u!114 &-2069422521826701958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40daff09f7ea21247af885860af94c29, type: 3}
+  m_Name: WhileAsset
+  m_EditorClassIdentifier: 
+  Template:
+    ConditionSource:
+      exposedName: c07fd184728da1d4aa40f97f2bfb8740
+      defaultValue: {fileID: 0}
+    Invert: 1
+    OnlyEligibleOnce: 1
+--- !u!114 &-1997115445943233434
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,12 +300,12 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 5.15
+    m_Start: 9.633333333333333
     m_ClipIn: 0
-    m_Asset: {fileID: -7485265804305274917}
-    m_Duration: 0.4666666666666668
+    m_Asset: {fileID: -2069422521826701958}
+    m_Duration: 0.13597267518440947
     m_TimeScale: 1
-    m_ParentTrack: {fileID: -1564417886472093891}
+    m_ParentTrack: {fileID: -1997115445943233434}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0
@@ -370,7 +370,12 @@ MonoBehaviour:
     m_DisplayName: While Gameplay - ConditionTrigger
   m_Markers:
     m_Objects:
-    - {fileID: -4200400852215177055}
+    - {fileID: 7116274314482558077}
+    - {fileID: -5224661659037715776}
+  Template:
+    Markers:
+    - {fileID: 7116274314482558077}
+    - {fileID: -5224661659037715776}
 --- !u!74 &-1438526871154987449
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -711,7 +716,7 @@ MonoBehaviour:
   m_Tracks:
   - {fileID: 7435729764465471570}
   - {fileID: -1067893573228678392}
-  - {fileID: -1564417886472093891}
+  - {fileID: -1997115445943233434}
   m_FixedDuration: 0
   m_EditorSettings:
     m_Framerate: 60
@@ -846,6 +851,42 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &6261813200437221614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce45e71ba7c2671449112dab490ced35, type: 3}
+  m_Name: Wait Marker
+  m_EditorClassIdentifier: 
+  m_Time: 4.633333333333334
+  ConditionSource:
+    exposedName: 8ff1c0476a4624948b6c3e342b806084
+    defaultValue: {fileID: 0}
+  Invert: 0
+  OnlyEligibleOnce: 1
+--- !u!114 &7116274314482558077
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce45e71ba7c2671449112dab490ced35, type: 3}
+  m_Name: Wait Marker
+  m_EditorClassIdentifier: 
+  m_Time: 4.616666666666666
+  ConditionSource:
+    exposedName: c16b73d5f1c2f664d88ca762d7f1bc9c
+    defaultValue: {fileID: 0}
+  Invert: 0
+  OnlyEligibleOnce: 1
 --- !u!114 &7435729764465471570
 MonoBehaviour:
   m_ObjectHideFlags: 1

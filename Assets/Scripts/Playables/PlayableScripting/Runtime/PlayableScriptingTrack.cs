@@ -29,12 +29,16 @@ namespace Celezt.Timeline
                 }
             }
 
-            Template.Markers.Clear();
-            foreach (IMarker marker in GetMarkers())
-                Template.Markers.Add(marker);
-
             ScriptPlayable<PlayableScriptingMixerBehaviour> playable = ScriptPlayable<PlayableScriptingMixerBehaviour>.Create(graph, Template, inputCount);
             return playable;
+        }
+
+        public void CreateMarkers()
+        {
+            Template.Markers.Clear();
+            foreach (IMarker marker in GetMarkers())
+                if (marker is PlayableScriptingMarker)
+                    Template.Markers.Add(marker as PlayableScriptingMarker);
         }
     }
 }

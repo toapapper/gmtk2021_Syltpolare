@@ -10,7 +10,7 @@ namespace Celezt.Timeline
     [System.Serializable]
     public class PlayableScriptingMixerBehaviour : PlayableBehaviour
     {
-        public List<IMarker> Markers = new List<IMarker>();
+        public List<PlayableScriptingMarker> Markers = new List<PlayableScriptingMarker>();
 
         private List<(Playable, PlayableScriptingBehaviour)> _oldBehaviours = new List<(Playable, PlayableScriptingBehaviour)>();
 
@@ -66,29 +66,9 @@ namespace Celezt.Timeline
 
         private void ProcessMarkers(Playable playable, FrameData info, object playerData)
         {
+            Debug.Log(Markers.Count);
             for (int i = 0; i < Markers.Count; i++)
-            {
-                switch (Markers[i])
-                {
-                    case GotoMarker input:
-                        ConditionBehaviour conditionBehaviour = input.ConditionSource.Resolve(playable.GetGraph().GetResolver());
-                        bool condition = conditionBehaviour.Condition;
-
-                        if (conditionBehaviour == null)
-                            return;
-
-                        if ((input.Invert ? !condition : condition) &&
-                            (input.EmitOnce ? input.OldCondition != condition : true))
-                        {
-                            _playableDirector.time = input.time;
-                        }
-
-                        input.OldCondition = condition;
-                        break;
-                    default:
-                        break;
-                }
-            }
+                Markers[i].ProcessMixerFrame(_playableDirector, playable, info, playerData);
         }
 
         private static bool GetBehaviour<T>(Playable playable, out PlayableScriptingBehaviour behaviour) where T : PlayableScriptingBehaviour, new()
