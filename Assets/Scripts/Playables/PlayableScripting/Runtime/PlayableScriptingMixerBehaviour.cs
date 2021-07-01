@@ -66,7 +66,6 @@ namespace Celezt.Timeline
 
         private void ProcessMarkers(Playable playable, FrameData info, object playerData)
         {
-            Debug.Log(Markers.Count);
             for (int i = 0; i < Markers.Count; i++)
                 Markers[i].ProcessMixerFrame(_playableDirector, playable, info, playerData);
         }

@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
-
+    [CustomStyle("Pause")]
     public class WaitMarker : PlayableScriptingMarker
     {
         public bool Invert = false;
@@ -22,7 +22,6 @@ namespace Celezt.Timeline
             bool condition = conditionBehaviour.Condition;
             double currentTime = playableDirector.time;
 
-            Debug.Log(_hasBeenEligible);
             if (conditionBehaviour == null)
                 return;
 

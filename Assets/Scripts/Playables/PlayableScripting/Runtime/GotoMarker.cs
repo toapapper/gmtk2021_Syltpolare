@@ -6,6 +6,7 @@ using UnityEngine.Timeline;
 
 namespace Celezt.Timeline
 {
+    [CustomStyle("Goto")]
     public class GotoMarker : PlayableScriptingMarker
     {
         public bool Invert = true;

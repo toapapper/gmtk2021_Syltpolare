@@ -1,0 +1,13 @@
+Pause
+{
+	width: 18px;
+	height: 18px;
+    background-image: resource("Assets/Scripts/Playables/PlayableScripting/Editor/Stylesheets/Resources/pause_marker.png");
+}
+
+Goto
+{
+	width: 18px;
+	height: 18px;
+    background-image: resource("Assets/Scripts/Playables/PlayableScripting/Editor/Stylesheets/Resources/goto_marker.png");
+}
