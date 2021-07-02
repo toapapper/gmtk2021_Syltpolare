@@ -8,6 +8,7 @@ namespace Celezt.Timeline
 {
     public class IfAsset : PlayableScriptingAsset
     {
+        public override string name => "If";
         public override PlayableScriptingBehaviour BehaviourReference => Template;
 
         public IfBehaviour Template = new IfBehaviour();
@@ -17,7 +18,5 @@ namespace Celezt.Timeline
             ScriptPlayable<IfBehaviour> playable = ScriptPlayable<IfBehaviour>.Create(graph, Template);
             return playable;
         }
-
-        public override string ToString() => "If";
     }
 }

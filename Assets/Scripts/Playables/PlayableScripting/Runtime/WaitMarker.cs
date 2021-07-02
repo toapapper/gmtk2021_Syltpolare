@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -9,6 +10,8 @@ namespace Celezt.Timeline
     [CustomStyle("Pause")]
     public class WaitMarker : PlayableScriptingMarker
     {
+        public override string name => "Wait";
+
         public bool Invert = false;
         [Tooltip("Only need the condition to be eligible once whiles inside the clip.")]
         public bool OnlyEligibleOnce = true;
@@ -38,17 +41,6 @@ namespace Celezt.Timeline
                 _isWaiting = false;
                 _hasBeenEligible = false;
             }
-        }
-
-        public override void OnInitialize(TrackAsset aPent)
-        {
-            if (!(aPent is PlayableScriptingTrack))
-            {
-                Debug.LogError(aPent.name + " does not support " + nameof(WaitMarker));
-                return;
-            }
-
-            (aPent as PlayableScriptingTrack).CreateMarkers();
         }
     }
 }

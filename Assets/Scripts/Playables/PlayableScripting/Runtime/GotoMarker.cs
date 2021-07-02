@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -9,6 +10,8 @@ namespace Celezt.Timeline
     [CustomStyle("Goto")]
     public class GotoMarker : PlayableScriptingMarker
     {
+        public override string name => "Wait";
+
         public bool Invert = true;
         public bool EmitOnce = true;
 
@@ -27,17 +30,5 @@ namespace Celezt.Timeline
 
             _oldCondition = condition;
         }
-
-        public override void OnInitialize(TrackAsset aPent)
-        {
-            if (!(aPent is PlayableScriptingTrack))
-            {
-                Debug.LogError(aPent.name + " does not support " + nameof(GotoMarker));
-                return;
-            }
-
-            (aPent as PlayableScriptingTrack).CreateMarkers();
-        }
-
     }
 }

@@ -38,17 +38,17 @@ namespace Celezt.Timeline
             {
                 if (playable.GetInputWeight(i) > 0.0f)
                 {
-                    PlayableScriptingBehaviour input = null;
+                    Playable currentplayable = playable.GetInput(i);
 
-                    Playable play = playable.GetInput(i);
+                    if (!currentplayable.GetPlayableType().IsSubclassOf(typeof(PlayableScriptingBehaviour)))
+                        return;
 
-                    if (GetBehaviour<WhileBehaviour>(play, out input)) { }
-                    else if (GetBehaviour<IfBehaviour>(play, out input)) { }
+                    PlayableScriptingBehaviour input = ((ScriptPlayable<PlayableScriptingBehaviour>)currentplayable).GetBehaviour();
 
                     if (input != null)
                     {
-                        input.ProcessMixerFrame(_playableDirector, play, info, playerData);
-                        currentBehaviours.Add((play, input));
+                        input.ProcessMixerFrame(_playableDirector, currentplayable, info, playerData);
+                        currentBehaviours.Add((currentplayable, input));
                     }
                 }
             }
@@ -68,18 +68,6 @@ namespace Celezt.Timeline
         {
             for (int i = 0; i < Markers.Count; i++)
                 Markers[i].ProcessMixerFrame(_playableDirector, playable, info, playerData);
-        }
-
-        private static bool GetBehaviour<T>(Playable playable, out PlayableScriptingBehaviour behaviour) where T : PlayableScriptingBehaviour, new()
-        {
-            if (playable.GetPlayableType().Equals(typeof(T)))
-            {
-                behaviour = ((ScriptPlayable<T>)playable).GetBehaviour();
-                return true;
-            }
-
-            behaviour = null;
-            return false;
         }
     }
 }

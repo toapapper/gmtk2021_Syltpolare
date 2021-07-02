@@ -8,6 +8,7 @@ namespace Celezt.Timeline
 {
     public class WhileAsset : PlayableScriptingAsset
     {
+        public override string name => "While";
         public override PlayableScriptingBehaviour BehaviourReference => Template;
 
         public WhileBehaviour Template = new WhileBehaviour();

@@ -22,7 +22,7 @@ namespace Celezt.Timeline
                     PlayableScriptingAsset asset = clip.asset as PlayableScriptingAsset;
                     PlayableScriptingBehaviour behaviour = asset.BehaviourReference;
                     ConditionBehaviour condition = behaviour.ConditionSource.Resolve(graph.GetResolver());
-                    clip.displayName = asset.ToString() + " " + (condition != null ? condition.name : "");
+                    clip.displayName = asset.name + " " + (condition != null ? condition.name : "");
 
                     behaviour.StartTime = clip.start;
                     behaviour.EndTime = clip.end;

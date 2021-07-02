@@ -8,6 +8,7 @@ namespace Celezt.Timeline
 {
     public abstract class PlayableScriptingAsset : PlayableAsset, ITimelineClipAsset
     {
+        public abstract new string name { get; }
         public abstract PlayableScriptingBehaviour BehaviourReference { get; }
         public ClipCaps clipCaps => ClipCaps.None;
     }
