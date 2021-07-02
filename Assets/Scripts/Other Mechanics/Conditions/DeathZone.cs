@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Celezt.Timeline;
 using MyBox;
 
-public class DeathZone : MonoBehaviour
+public class DeathZone : ConditionBehaviour
 {
+    public override bool Condition => _condition;
+
     [SerializeField] private bool _isRespawnable = true;
+
+    private bool _condition;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,6 +22,15 @@ public class DeathZone : MonoBehaviour
                 onDeath.RespawnableDeathEvent?.Invoke();
             else
                 onDeath.PermaDeathEvent?.Invoke();
+
+            SendCondition();
         }
+    }
+
+    private IEnumerator SendCondition()
+    {
+        _condition = true;
+        yield return null;
+        _condition = false;
     }
 }

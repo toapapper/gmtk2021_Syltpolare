@@ -8,11 +8,15 @@ using MyBox;
 public class SpawnPoint : MonoBehaviour
 {
     #region Globals
-    public static SpawnPoint LastSpawnPoint => _spawnPointHistory.LastOrDefault();
+    public static SpawnPoint CurrentSpawnPoint => _spawnPointHistory.LastOrDefault();
     public static int HistoryCount => _spawnPointHistory.Count;
     public static int SpawnPointCount => _spawnPoints.Count;
+    public static GameObject LastGameObjectSpawned => _lastGameObjectSpawned;
 
     public static IEnumerator GetEnumerator() => _spawnPointHistory.GetEnumerator();
+
+    public delegate void SpawnHandler(GameObject spawned);
+    public static event SpawnHandler SpawnEvent = delegate { };
 
     /// <summary>
     /// Spawn new game object at spawn location.
@@ -20,10 +24,11 @@ public class SpawnPoint : MonoBehaviour
     /// <param name="gameObject">Game Object to copy.</param>
     public static void Spawn(GameObject gameObject)
     {
-        if (LastSpawnPoint != null)
+        if (CurrentSpawnPoint != null)
         {
-            Transform transform = LastSpawnPoint._spawn;
-            Instantiate(gameObject, transform.position, transform.rotation);
+            Transform transform = CurrentSpawnPoint._spawn;
+            _lastGameObjectSpawned = Instantiate(gameObject, transform.position, transform.rotation);
+            SpawnEvent.Invoke(_lastGameObjectSpawned);
         }
         else
             Debug.LogWarning("No active spawn point was found");
@@ -31,6 +36,7 @@ public class SpawnPoint : MonoBehaviour
 
     private static List<SpawnPoint> _spawnPoints = new List<SpawnPoint>();
     private static List<SpawnPoint> _spawnPointHistory = new List<SpawnPoint>();
+    private static GameObject _lastGameObjectSpawned;
     #endregion
 
     /// <summary>
@@ -59,8 +65,8 @@ public class SpawnPoint : MonoBehaviour
 
             if (HistoryCount > 0)
             {
-                LastSpawnPoint._isActivated = false;            // Deactivate the previous spawn point.
-                LastSpawnPoint._deactivateEvent.Invoke();
+                CurrentSpawnPoint._isActivated = false;            // Deactivate the previous spawn point.
+                CurrentSpawnPoint._deactivateEvent.Invoke();
             }
 
             _spawnPointHistory.Add(this);

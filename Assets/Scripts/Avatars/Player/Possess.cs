@@ -40,6 +40,8 @@ public class Possess : MonoBehaviour
             _currentPossessed.GetComponent<Possess>()._changePossessedEvent.Invoke();
             _currentPossessed.GetComponentInHierarchy<PlayerController>()?.SetEnabled(true);
             _currentPossessed.GetComponent<PlayerMovement>()?.SetEnabled(true);
+
+            ChangeEvent.Invoke(_possessComponents.AsReadOnly());
         }
 
         AddEvent.Invoke(_possessComponents.AsReadOnly());
@@ -79,6 +81,7 @@ public class Possess : MonoBehaviour
     public delegate void PossessHandler(IReadOnlyList<Possess> possesses);
     public static event PossessHandler AddEvent = delegate { };
     public static event PossessHandler RemoveEvent = delegate { };
+    public static event PossessHandler ChangeEvent = delegate { };
 
     private static List<GameObject> _possessableRobots = new List<GameObject>();
     private static List<Possess> _possessComponents = new List<Possess>();
@@ -138,6 +141,8 @@ public class Possess : MonoBehaviour
                 _possessComponents[i]._changePossessedEvent.Invoke();
             }
         }
+
+        ChangeEvent.Invoke(_possessComponents.AsReadOnly());
     }
 
     private static void Clear()

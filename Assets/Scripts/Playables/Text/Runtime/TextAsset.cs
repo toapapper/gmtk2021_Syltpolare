@@ -10,7 +10,7 @@ namespace Celezt.Timeline
     {
         public TextBehaviour Template = new TextBehaviour();
 
-        public ClipCaps clipCaps => ClipCaps.All;
+        public ClipCaps clipCaps => ClipCaps.Blending | ClipCaps.SpeedMultiplier;
 
         public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
         {
