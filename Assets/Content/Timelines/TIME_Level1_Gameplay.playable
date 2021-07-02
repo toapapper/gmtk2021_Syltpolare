@@ -1,23 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8598991951902779114
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f08c0dd595d3640a2f93129f161f45, type: 3}
-  m_Name: Goto Marker
-  m_EditorClassIdentifier: 
-  m_Time: 4.95
-  ConditionSource:
-    exposedName: 220a5cad32359b046a9c1bd940d53af8
-    defaultValue: {fileID: 0}
-  Invert: 1
-  EmitOnce: 1
 --- !u!114 &-8367936868066134661
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,13 +392,13 @@ MonoBehaviour:
     - {fileID: 7116274314482558077}
     - {fileID: -5224661659037715776}
     - {fileID: -1496756895973590918}
-    - {fileID: -8598991951902779114}
+    - {fileID: 837926659782783327}
   Template:
     Markers:
     - {fileID: 7116274314482558077}
     - {fileID: -5224661659037715776}
     - {fileID: -1496756895973590918}
-    - {fileID: -8598991951902779114}
+    - {fileID: 837926659782783327}
 --- !u!114 &-1496756895973590918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -875,6 +857,24 @@ MonoBehaviour:
   m_Markers:
     m_Objects: []
   m_PostPlaybackState: 3
+--- !u!114 &837926659782783327
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce45e71ba7c2671449112dab490ced35, type: 3}
+  m_Name: Wait Marker
+  m_EditorClassIdentifier: 
+  m_Time: 7.383333333333334
+  ConditionSource:
+    exposedName: 3f0693e9cb765f64fb8d87ec6055ec63
+    defaultValue: {fileID: 0}
+  Invert: 1
+  OnlyEligibleOnce: 1
 --- !u!114 &1973269287502081148
 MonoBehaviour:
   m_ObjectHideFlags: 1

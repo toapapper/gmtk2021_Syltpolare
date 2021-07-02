@@ -25,6 +25,9 @@ namespace Celezt.Timeline
             if (conditionBehaviour == null)
                 return;
 
+            if (!conditionBehaviour.isActiveAndEnabled)
+                return;
+
             if ((Invert ? condition : !condition) && (EmitOnce ? _oldCondition != condition : true))
                 playableDirector.time = time;
 

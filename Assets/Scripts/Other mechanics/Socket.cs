@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using MyBox;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Socket : MonoBehaviour
 {
-    [HideInInspector] public bool occupied = false;
-    [HideInInspector] public Plug occupiedBy;
-
     List<Plug> plugsNearby = new List<Plug>();
     public float pluggedInDistance = .2f;
 
     public float attractionForce = 600f;
     public bool powered = true;//bara kollas av andra saker, mer behöver inte göras i detta scriptet
 
+    [ReadOnly] public bool occupied = false;
+    [ReadOnly] public Plug occupiedBy;
+
+    [SerializeField] private UnityEvent plugEvent;
+    [SerializeField] private UnityEvent unplugEvent;
+
     [HideInInspector] public Circuit circuit = null;
-    
+
     protected SpriteRenderer sr;
     protected Color UnpoweredColor = Color.grey;
 
@@ -81,6 +86,8 @@ public class Socket : MonoBehaviour
             occupiedBy = plug;
             if(circuit != null)
                 circuit.SocketPluggedIn();
+
+            plugEvent.Invoke();
         }
     }
 
@@ -91,6 +98,8 @@ public class Socket : MonoBehaviour
             occupiedBy = null;
             if (circuit != null)
                 circuit.SocketUnplugged();
+
+            unplugEvent.Invoke();
         }
     }
 

@@ -28,10 +28,13 @@ namespace Celezt.Timeline
             if (conditionBehaviour == null)
                 return;
 
+            if (!conditionBehaviour.isActiveAndEnabled)
+                return;
+
             if (OnlyEligibleOnce && (Invert ? condition : !condition))
                 _hasBeenEligible = true;
 
-            if ((OnlyEligibleOnce ? _hasBeenEligible : true) && (Invert ? condition : !condition) && (currentTime <= time && currentTime + info.deltaTime > time))
+            if ((OnlyEligibleOnce ? _hasBeenEligible : true) && (Invert ? condition : !condition) && (currentTime >= time && currentTime - info.deltaTime < time))
             {
                 _isWaiting = true;
                 playableDirector.time = time;
