@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Celezt.Times
+namespace Celezt.Time
 {
     /// <summary>
     /// Take time from a start point.
@@ -54,7 +54,7 @@ namespace Celezt.Times
         public bool Paused()
         {
             if (!_paused)
-                _pauseGameTime = Time.time;
+                _pauseGameTime = UnityEngine.Time.time;
 
             return _paused = true;
         }
@@ -62,7 +62,7 @@ namespace Celezt.Times
         {
             if (_paused)
             {
-                float currentTime = Time.time;
+                float currentTime = UnityEngine.Time.time;
                 float deltaTime = currentTime - _pauseGameTime;
                 _pauseGameTime = currentTime;
                 _oldGameTime += deltaTime;
@@ -74,13 +74,13 @@ namespace Celezt.Times
         public void Reset()
         {
             _timer = _initTime;
-            _oldGameTime = Time.time;
+            _oldGameTime = UnityEngine.Time.time;
             Resume();
         }
 
         public void Set(float time)
         {
-            _oldGameTime = Time.time;
+            _oldGameTime = UnityEngine.Time.time;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timer = time;
@@ -90,7 +90,7 @@ namespace Celezt.Times
         public Stopwatch(float initTime)
         {
             ID = ++_counter;
-            _oldGameTime = Time.time;
+            _oldGameTime = UnityEngine.Time.time;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timer = initTime;
@@ -117,7 +117,7 @@ namespace Celezt.Times
             if (_paused)
                 return;
 
-            float currentTime = Time.time;
+            float currentTime = UnityEngine.Time.time;
             float deltaTime = currentTime - _oldGameTime;
             _oldGameTime = currentTime;
 

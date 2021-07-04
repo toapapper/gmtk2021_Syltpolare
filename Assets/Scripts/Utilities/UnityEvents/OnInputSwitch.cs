@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using MyBox;
-using Celezt.Times;
+using Celezt.Time;
 
 namespace Celezt.Event
 {

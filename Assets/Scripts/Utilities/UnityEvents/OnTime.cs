@@ -9,7 +9,7 @@ namespace Celezt.Event
     {
         public void SetTimeScale(float scale)
         {
-            Time.timeScale = scale;
+            UnityEngine.Time.timeScale = scale;
         }
     }
 }

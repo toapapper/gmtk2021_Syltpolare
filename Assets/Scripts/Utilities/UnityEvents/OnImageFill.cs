@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Celezt.Times;
+using Celezt.Time;
 using UnityEngine.UI;
 using MyBox;
 
@@ -86,7 +86,7 @@ namespace Celezt.Event
             {
                 if (_isFilling)
                 {
-                    FillAmount += _fillRange.Length() / _time * Time.unscaledDeltaTime;
+                    FillAmount += _fillRange.Length() / _time * UnityEngine.Time.unscaledDeltaTime;
 
                     _image.fillAmount = FillAmount;
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Celezt.Times
+namespace Celezt.Time
 {
     /// <summary>
     /// Count down a duration.
@@ -84,7 +84,7 @@ namespace Celezt.Times
         public bool Pause()
         {
             if (!_paused)
-                _pauseGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
+                _pauseGameTime = _isScaledTime ? UnityEngine.Time.time : UnityEngine.Time.unscaledTime;
 
             return _paused = true;
         }
@@ -92,7 +92,7 @@ namespace Celezt.Times
         {
             if (_paused)
             {
-                float currentTime = _isScaledTime ? Time.time : Time.unscaledTime;
+                float currentTime = _isScaledTime ? UnityEngine.Time.time : UnityEngine.Time.unscaledTime;
                 float deltaTime = currentTime - _pauseGameTime;
                 _pauseGameTime = currentTime;
                 _oldGameTime += deltaTime;
@@ -104,7 +104,7 @@ namespace Celezt.Times
         public void Reset()
         {
             _timeLeft = _initTime;
-            _oldGameTime = Time.time;
+            _oldGameTime = UnityEngine.Time.time;
             Resume();
         }
 
@@ -116,7 +116,7 @@ namespace Celezt.Times
 
         public void Set(float duration)
         {
-            _oldGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
+            _oldGameTime = _isScaledTime ? UnityEngine.Time.time : UnityEngine.Time.unscaledTime;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timeLeft = duration;
@@ -131,7 +131,7 @@ namespace Celezt.Times
             if (_paused || float.IsPositiveInfinity(_timeLeft))
                 return;
 
-            float currentTime = _isScaledTime ? Time.time : Time.unscaledTime;
+            float currentTime = _isScaledTime ? UnityEngine.Time.time : UnityEngine.Time.unscaledTime;
             float deltaTime = currentTime - _oldGameTime;
             _oldGameTime = currentTime;
 
@@ -145,7 +145,7 @@ namespace Celezt.Times
         {
             ID = ++_counter;
             _isScaledTime = isScaledTime;
-            _oldGameTime = _isScaledTime ? Time.time : Time.unscaledTime;
+            _oldGameTime = _isScaledTime ? UnityEngine.Time.time : UnityEngine.Time.unscaledTime;
             _pauseGameTime = _oldGameTime;
             _paused = false;
             _timeLeft = duration;

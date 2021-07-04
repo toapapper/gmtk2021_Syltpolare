@@ -232,24 +232,6 @@ MonoBehaviour:
   Template:
     Text: Left Click to Grab
     FontColor: {r: 1, g: 0.8352941, b: 0.19215687, a: 1}
---- !u!114 &-5224661659037715776
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f08c0dd595d3640a2f93129f161f45, type: 3}
-  m_Name: Goto Marker
-  m_EditorClassIdentifier: 
-  m_Time: 2.65
-  ConditionSource:
-    exposedName: 49674fb4de75fc04a96ee54cb193ad0c
-    defaultValue: {fileID: 0}
-  Invert: 1
-  EmitOnce: 1
 --- !u!114 &-4225772934469617023
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -390,13 +372,11 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: 7116274314482558077}
-    - {fileID: -5224661659037715776}
     - {fileID: -1496756895973590918}
     - {fileID: 837926659782783327}
   Template:
     Markers:
     - {fileID: 7116274314482558077}
-    - {fileID: -5224661659037715776}
     - {fileID: -1496756895973590918}
     - {fileID: 837926659782783327}
 --- !u!114 &-1496756895973590918

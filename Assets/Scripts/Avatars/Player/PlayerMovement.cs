@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Celezt.Times;
+using Celezt.Time;
 using MyBox;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(PolygonCollider2D), typeof(RigidbodyStack))]
