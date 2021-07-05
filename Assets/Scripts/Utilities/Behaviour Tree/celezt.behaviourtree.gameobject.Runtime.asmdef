@@ -2,7 +2,6 @@
     "name": "celezt.behaviourtree.gameobject.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:a717b0d828705b4429634f9b839912fe",
         "GUID:48c9f6afdac61634db0e0f241c7d4d51"
     ],
     "includePlatforms": [],
