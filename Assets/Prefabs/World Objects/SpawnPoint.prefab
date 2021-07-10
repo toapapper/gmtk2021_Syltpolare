@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6855732739617582535}
   - component: {fileID: 6855732739617582537}
   - component: {fileID: 6855732739617582534}
-  - component: {fileID: 4011323776626171914}
+  - component: {fileID: 7404769864475706214}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MonoBehaviour:
   _deactivateEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4011323776626171914
+--- !u!114 &7404769864475706214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,13 +94,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6855732739617582536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89eab487af1b8494fb3f8b6aa276a609, type: 3}
+  m_Script: {fileID: 11500000, guid: aefacd26a6f1ef7409bd576c415f7572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gizmo: Areas\area_spawn
-  _tint: {r: 1, g: 0.2971698, b: 0.899092, a: 1}
+  _gizmo: Areas/area_spawn
+  _tint: {r: 1, g: 0, b: 0.960876, a: 1}
   _allowScaling: 1
-  _placement: 1
+  _placement: 0
 --- !u!1 &7857037215664346791
 GameObject:
   m_ObjectHideFlags: 0

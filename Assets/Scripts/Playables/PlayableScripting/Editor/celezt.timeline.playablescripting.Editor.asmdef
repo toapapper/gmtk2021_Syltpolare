@@ -1,5 +1,5 @@
 {
-    "name": "celezt.timeline.playablescripting.Editor",
+    "name": "Celezt.Timeline.PlayableScripting.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:02f771204943f4a40949438e873e3eff",

@@ -285,8 +285,8 @@ GameObject:
   - component: {fileID: 4952949038990814922}
   - component: {fileID: 2222153058087352903}
   - component: {fileID: 5763923975283346862}
-  - component: {fileID: 2022801889129114138}
-  - component: {fileID: 2891583471797341319}
+  - component: {fileID: 5581413677043044131}
+  - component: {fileID: 6942156290650535673}
   m_Layer: 8
   m_Name: RobotOverheat
   m_TagString: Untagged
@@ -353,6 +353,18 @@ MonoBehaviour:
   _startEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 5581413677043044131}
+        m_TargetAssemblyTypeName: Celezt.Timeline.PlayableHandler, Celezt.Utility
+        m_MethodName: ResetToStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5763923975283346862}
         m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
         m_MethodName: Play
@@ -383,8 +395,8 @@ MonoBehaviour:
   _cancelEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2891583471797341319}
-        m_TargetAssemblyTypeName: Celezt.PlayableRangeRemap, Assembly-CSharp
+      - m_Target: {fileID: 6942156290650535673}
+        m_TargetAssemblyTypeName: Celezt.Timeline.PlayableRangeRemap, Celezt.Utility
         m_MethodName: MirrorCurrentTime
         m_Mode: 1
         m_Arguments:
@@ -419,7 +431,7 @@ PlayableDirector:
   m_ExposedReferences:
     m_References:
     - ff03c0fcae74c284087a87a5444cd517: {fileID: 6817214160783900842}
---- !u!114 &2022801889129114138
+--- !u!114 &5581413677043044131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -428,10 +440,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4434504238955300108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8ae448c1f54dfe4f8b0ef120a3429a7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef0512f551f03a8469763f3b46258c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2891583471797341319
+--- !u!114 &6942156290650535673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,42 +452,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4434504238955300108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28c943a5f4e85544292e20b4af1623a0, type: 3}
+  m_Script: {fileID: 11500000, guid: f97b889eaec8a4f49b83b634d7be3d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Range:
-    Min: 0.25
+    Min: 0
     Max: 2
   ToRange:
     Min: 2
     Max: 2.5
   _outsideRangeEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2022801889129114138}
-        m_TargetAssemblyTypeName: Celezt.PlayableHandler, Assembly-CSharp
-        m_MethodName: OnSkipTo
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5763923975283346862}
-        m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4519505669300229266
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +866,7 @@ MonoBehaviour:
   - {x: -0.37890613, y: -0.3089337, z: 0}
   m_ShapePathHash: 1455150491
   m_Mesh: {fileID: 0}
-  m_InstanceId: 24332
+  m_InstanceId: 41636
 --- !u!1 &6217750935080284124
 GameObject:
   m_ObjectHideFlags: 0

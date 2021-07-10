@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.celezt.cuu": "https://github.com/Celezt/CeleztsUnityUtilities.git",
     "com.domybest.mybox": "https://github.com/Deadcows/MyBox.git",
     "com.unity.2d.animation": "5.0.5",
     "com.unity.2d.pixel-perfect": "4.0.1",
