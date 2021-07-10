@@ -8,6 +8,8 @@ public class PossessCondition : ConditionBehaviour
 {
     public override bool Condition => _condition;
 
+    [SerializeField] private bool _invert;
+
     [SerializeField] private UnityEvent _conditionTrueEvent;
     [SerializeField] private UnityEvent _conditionFalseEvent;
 
@@ -22,12 +24,12 @@ public class PossessCondition : ConditionBehaviour
 
         if (spawned != null && Possess.GetCurrentPossessed == spawned)
         {
-            _condition = true;
+            _condition = !_invert;
             _conditionTrueEvent.Invoke();
         }
         else
         {
-            _condition = false;
+            _condition = _invert;
             _conditionFalseEvent.Invoke();
         }
     }

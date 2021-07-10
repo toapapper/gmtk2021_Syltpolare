@@ -6,7 +6,7 @@ using Celezt.Time;
 
 namespace Celezt.Event
 {
-    [AddComponentMenu("Celezt/Events/On Debug Log String")]
+    [AddComponentMenu("Celezt/Events/On Debug")]
     public class OnDebug : MonoBehaviour
     {
         public void OnDebugLog(string print) => Debug.Log(print);
