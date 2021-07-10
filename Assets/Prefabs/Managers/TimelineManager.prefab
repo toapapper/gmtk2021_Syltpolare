@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6505512956594365996}
-  - component: {fileID: 6505512956594366419}
+  - component: {fileID: 249432807079589310}
   m_Layer: 0
   m_Name: TimelineManager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6505512956594366419
+--- !u!114 &249432807079589310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,6 +40,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6505512956594366418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8ae448c1f54dfe4f8b0ef120a3429a7, type: 3}
+  m_Script: {fileID: 11500000, guid: ef0512f551f03a8469763f3b46258c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
